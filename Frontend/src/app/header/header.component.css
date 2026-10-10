@@ -1,501 +1,373 @@
+.master-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background-color: rgba(22, 22, 28, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid #2c2c38;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
+}
 
-
-.button-container {
-  position: relative;
-  left: 30px;
-  margin: 20px;
+.header-inner {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+  height: 64px;
   display: flex;
-  background-color: #333333;
-  width: 90%;
-  /* height: 13%; */
   align-items: center;
-  justify-content: space-around;
-  border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-   
-  transition: all 0.5s;
-}
-.button-container:hover {
-  width:95%;
-  transition: all 0.5s;
+  justify-content: space-between;
+  gap: 16px;
 }
 
-.button {
-  outline: 0 !important;
-  border: 0 !important;
+/* Brand Emblem */
+.brand-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.brand-emblem {
   width: 40px;
   height: 40px;
-  border-radius: 50%;
-  background-color: transparent;
+  border-radius: 11px;
+  background: linear-gradient(135deg, #d97706 0%, #fbbf24 50%, #f59e0b 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
-  transition: all ease-in-out 0.3s;
-  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+  flex-shrink: 0;
 }
 
-.button:hover {
-  transform: translateY(-3px);
+.brand-icon {
+  color: #0a0a0d !important;
+  font-size: 24px;
+  width: 24px;
+  height: 24px;
 }
 
-.icon {
-  font-size: 20px;
-}
-/* From Uiverse.io by Li-Deheng */ 
-#btn-message {
-  --text-color: rgb(255, 255, 255);
-  --bg-color-sup: #5e5e5e;
-  --bg-color: #2b2b2b;
-  --bg-hover-color: #161616;
-  --online-status: #00da00;
-  --font-size: 16px;
-  --btn-transition: all 0.2s ease-out;
-}
-
-.button-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font: 400 var(--font-size) Helvetica Neue, sans-serif;
-  box-shadow: 0 0 2.17382px rgba(0,0,0,.049),0 1.75px 6.01034px rgba(0,0,0,.07),0 3.63px 14.4706px rgba(0,0,0,.091),0 22px 48px rgba(0,0,0,.14);
-  background-color: var(--bg-color);
-  border-radius: 68px;
-  cursor: pointer;
-  padding: 6px 10px 6px 6px;
-  width: fit-content;
-  height: 40px;
-  border: 0;
-  overflow: hidden;
-  position: relative;
-  transition: var(--btn-transition);
-}
-
-.button-message:hover {
-  height: 46px;
-  padding: 8px 20px 8px 8px;
-  background-color: var(--bg-hover-color);
-  transition: var(--btn-transition);
-}
-
-.button-message:active {
-  transform: scale(0.99);
-}
-
-.content-avatar {
-  width: 30px;
-  height: 30px;
-  margin: 0;
-  transition: var(--btn-transition);
-  position: relative;
-}
-
-.button-message:hover .content-avatar {
-  width: 30px;
-  height: 30px;
-}
-
-.avatar {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  overflow: hidden;
-  background-color: var(--bg-color-sup);
-}
-
-.user-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.status-user {
-  position: absolute;
-  width: 6px;
-  height: 6px;
-  right: 1px;
-  bottom: 1px;
-  border-radius: 50%;
-  outline: solid 2px var(--bg-color);
-  background-color: var(--online-status);
-  transition: var(--btn-transition);
-  animation: active-status 2s ease-in-out infinite;
-}
-
-.button-message:hover .status-user {
-  width: 10px;
-  height: 10px;
-  right: 1px;
-  bottom: 1px;
-  outline: solid 3px var(--bg-hover-color);
-}
-
-.notice-content {
+.brand-text {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  justify-content: center;
-  padding-left: 8px;
-  text-align: initial;
-  color: var(--text-color);
 }
 
-.username {
-  letter-spacing: -6px;
-  height: 0;
-  opacity: 0;
-  transform: translateY(-20px);
-  transition: var(--btn-transition);
-}
-
-.user-id {
-  font-size: 12px;
-  letter-spacing: -6px;
-  height: 0;
-  opacity: 0;
-  transform: translateY(10px);
-  transition: var(--btn-transition);
-}
-
-.lable-message {
-  display: flex;
-  align-items: center;
-  opacity: 1;
-  transform: scaleY(1);
-  transition: var(--btn-transition);
-}
-
-.button-message:hover .username {
-  height: auto;
-  letter-spacing: normal;
-  opacity: 1;
-  transform: translateY(0);
-  transition: var(--btn-transition);
-}
-
-.button-message:hover .user-id {
-  height: auto;
-  letter-spacing: normal;
-  opacity: 1;
-  transform: translateY(0);
-  transition: var(--btn-transition);
-}
-
-.button-message:hover .lable-message {
-  height: 0;
-  transform: scaleY(0);
-  transition: var(--btn-transition);
-}
-
-.lable-message, .username {
-  font-weight: 600;
-}
-
-.number-message {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  margin-left: 8px;
-  font-size: 12px;
-  width: 16px;
-  height: 16px;
-  background-color: var(--bg-color-sup);
-  border-radius: 20px;
-}
-
-/*==============================================*/
-@keyframes active-status {
-  0% {
-    background-color: var(--online-status);
-  }
-
-  33.33% {
-    background-color: #93e200;
-  }
-
-  66.33% {
-    background-color: #93e200;
-  }
-
-  100% {
-    background-color: var(--online-status);
-  }
-}
-.hover-container {
-  position: relative; /* Make it a positioned container */
-  display: inline-block; /* Ensure the div is placed correctly */
-}
-
-.tooltip-content {
-  display: none; /* Hide by default */
-  position: absolute; /* Position it over the button or wherever you want */
-  background-color: white; /* White background */
-  color: black; /* Black text */
-  padding: 8px 12px; /* Padding for neatness */
-  border-radius: 8px; /* Rounded corners */
-  font-size: 14px; /* Slightly smaller font size for better readability */
-  top: 100%; /* Position it below the button */
-  left: 50%;
-  transform: translateX(-50%); /* Center the div */
-  white-space: nowrap; /* Prevent text wrapping */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); /* Subtle shadow */
-  z-index: 100; /* Ensure it is above other content */
-  opacity: 0; /* Initially hidden */
-  transition: opacity 0.2s ease-in-out; /* Smooth fade-in */
-  max-width: 300px; /* Max width to avoid it growing too large */
-}
-a{
-  cursor:pointer;
-}
-.hover-container:hover .tooltip-content {
-  display: block;
-  opacity: 1; /* Show the tooltip */
-}
-
-.tooltip-content div {
-  margin-bottom: 6px; /* Add some space between notification sections */
-}
-
-.tooltip-content strong {
-  font-weight: normal; /* Regular weight, no boldness */
-  color: #333; /* Dark gray for the labels */
-}
-
-.tooltip-content span {
-  color: #333; /* Normal text color for content */
-}
-
-.tooltip-content .notification-title {
-  font-weight: normal; /* Avoid strong emphasis */
-  color: #333; /* Same color for all text */
-}
-/* Base styles (default for larger screens) */
-.button-container {
-  display: flex;
-  justify-content: space-around;
-  gap: 10px;
-  padding: 20px;
-}
-
-/* Styles for mobile devices (max width 600px) */
-@media (max-width: 600px) {
-  .button-container {
-    flex-direction: column; /* Stack buttons vertically */
-    align-items: center;
-    gap: 15px;
-  }
-  .button {
-    width: 80%; /* Make buttons wider on mobile */
-  }
-  /* svg{
-    display: none;
-  } */
-.button-container{
-  left: 0px;
-  width: 80%;
-  font-family: cursive;
-
-
-}
-
-
-}
-
-/* Styles for tablets (min width 601px and max width 768px) */
-@media (min-width: 601px) and (max-width: 768px) {
-  .button-container {
-    flex-wrap: wrap; /* Wrap buttons if necessary */
-    gap: 15px;
-    left: 0px;
-    width: 80%;
-    font-family: cursive;
-  }
-
-  /* svg{
-    display: none;
-  } */
-  .button {
-    width: 45%; /* Make buttons fit two per row */
-  }
-
-
-
-
-}
-
-.gold-icon-filled {
-  width: 30px;
-  height: 30px;
-  background: linear-gradient(45deg, #FFD700, #FFC107, #FFB300);
+.brand-title {
+  font-weight: 800;
+  font-size: 15px;
+  letter-spacing: 1px;
+  background: linear-gradient(to right, #fef08a, #f59e0b);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 30px; /* Adjust for size */
-  text-shadow: 0px 2px 3px rgba(0, 0, 0, 0.3); /* Adds depth */
-}
-.mobile1{
-  display: none;
-}
-/* Smartphones (portrait) */
-@media (max-width: 480px) {
-  .mobile1{
-    display: block;
-    width: 100%;
-  }
-  .button-container{
-    display: none;
-  }
+  line-height: 1.1;
 }
 
-/* Smartphones (landscape) */
-@media (min-width: 481px) and (max-width: 768px) {
-  .mobile1{
-    display: block;
-  }
-  .button-container{
-    display: none;
-  }
-
+.brand-subtitle {
+  font-size: 10px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: rgba(245, 158, 11, 0.85);
+  margin-top: 1px;
 }
 
-/* Tablets */
-
-
-.card {
-  position: relative; /* Needed for the absolute dropdown */
-  overflow: visible; /* Ensure dropdown is not clipped */
+/* Navigation Links */
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
-/* Dropdown styles */
-.section-content {
-  position: absolute; /* Dropdown floats above other content */
-  top: 100%; /* Positions dropdown just below the button */
-  left: 0;
-  width: 100%; /* Matches parent width */
-  background-color: #f4f4ff; /* Light purple background */
-  border: 1px solid #e0e0e0;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  z-index: 10; /* Ensures dropdown stays on top */
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  color: #d1d1d6;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  border: 1px solid transparent;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Button styles inside dropdown */
-.dropdown-btn {
+.nav-item mat-icon {
+  font-size: 19px;
+  width: 19px;
+  height: 19px;
+  color: #9ca3af;
+  transition: color 0.2s;
+}
+
+.nav-item:hover {
+  background-color: #1c1c24;
+  color: #ffffff;
+  border-color: #2c2c38;
+}
+
+.nav-item:hover mat-icon {
+  color: #fbbf24;
+}
+
+.nav-item.active {
+  background: rgba(245, 158, 11, 0.12);
+  color: #fbbf24;
+  border-color: rgba(245, 158, 11, 0.45);
+  box-shadow: 0 2px 10px rgba(245, 158, 11, 0.12);
+}
+
+.nav-item.active mat-icon {
+  color: #f59e0b;
+}
+
+.hotkey {
+  font-size: 10px;
+  font-weight: 600;
+  padding: 1px 6px;
+  border-radius: 5px;
+  background-color: #121217;
+  color: #9ca3af;
+  border: 1px solid #2c2c38;
+  margin-left: 2px;
+}
+
+/* Quick Switch to Jewellery ERP */
+.jewellery-switch-btn {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(217, 119, 6, 0.08) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  color: #fbbf24;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  margin-left: 4px;
+}
+
+.jewellery-switch-btn:hover {
+  background: linear-gradient(135deg, rgba(245, 158, 11, 0.25) 0%, rgba(217, 119, 6, 0.15) 100%);
+  border-color: #f59e0b;
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.25);
+  transform: translateY(-1px);
+}
+
+.diamond-icon {
+  color: #f59e0b !important;
+  font-size: 19px;
+  width: 19px;
+  height: 19px;
+}
+
+.badge-gold {
+  font-size: 9px;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(245, 158, 11, 0.25);
+  color: #fef08a;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
+
+/* Right Group */
+.right-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Bullion Rate Ticker */
+.rate-ticker {
   display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 16px;
-  width: 100%;
-  border: none;
-  background: transparent;
-  text-align: left;
-  color: #555;
-  transition: background 0.3s, color 0.3s;
 }
 
-.dropdown-btn:hover {
-  background: #e9d5ff;
-  color: #7e22ce;
-  border-radius: 8px;
+.rate-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-size: 11px;
 }
 
+.gold-rate {
+  background-color: rgba(28, 28, 36, 0.9);
+  border: 1px solid rgba(245, 158, 11, 0.35);
+  color: #fbbf24;
+}
 
-/* Style for the profile button */
-.profile-button {
+.silver-rate {
+  background-color: rgba(28, 28, 36, 0.7);
+  border: 1px solid #2c2c38;
+  color: #d1d1d6;
+}
+
+.rate-label {
+  font-weight: 600;
+  opacity: 0.85;
+}
+
+.rate-val {
+  font-weight: 800;
+}
+
+.pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #10b981;
+  box-shadow: 0 0 8px #10b981;
+  animation: ratePulse 2s infinite ease-in-out;
+}
+
+@keyframes ratePulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.4; transform: scale(0.85); }
+}
+
+/* User Badge */
+.user-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 12px 4px 5px;
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  border-radius: 20px;
+}
+
+.avatar-circle {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0a0a0d;
+  font-weight: 800;
+  font-size: 11px;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 10px 15px;
-  background-color: #333333; /* Green background */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  position: relative;
-  font-size: 14px;
-  font-weight: bold;
-  transition: background-color 0.3s ease; /* Smooth background change */
+  flex-shrink: 0;
 }
 
-.profile-button:hover {
-  background-color: #333333; /* Darker green on hover */
-}
-
-/* Avatar Circle Style */
-.profile-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #fff; /* White background for the avatar */
-  color: #333333; /* Text color inside the circle */
-  border-radius: 50%; /* Circular shape */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 18px; /* Font size for the initials */
-  margin-right: 10px; /* Space between avatar and name */
-  transition: transform 0.3s ease; /* Avatar transition */
-}
-
-.profile-avatar:hover {
-  transform: scale(1.1); /* Slight scale effect on hover */
-}
-
-/* Profile name that appears on hover */
-.profile-name {
-  opacity: 0; /* Hide the name initially */
-  position: absolute; /* Position it right below the button */
-  top: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 16px;
-  transition: opacity 0.3s ease, top 0.3s ease; /* Smooth transition for the name */
-}
-
-/* Show name when button is hovered */
-.profile-button:hover .profile-name {
-  opacity: 1; /* Show the name */
-  top: 55px; /* Move the name slightly downward */
-}
-
-.rates {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.stats {
-  background: rgba(255, 255, 255, 0.1); 
-  border-radius: 8px; /* Slightly smaller corners */
-  padding: 5px 15px; /* Reduce padding */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 15px; /* Reduced gap */
-  box-shadow: 0 2px 5px rgba(255, 255, 255, 0.2); /* Softer shadow */
-  height: 50px; /* Set a smaller height */
-}
-
-.stat {
+.shop-info {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  color: white;
 }
 
-.stat-container {
+.shop-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: #f4f4f6;
+  max-width: 140px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Logout Button */
+.logout-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  color: #f87171;
   display: flex;
-  gap: 20px; /* Less gap between Gold and Silver */
-  padding: 5px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-.stat-title {
-  font-size: 12px; /* Smaller text */
-  color: #ddd;
-  text-align: center;
+.logout-btn mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
 }
 
-.stat-value {
-  font-size: 18px; /* Reduced size */
-  font-weight: bold;
-  color: gold;
-  text-align: center;
+.logout-btn:hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+  color: #ef4444;
+}
+
+/* Mobile Hamburger */
+.mobile-menu-btn {
+  display: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  color: #f4f4f6;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+/* Mobile Drawer */
+.mobile-drawer {
+  background-color: #16161c;
+  border-top: 1px solid #2c2c38;
+  padding: 12px 20px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mobile-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  color: #f4f4f6;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.mobile-item:hover {
+  background-color: #23232e;
+  border-color: #f59e0b;
+}
+
+.mobile-item.gold-highlight {
+  border-color: rgba(245, 158, 11, 0.4);
+  background: rgba(245, 158, 11, 0.1);
+  color: #fbbf24;
+}
+
+.mobile-item.logout-link {
+  color: #f87171;
+  border-color: rgba(239, 68, 68, 0.3);
+}
+
+@media (max-width: 1024px) {
+  .nav-links {
+    display: none;
+  }
+  .mobile-menu-btn {
+    display: flex;
+  }
+  .rate-ticker {
+    display: none;
+  }
 }

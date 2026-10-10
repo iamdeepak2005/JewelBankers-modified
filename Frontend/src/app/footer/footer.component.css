@@ -1,9 +1,16 @@
 footer {
   text-align: center;
   padding: 20px;
-  background-color: #f8f9fa;
-  border-top: 1px solid #ddd;
-  position: relative; /* Adjust if you want it to stick at the bottom */
+  background-color: #0f0f12;
+  border-top: 1px solid #2c2c38;
+  color: #9ca3af;
+  position: relative;
+  font-size: 13px;
+}
+
+footer p {
+  margin: 0;
+  color: #9ca3af;
 }
 
 footer svg {

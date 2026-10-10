@@ -1,387 +1,111 @@
+/* ==========================================================================
+   PLEDGE COMPONENT - LUXURY OBSIDIAN & CHAMPAGNE GOLD THEME
+   Unified with Jewellery ERP Design Tokens
+   ========================================================================== */
+
 section {
-  background-color: #1e1e1e;
-  color: #e0e0e0;
-  padding: 70px;
-  border-radius: 8px;
-  margin: 30px;
+  background-color: transparent;
+  color: #f4f4f6;
+  padding: 24px 20px 48px;
+  max-width: 1440px;
+  margin: 0 auto;
 }
-mat-label {
-  color: #e0e0e0;
-}
-input, textarea, mat-select {
-  border-radius: 4px;
-  padding: 8px;
-  width: 100%;
-  box-sizing: border-box;
-}
-p{
-  text-align: center;
-  font-size: larger;
-}
-mat-select .mat-select-trigger,mat-select {
-  background-color: #333; /* Same dark background */
-  color: #ffffff; /* Light text color */
-  border: 1px solid #555; 
-  border-radius: 20px;/* Border color for better visibility */
-}
-mat-option:hover {
-  background-color: #4b4646; /* Slightly lighter background on hover */
-}
-/* Optional: Style the label if needed */
-
-input[type="file"] {
-  margin-bottom: 10px;
-  position: relative;
-  z-index: 1; 
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-.button{
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: -70%;
-}
-td{
-  padding: 5px;
-}
-input{
-  background-color: #333333;
-  border: none;
-}
-input::content{
-  color:#ffff;
-}
-textarea{
-  background-color: #333333;
-  border: none;
-}
-textarea::content{
-  color:#ffff;
-}
-table td:nth-child(1) {
-  width: 30%; /* Adjust the width of the first column */
-}
-
-table td:nth-child(2) {
-  width: 100%; /* Adjust the width of the second column */
-}
-table{
-  width: 70%;
-  flex-grow: 0.3;
-}
-.preview{
-  margin-left: 15%;
-  width: 35%;
-  background-color: #2E2E2E;
-  border-radius: 20px;
-
-}
-.preview td{
-  padding: 10px;}
-.table{
-  display:flex;
-  gap: 50px;
-}
-.photo-upload {
-  border-radius: 10px;
-  
-  text-align: center; /* Center-align text and elements */
-  overflow: hidden; /* Hide overflow to ensure the round shape */
-  background-color: #878686; /* Optional: background color for visibility */
-}
-.photo-upload input[type="file"] {
-  background-color: #878686; /* Optional: background color for visibility */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-
-}
-.photo-upload .photo-preview {
-  display: flex;
-  justify-content: center; /* Center the image horizontally */
-  align-items: center; /* Center the image vertically */
-  width: 100%;
-  height: 100%;
-}
-.photo-upload {
-  text-align: center; /* Center-align text and elements */
-  position: relative; /* Position relative to place the icon */
-}
-
-.upload-icon {
-  cursor: pointer; /* Show pointer cursor to indicate clickable area */
-}
-.photo-upload {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 0px;
-}
-.photo-preview {
-  width: 100px;  /* Set width of the container */
-  height: 100px; /* Set height of the container */
-  overflow: hidden; /* Ensure any excess image is hidden */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-svg{
-  margin-top: 10px;
-}
-
-.photo-preview img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Ensure the image covers the entire area while maintaining aspect ratio */
-  border-radius: 5px; /* Optional: Adds a slight rounding to the corners */
-}
-/* Hide the actual file input element */
-.upload-container input[type="file"] {
-  display: none;
-}
-
-/* Style the label that will act as the file input trigger */
-.upload-container {
-  display: inline-block;
-  padding: 12px 24px; /* Slightly larger padding for a more luxurious feel */
-  background-color: #1a1a1a; /* Dark background color */
-  color: #f1f1f1; /* Light text color for contrast */
-  border: 2px solid #4e4e4e; /* Dark border for subtle definition */
-  border-radius: 8px; /* More rounded corners for elegance */
-  font-weight: bold;
-  text-align: center;
-  transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth hover and click effects */
-  font-size: 16px; /* Larger text size for better visibility */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
-}
-
-/* Hover effect */
-.upload-container:hover {
-  background-color: #2c2c2c; /* Slightly lighter shade on hover */
-  border-color: #6e6e6e; /* Lighten border on hover */
-}
-
-/* Active effect */
-.upload-container:active {
-  background-color: #3a3a3a; /* Even lighter shade on click */
-  transform: scale(0.98); /* Slight scale down effect for click feedback */
-  border-color: #8c8c8c; /* Lighten border on click */
-}
-
-/* Optional: Add focus effect for accessibility */
-.upload-container:focus {
-  outline: none; /* Remove default outline */
-  box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.5); /* Focus ring for accessibility */
-}
-
-
-
-.upload-container svg {
-  width: 48px;
-  height: 48px;
-  cursor: pointer;
-}
-.hr{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-}
-hr{
-  width: 100%;
-}
-
-
-
-.description{
-  height: 300px; /* Adjust the height as needed */
-    width: 100%;   /* Optional: Set the width if required */
-    resize: none;
-}
-.comments{
-  width: 80%;   /* Optional: Set the width if required */
-  height: 50px; /* Adjust the height as needed */
-}
-/* From Uiverse.io by Yaya12085 */ 
-.container {
-  height: 150px; /* Further reduced height */
-  width: 180px; /* Further reduced width */
-  border-radius: 8px; /* Slightly smaller border radius */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 5px; /* Maintain padding */
-  gap: 2px; /* Reduced gap */
-}
-
-.header {
-  flex: 1;
-  width: 100%;
-  border: 2px dashed #ffffff; /* Blue border for contrast */
-  border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background-color: #2c2c2c; /* Darker header background */
-}
-
-
-.header svg {
-  height: 50px; /* Further reduced SVG height */
-}
-
-.header p {
-  text-align: center;
-  color: #ffffff; /* White text for better contrast */
-  font-size: 12px; /* Further reduced font size */
-}
-
-.footer {
-  background-color: #2c2c2c; /* Dark footer background */
-  width: 100%;
-  height: 30px; /* Maintain smaller height */
-  padding: 5px; /* Maintain padding */
-  border-radius: 8px;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  color: #ffffff; /* White text for better contrast */
-  border: none;
-}
-
-.footer svg {
-  height: 80%; /* Maintain size but a little smaller */
-  fill: #ffff; /* Blue fill for contrast */
-  border-radius: 50%;
-  padding: 2px;
-  cursor: pointer;
-  box-shadow: 0 1px 10px rgba(0, 0, 0, 0.5); /* Darker shadow */
-}
-
-.footer p {
-  flex: 1;
-  text-align: center;
-  font-size: 10px; /* Further reduced font size */
-}
-
-#file ,#file1{
-  display: none;
-}
-
-
-.image-preview {
-  width: 100px;          /* Fixed width */
-  height: 100px;         /* Fixed height */
-  overflow: hidden;      /* Hide any overflow */
-  border-radius: 8px;    /* Optional: rounded corners */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #2c2c2c; /* Optional: background color for contrast */
-}
-
-.image-preview img {
-  width: 100%;           /* Make the image fill the container width */
-  height: 100%;          /* Make the image fill the container height */
-  object-fit: cover;     /* Scale the image to cover the entire container */
-}
-
-
-
-/* General styles for the form and table */
-
 
 .table {
-    width: 100%; /* Full width */
-    margin-bottom: 20px; /* Spacing below the table */
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  width: 100%;
 }
-.preview td{
-  padding: 5px;
+
+.withbutton {
+  flex: 1 1 62%;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.maininomain {
+  background-color: #16161c;
+  border: 1px solid #2c2c38;
+  border-radius: 20px;
+  padding: 28px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+  box-sizing: border-box;
+  width: 100%;
 }
 
 .mainTable {
-    width: 140%; /* Full width */
-    border-collapse: collapse; /* Remove gaps between cells */
-    height: 100px;
-}
-.preview{
-      height: 100px;
-
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 14px;
 }
 
-.mainTable td {
-    padding: 5px; /* Spacing within cells */
-    vertical-align: top; /* Aligns content at the top */
+.mainTable tr td {
+  padding: 6px 10px;
+  vertical-align: top;
 }
 
+.mainTable td:first-child {
+  width: 48%;
+}
+
+.mainTable td:nth-child(2) {
+  width: 52%;
+}
+
+/* Typography & Labels */
 mat-label {
-    font-weight: 400; /* Make labels stand out */
-    margin-bottom: 5px; /* Spacing below labels */
-    display: block; /* Ensures labels take full width */
+  color: #9ca3af;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  display: block;
+  margin-bottom: 6px;
 }
 
+/* Form Inputs, Textarea, Select */
+input, textarea, mat-select {
+  background-color: #121217 !important;
+  color: #f4f4f6 !important;
+  border: 1px solid #2c2c38 !important;
+  border-radius: 10px !important;
+  padding: 10px 14px !important;
+  font-size: 13px !important;
+  width: 100%;
+  box-sizing: border-box;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-input[matInput], 
-textarea[matInput], 
+input:focus, textarea:focus, mat-select:focus {
+  border-color: #f59e0b !important;
+  box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+  outline: none !important;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #6b7280;
+  font-size: 13px;
+}
+
 mat-select {
-
-    width: 100%; /* Full width for inputs */
-    padding: 10px; /* Padding for inputs */
-    border: 1px solid #ccc; /* Border styling */
-    border-radius: 5px; /* Rounded corners */
-    transition: border-color 0.3s; /* Smooth transition for focus */
+  display: flex;
+  align-items: center;
 }
 
-/* Focus effect for inputs */
-input[matInput]:focus, 
-textarea[matInput]:focus, 
-mat-select:focus {
-    border-color: #3e8b3e; /* Change border color on focus */
-    outline: none; /* Remove default outline */
-    border-width: 3px;
-}
-
-
-/* Danger messages styling */
-
-
-/* Success messages styling */
-.success {
-    color: #5cb85c; /* Bootstrap success color */
-    font-size: 12px; /* Smaller font for success messages */
-}
-
-/* Comments and Description styling */
- 
-
-
-
-.description {
-    height: 200px; /* Fixed height for better layout */
-}
-
-/* Photo upload section styling */
-.container {
-    display: flex; /* Flexbox for layout */
-    flex-direction: column; /* Stack elements vertically */
-    align-items: center; /* Center align items */
-    margin-top: 10px; /* Spacing above the container */
-}
+/* Switch Customer Search Toggle */
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px; /* Width of the toggle switch */
-  height: 34px; /* Height of the toggle switch */
+  width: 48px;
+  height: 26px;
+  vertical-align: middle;
 }
 
 .switch input {
-  opacity: 0; /* Hide the default checkbox */
+  opacity: 0;
   width: 0;
   height: 0;
 }
@@ -393,377 +117,303 @@ mat-select:focus {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc; /* Default background color (Off) */
-  transition: background-color 0.4s; /* Smooth transition for background color */
-  border-radius: 34px; /* Rounded corners */
+  background-color: #23232e;
+  border: 1px solid #2c2c38;
+  border-radius: 34px;
+  transition: 0.3s;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 26px; /* Height of the slider knob */
-  width: 26px; /* Width of the slider knob */
-  left: 4px; /* Space from the left */
-  bottom: 4px; /* Space from the bottom */
-  background-color: white; /* Color of the knob */
-  border-radius: 50%; /* Round shape */
-  transition: transform 0.4s; /* Smooth transition for knob position */
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: #9ca3af;
+  border-radius: 50%;
+  transition: 0.3s;
 }
 
-/* Active state */
 .slider.active {
-  background-color: #4caf50; /* Background color when On */
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  border-color: #f59e0b;
 }
 
 .slider.active:before {
-  transform: translateX(26px); /* Move the knob to the right */
+  transform: translateX(22px);
+  background-color: #0b0b0e;
 }
-.controls button{
-  padding: 10px;
-  color: #fff;
-  background-color: #2C2C2C;
-  border-radius: 20px;
-  
-}
-.controls{
-  margin-left: 15%;
-}
-.camera-container {
-  position: fixed;
-  top: 0;
-  left: 0;
+
+/* Upload & Webcam Containers */
+.container {
+  height: 155px;
   width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-  z-index: 9999;
+  justify-content: space-between;
+  padding: 6px;
+  gap: 6px;
+  box-sizing: border-box;
 }
 
-.camera-container video {
-  border-radius: 20px;
-  border: 2px solid #333;
-  width: 50%;
+.header {
+  flex: 1;
+  width: 100%;
+  border: 2px dashed rgba(245, 158, 11, 0.4);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: #121217;
+  overflow: hidden;
+  position: relative;
+  transition: border-color 0.2s;
 }
 
-.camera-container select,
-.camera-container button {
-  margin-top: 10px;
-  padding: 10px;
-  border-radius: 5px;
+.header:hover {
+  border-color: #f59e0b;
+}
+
+.header svg {
+  height: 40px;
+  width: 40px;
+  stroke: #f59e0b;
+}
+
+.header p {
+  text-align: center;
+  color: #9ca3af !important;
+  font-size: 12px;
+  margin-top: 6px;
+  margin-bottom: 0;
+}
+
+.image-preview {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.footer {
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  width: 100%;
+  height: 34px;
+  padding: 4px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  transition: all 0.2s;
+}
+
+.footer:hover {
+  background-color: #23232e;
+  border-color: rgba(245, 158, 11, 0.5);
+}
+
+.footer p {
+  color: #d1d1d6 !important;
+  font-size: 11px;
+  margin: 0;
+  font-weight: 600;
+}
+
+.footer svg {
+  width: 16px;
+  height: 16px;
+  fill: #f59e0b;
   cursor: pointer;
 }
+
+.controls {
+  margin-top: 6px;
+  display: flex;
+  justify-content: center;
+}
+
+.controls button {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  color: #0b0b0e;
+  border: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.25);
+}
+
+.controls button:hover {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  transform: translateY(-1px);
+}
+
+/* Right Pledge Preview Slip Card */
+.preview {
+  flex: 0 0 380px;
+  width: 380px;
+  background-color: #1c1c24;
+  border: 1px solid #2c2c38;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.preview td {
+  padding: 8px 6px;
+  vertical-align: top;
+}
+
+/* Suggestions Dropdown for Pincode */
 .suggestions {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  border: 1px solid #ddd;
-  max-height: 200px; /* Increased height for better visibility */
+  background-color: #16161c;
+  border: 1px solid #2c2c38;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
+  max-height: 180px;
   overflow-y: auto;
   position: absolute;
-  background-color: #fff;
-  width: 100%;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow around the dropdown */
-  z-index: 1000;
-  border-radius: 8px; /* Rounded corners */
-  font-family: 'Arial', sans-serif; /* Clean font */
-  font-size: 14px; /* Clear and readable text */
+  z-index: 50;
+  width: 280px;
 }
 
-.suggestions li {
-  padding: 10px;
+.suggestions mat-option {
+  color: #f4f4f6;
+  padding: 8px 12px;
+  font-size: 12px;
   cursor: pointer;
-  transition: background-color 0.3s, padding-left 0.3s; /* Smooth transitions */
-  border-bottom: 1px solid #1e1e1e; /* Subtle separation between items */
 }
 
-.suggestions li:hover {
-  background-color: #f0f8ff; /* Soft light blue on hover */
-  padding-left: 15px; /* Slight indent on hover for visual effect */
-}
-
-.suggestions li:last-child {
-  border-bottom: none; /* Remove border from the last item */
-}
-
-.suggestions li.selected {
-  background-color: #b5edf5; /* Highlight for selected item */
-  font-weight: bold;
-}
-.suggestions {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  background: #fff;
-  border: 1px solid #ccc;
-  max-height: 200px;
-  overflow-y: auto;
-}
-
-.suggestions li {
-  padding: 8px;
-  cursor: pointer;
-  color: black;
-}
-
-.suggestions li:hover {
-  background-color: #f1f1f1;
-}
-.suggestions mat-option{
-  width: 100%;
-}
-.suggestions{
-  width: 20%;
-
-
-}
-.dialog-container {
-  max-height: 80vh; /* Limits height to 80% of the viewport */
-  overflow-y: auto; /* Enables scrolling if content overflows */
-}
-
-@media (max-width: 600px) {
-  .dialog-container {
-    max-height: 70vh; /* Adjust height for smaller devices */
-    width: 100%; /* Ensure it adapts to smaller screens */
-  }
-}
-
-
-/* Ensure responsiveness */
+.suggestions mat-option:hover,
 .suggestions mat-option.active {
-  background-color: #e0e0e0; /* Highlight color */
-}
-.address{
-  height: 100%;
-}
-/* Make table cells equal in height */
-/* tr {
-  display: flex;
-  align-items: stretch;
+  background-color: #23232e;
+  color: #fbbf24;
 }
 
-td {
-  flex: 1;
-  padding: 10px;
-} */
-
-/* Set textarea to fill available height */
-.address {
-  display: flex;
-  flex-direction: column;
-  width: 100%; /* Ensure the column takes full width */
-}
-.truncate-cell {
-  white-space: nowrap; /* Prevent text from wrapping */
-  overflow: hidden;    /* Hide overflowed content */
-  text-overflow: ellipsis; /* Add ellipsis at the end */
-  max-width: 350px;    /* Set a static width for the cell */
-  display: block;      /* Ensure the ellipsis works correctly in Material table cells */
+/* Textareas */
+.description {
+  height: 140px;
+  width: 100%;
+  resize: vertical;
 }
 
+.comments {
+  width: 100%;
+  height: 60px;
+  resize: vertical;
+}
 
 .adddressText {
-  width: 100%; /* Ensure the textarea spans the full column width */
-  flex-grow: 1; /* Allows the textarea to grow vertically if necessary */
-  resize: none; /* Prevents manual resizing */
-  box-sizing: border-box; /* Includes padding and border in width calculation */
-}
-.mobile1{
-
-  display: none;
+  width: 100%;
+  height: 75px;
+  resize: vertical;
 }
 
-/* Optional: Add a border to visually balance columns */
-.buttons{
+/* Action Buttons Container */
+.buttons {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  margin-top: 10px;
+  padding: 0 6px;
 }
-.adddressText {
-  height:120px; /* Set desired height in px, rem, or % */
-  resize: vertical; /* Allow user to resize vertically */
+
+.buttons button[type="submit"]:nth-child(2) {
+  background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+  color: #0b0b0e !important;
+  font-weight: 800;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+  box-shadow: 0 4px 16px rgba(245, 158, 11, 0.35);
 }
 
-@media only screen and (max-width: 600px) {
-  section{
-    /* background-color: #fff;
-    color: #1e1e1e; */
-    margin: 0px;
+.buttons button[type="submit"]:nth-child(2):hover {
+  background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(245, 158, 11, 0.5);
+}
 
-  }
-  /* mat-label{
-    color: #1e1e1e;
+.buttons button:nth-child(1) {
+  background-color: #1c1c24;
+  color: #fbbf24 !important;
+  border: 1px solid rgba(245, 158, 11, 0.4);
+}
 
-  } */
-  .preview{
-    width: 80%;
-    margin: 0px;
-    }
-  .table{
-    display: flex;
+.buttons button:nth-child(1):hover {
+  background-color: #23232e;
+  border-color: #f59e0b;
+}
+
+.buttons button:nth-child(3) {
+  background-color: #1c1c24;
+  color: #f87171 !important;
+  border: 1px solid rgba(239, 68, 68, 0.35);
+}
+
+.buttons button:nth-child(3):hover {
+  background-color: rgba(239, 68, 68, 0.15);
+  border-color: #ef4444;
+}
+
+/* Alert Notification */
+.alert {
+  padding: 12px 18px;
+  border-radius: 12px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.alert.success {
+  background-color: rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(16, 185, 129, 0.4);
+  color: #34d399;
+}
+
+.alert.error {
+  background-color: rgba(239, 68, 68, 0.15);
+  border: 1px solid rgba(239, 68, 68, 0.4);
+  color: #f87171;
+}
+
+/* Datepicker Toggle Icon */
+mat-datepicker-toggle button {
+  color: #fbbf24 !important;
+}
+
+/* Responsive */
+@media (max-width: 1080px) {
+  .table {
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-
   }
-  .controls{
-    display: none;
-  }
-  .mainTable{
-    width: 80%;
-
-  }
-  .maininomain{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  table{
-    padding: 0px;
-    margin: 0%;
-
-  }
-section{
-  padding: 10px;
-}
-.mobile{
-  display: none;
-}
-
-tr.mobile1 {
-  display: table-row !important; /* Enforces table-row display */
-}
-.preview{
-  display: none;
-}
-}
-
-@media only screen and (min-width: 601px) and (max-width: 1000px) {
-  table{
-    padding: 0px;
-    margin: 0%;
-
-  }
-section{
-  padding: 10px;
-}
-.mobile{
-  display: none;
-}
-
-tr.mobile1 {
-  display: table-row !important; /* Enforces table-row display */
-}
-.preview{
-  display: none;
-}
-  section{
-    padding: 10px;
-  }
-  .preview{
-    width: 80%;
-    }
-  section{
-    /* background-color: #fff;
-    color: #1e1e1e; */
-    margin: 0px;
-  }
-  .controls{
-    display: none;
-  }
-  
-
-  /* mat-label{
-    color: #1e1e1e;
-
-  } */
-  .mainTable{
+  .preview {
     width: 100%;
-
+    flex: 1 1 100%;
   }
-  .maininomain{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  .table{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-  /* .preview{
-    background-color: #fff;
-  } */
-}
-table {
-  width: 100%;
-}
-td {
-  overflow: hidden; /* Hide any overflowing content */
-  word-wrap: break-word; /* Break long words if necessary */
-  max-width: 100%; /* Ensure the content does not exceed the available width */
 }
 
-textarea.adddressText {
-  width: 100%; /* Make sure the textarea doesn't exceed the available space */
-  box-sizing: border-box; /* Include padding in the element's total width */
-  overflow: auto; /* Allow scrolling if content overflows */
+.mobile {
+  display: table-row;
 }
-@page {
-  size: A4; /* Set paper size to A4 */
-  margin: 0; /* Set margin to 0 for full content fit */
-}
-iframe {
-  width: 100%;
-  height: 100%;
-  transform: scale(0.8); /* Adjust scaling factor as needed */
-  transform-origin: 0 0;
-}
-.small123{
-  display: flex;
-  gap: 20px;
 
-}
-.small123 input{
-  width: 100%;
-}
-.searchCustomer123{
-  width: 100%;
-
-}
-.i123 {
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-.gold-gradient {
-  background: linear-gradient(45deg, #e6be8a, #f1c27d, #d4af37); /* Softer gold gradient colors */
-  -webkit-background-clip: text; /* For Safari */
-  background-clip: text; /* For other browsers */
-  color: transparent; /* Make text color transparent to show the gradient */
-  font-weight: bold; /* Optional, for a stronger look */
-  font-size: 2rem; /* Optional, adjust size as needed */
-  border-radius: 25px;
-  box-shadow: 0 0 12px rgba(255, 223, 0, 0.4), 0 0 18px rgba(255, 223, 0, 0.3); /* Gold box shadow */
-  padding: 8px;
-  display: inline-block;
-  
- 
-}
-.h2{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-left: 150px;
-  flex-direction: column;
-}
-.h2 p{
-  font-size: 0.8rem;
-}
-.switch input[type="checkbox"]:focus + .slider:before {
-  background-color: #4CAF50;
+tr.mobile1 {
+  display: table-row;
 }

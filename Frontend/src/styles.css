@@ -55,9 +55,28 @@ ngx-spinner .ball-scale-multiple .ball {
   }
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; 
-overflow-x: hidden;
+:root {
+  --j-bg-base: #0f0f12;
+  --j-bg-surface: #16161c;
+  --j-bg-card: #1c1c24;
+  --j-bg-card-hover: #23232e;
+  --j-bg-input: #121217;
+  --j-border: #2c2c38;
+  --j-border-subtle: #242430;
+  --j-text-primary: #f4f4f6;
+  --j-text-secondary: #d1d1d6;
+  --j-text-muted: #9ca3af;
+  --j-gold-500: #f59e0b;
+  --j-gold-400: #fbbf24;
+  --j-gold-600: #d97706;
+}
+
+html, body {
+  height: 100%;
+  background-color: var(--j-bg-base) !important;
+  color: var(--j-text-primary) !important;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  overflow-x: hidden;
 }
 
 .main-content{
@@ -65,14 +84,17 @@ overflow-x: hidden;
     margin: 50px;
 }
 .danger {
-  color: #d9534f; /* Bootstrap danger color */
-  font-size: 12px; /* Smaller font for error messages */
-  margin-top: 5px; /* Space above error messages */
+  color: #ef4444;
+  font-size: 12px;
+  margin-top: 5px;
+  font-weight: 500;
 }
 h1{
-    font-family: cursive !important;
-    font-size: 1.3rem !important;
+    font-family: inherit !important;
+    font-size: 1.5rem !important;
+    font-weight: 700;
     text-align: center;
+    color: var(--j-text-primary);
 }
 .loader{
   position: fixed;
@@ -80,85 +102,156 @@ h1{
   left: 40%;
 }
 
+/* Luxury Gold & Dark Global Buttons (Replaced Outdated Purple) */
 .globalButton {
-    padding: 17px 40px;
-    border-radius: 50px;
+    padding: 12px 28px;
+    border-radius: 12px;
     cursor: pointer;
-    border: 0;
-    background-color: white;
-    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-    letter-spacing: 1.5px;
+    border: 1px solid rgba(245, 158, 11, 0.35);
+    background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 50%, #d97706 100%);
+    box-shadow: 0 4px 15px rgba(245, 158, 11, 0.25);
+    letter-spacing: 0.8px;
     text-transform: uppercase;
     font-size: 12px;
-    transition: all 0.5s ease;
-    color: #333;
-    margin-top:20px;
-    margin-right: 15px;
-  }
-  
-  .globalButton:hover {
-    letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-  }
-  
-  .globalButton:active {
-    letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-    transform: translateY(10px);
-    transition: 100ms;
-  }
-  .newbutton {
-    padding: 17px 40px;
-    border-radius: 50px;
-    cursor: pointer;
-    border: 0;
-    background-color: #1D1D1D;
-    box-shadow: rgb(0 0 0 / 5%) 0 0 8px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-size: 15px;
-    transition: all 0.5s ease;
-    color: #ffffff;
-    margin-top:20px;
-    margin-right: 15px;
-  }
-  
-  .newbutton:hover {
-    letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
-  }
-  
-  .newbutton:active {
-    letter-spacing: 3px;
-    background-color: hsl(261deg 80% 48%);
-    color: hsl(0, 0%, 100%);
-    box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
-    transform: translateY(10px);
-    transition: 100ms;
-  }
-  input[matInput], 
-textarea[matInput], 
-mat-select {
-    width: 100%; /* Full width for inputs */
-    padding: 10px; /* Padding for inputs */
-    border: 1px solid #ccc; /* Border styling */
-    border-radius: 5px; /* Rounded corners */
-    transition: border-color 0.3s; /* Smooth transition for focus */
+    font-weight: 700;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: #0b0b0e;
+    margin-top: 15px;
+    margin-right: 12px;
 }
 
-/* Focus effect for inputs */
+.globalButton:hover {
+    letter-spacing: 1.2px;
+    background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    transform: translateY(-2px);
+    color: #000;
+}
+
+.globalButton:active {
+    transform: translateY(1px);
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.2);
+}
+
+.newbutton {
+    padding: 12px 28px;
+    border-radius: 12px;
+    cursor: pointer;
+    border: 1px solid var(--j-border);
+    background-color: var(--j-bg-card);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    font-size: 13px;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    color: var(--j-text-primary);
+    margin-top: 15px;
+    margin-right: 12px;
+}
+
+.newbutton:hover {
+    border-color: var(--j-gold-500);
+    color: var(--j-gold-400);
+    background-color: var(--j-bg-card-hover);
+    box-shadow: 0 6px 20px rgba(245, 158, 11, 0.2);
+    transform: translateY(-2px);
+}
+
+.newbutton:active {
+    transform: translateY(1px);
+}
+
+/* Unified Form Controls */
+input[matInput], 
+textarea[matInput], 
+mat-select {
+    width: 100%;
+    padding: 10px 14px;
+    background-color: var(--j-bg-input) !important;
+    color: var(--j-text-primary) !important;
+    border: 1px solid var(--j-border) !important;
+    border-radius: 10px;
+    transition: all 0.2s ease-in-out;
+    box-sizing: border-box;
+}
+
 input[matInput]:focus, 
 textarea[matInput]:focus, 
 mat-select:focus {
-    border-color: #3e8b3e; /* Change border color on focus */
-    outline: none; /* Remove default outline */
-    border-width: 3px;
+    border-color: var(--j-gold-500) !important;
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2) !important;
+    outline: none !important;
+}
+
+/* Material Overlays: Autocomplete, Select, Datepicker, Menu, Dialogs */
+.mat-mdc-autocomplete-panel,
+.mat-autocomplete-panel {
+    background-color: #16161c !important;
+    border: 1px solid #2c2c38 !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.mat-mdc-option,
+.mat-option {
+    color: #f4f4f6 !important;
+    background-color: transparent !important;
+}
+
+.mat-mdc-option:hover,
+.mat-option:hover,
+.mat-mdc-option.mdc-list-item--selected,
+.mat-option.mat-selected {
+    background-color: #23232e !important;
+    color: #fbbf24 !important;
+}
+
+.mat-datepicker-content {
+    background-color: #16161c !important;
+    color: #f4f4f6 !important;
+    border: 1px solid #2c2c38 !important;
+    border-radius: 14px !important;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7) !important;
+}
+
+.mat-calendar-body-selected {
+    background-color: #f59e0b !important;
+    color: #0f0f12 !important;
+    font-weight: bold !important;
+}
+
+.mat-calendar-body-cell-content {
+    color: #f4f4f6 !important;
+}
+
+.mat-calendar-table-header th {
+    color: #9ca3af !important;
+}
+
+.mat-calendar-period-button,
+.mat-calendar-arrow {
+    color: #f4f4f6 !important;
+}
+
+.mat-mdc-select-panel,
+.mat-select-panel {
+    background-color: #16161c !important;
+    border: 1px solid #2c2c38 !important;
+    border-radius: 12px !important;
+}
+
+.mat-mdc-menu-panel {
+    background-color: #16161c !important;
+    border: 1px solid #2c2c38 !important;
+    border-radius: 12px !important;
+}
+
+.mat-mdc-dialog-container .mdc-dialog__surface {
+    background-color: #1c1c24 !important;
+    color: #f4f4f6 !important;
+    border: 1px solid #2c2c38 !important;
+    border-radius: 16px !important;
 }
 
 .inputJewellery {
