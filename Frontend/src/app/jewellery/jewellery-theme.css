@@ -1,0 +1,298 @@
+/* ==========================================================================
+   JEWELLERY MODULE: DUAL LUXURY THEME (DARK & LIGHT)
+   - Dark Mode: Rich Velvet Charcoal & Champagne Gold (Eliminates cold navy blue)
+   - Light Mode: Showroom Alabaster, Pure Pearl & Polished Gold
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   DARK THEME (.jewel-theme-dark)
+   Warm Obsidian, Rich Charcoal, Graphite Borders - NO NAVY BLUE!
+   -------------------------------------------------------------------------- */
+.jewel-theme-dark {
+  --j-bg-base: #0f0f12;
+  --j-bg-surface: #16161c;
+  --j-bg-card: #1c1c24;
+  --j-bg-card-hover: #23232e;
+  --j-bg-input: #121217;
+  --j-border: #2c2c38;
+  --j-border-subtle: #242430;
+  --j-text-primary: #f4f4f6;
+  --j-text-secondary: #d1d1d6;
+  --j-text-muted: #9ca3af;
+}
+
+.jewel-theme-dark.jewel-layout-root {
+  background-color: var(--j-bg-base) !important;
+  color: var(--j-text-primary) !important;
+}
+
+/* Sidebar & Header */
+.jewel-theme-dark aside.sidebar,
+.jewel-theme-dark header {
+  background-color: var(--j-bg-surface) !important;
+  border-color: var(--j-border) !important;
+}
+
+/* Main Content Area */
+.jewel-theme-dark main {
+  background: radial-gradient(circle at top, #191922 0%, #0f0f12 100%) !important;
+}
+
+/* Background Replacements (Eradicate Slate Navy-Blue) */
+.jewel-theme-dark .bg-slate-950 {
+  background-color: #0f0f12 !important;
+}
+.jewel-theme-dark .bg-slate-900,
+.jewel-theme-dark .bg-slate-900\/90,
+.jewel-theme-dark .bg-slate-900\/80 {
+  background-color: #16161c !important;
+}
+.jewel-theme-dark .bg-slate-800,
+.jewel-theme-dark .bg-slate-800\/80,
+.jewel-theme-dark .bg-slate-800\/60,
+.jewel-theme-dark .bg-slate-800\/50,
+.jewel-theme-dark .bg-slate-800\/40 {
+  background-color: #1c1c24 !important;
+}
+.jewel-theme-dark .bg-slate-700,
+.jewel-theme-dark .bg-slate-700\/50 {
+  background-color: #272733 !important;
+}
+
+/* Borders */
+.jewel-theme-dark .border-slate-800,
+.jewel-theme-dark .border-slate-800\/80,
+.jewel-theme-dark .border-slate-800\/60,
+.jewel-theme-dark .border-slate-700,
+.jewel-theme-dark .border-slate-700\/60,
+.jewel-theme-dark .border-slate-700\/80,
+.jewel-theme-dark .border-slate-600 {
+  border-color: #2c2c38 !important;
+}
+
+/* Inputs & Form Fields */
+.jewel-theme-dark input,
+.jewel-theme-dark select,
+.jewel-theme-dark textarea {
+  background-color: #121217 !important;
+  border-color: #2c2c38 !important;
+  color: #f4f4f6 !important;
+}
+.jewel-theme-dark input:focus,
+.jewel-theme-dark select:focus,
+.jewel-theme-dark textarea:focus {
+  border-color: #f59e0b !important;
+}
+
+/* Hover States */
+.jewel-theme-dark .hover\:bg-slate-800:hover,
+.jewel-theme-dark .hover\:bg-slate-700:hover {
+  background-color: #262633 !important;
+}
+
+/* Custom Scrollbars in Dark Mode */
+.jewel-theme-dark ::-webkit-scrollbar-track {
+  background: #111116;
+}
+.jewel-theme-dark ::-webkit-scrollbar-thumb {
+  background: #333342;
+  border-radius: 9999px;
+}
+.jewel-theme-dark ::-webkit-scrollbar-thumb:hover {
+  background: #f59e0b;
+}
+
+
+/* --------------------------------------------------------------------------
+   LIGHT THEME (.jewel-theme-light)
+   Luxury Alabaster Showroom, Pure Pearl & Warm Champagne Accents
+   -------------------------------------------------------------------------- */
+.jewel-theme-light {
+  --j-bg-base: #f7f6f2;
+  --j-bg-surface: #ffffff;
+  --j-bg-card: #ffffff;
+  --j-bg-card-subtle: #f3f2ec;
+  --j-bg-input: #ffffff;
+  --j-border: #e3ded2;
+  --j-border-subtle: #eae6dc;
+  --j-text-primary: #18181b;
+  --j-text-secondary: #3f3f46;
+  --j-text-muted: #71717a;
+}
+
+.jewel-theme-light.jewel-layout-root {
+  background-color: var(--j-bg-base) !important;
+  color: var(--j-text-primary) !important;
+}
+
+/* Sidebar & Header */
+.jewel-theme-light aside.sidebar {
+  background-color: #ffffff !important;
+  border-color: #e5e0d4 !important;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.03) !important;
+}
+.jewel-theme-light header {
+  background-color: #ffffff !important;
+  border-color: #e5e0d4 !important;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03) !important;
+}
+
+/* Main Content Area */
+.jewel-theme-light main {
+  background: #f7f6f2 !important;
+}
+
+/* Background Replacements */
+.jewel-theme-light .bg-slate-950 {
+  background-color: #f7f6f2 !important;
+  color: #18181b !important;
+}
+.jewel-theme-light .bg-slate-900,
+.jewel-theme-light .bg-slate-900\/90,
+.jewel-theme-light .bg-slate-900\/80 {
+  background-color: #ffffff !important;
+  color: #18181b !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+}
+.jewel-theme-light .bg-slate-800,
+.jewel-theme-light .bg-slate-800\/80,
+.jewel-theme-light .bg-slate-800\/60,
+.jewel-theme-light .bg-slate-800\/50,
+.jewel-theme-light .bg-slate-800\/40 {
+  background-color: #ffffff !important;
+  color: #18181b !important;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+}
+.jewel-theme-light .bg-slate-700,
+.jewel-theme-light .bg-slate-700\/50 {
+  background-color: #eeebe3 !important;
+  color: #18181b !important;
+}
+
+/* Gradients in Light Mode */
+.jewel-theme-light .from-slate-900.via-slate-800.to-slate-900 {
+  background: linear-gradient(to right, #ffffff, #faf9f6, #ffffff) !important;
+}
+.jewel-theme-light .from-emerald-950\/80 {
+  background: #ecfdf5 !important;
+  border-color: #a7f3d0 !important;
+}
+.jewel-theme-light .from-emerald-950\/80 span {
+  color: #065f46 !important;
+}
+
+/* Borders */
+.jewel-theme-light .border-slate-800,
+.jewel-theme-light .border-slate-800\/80,
+.jewel-theme-light .border-slate-800\/60,
+.jewel-theme-light .border-slate-700,
+.jewel-theme-light .border-slate-700\/60,
+.jewel-theme-light .border-slate-700\/80,
+.jewel-theme-light .border-slate-600 {
+  border-color: #e5e0d4 !important;
+}
+.jewel-theme-light .divide-slate-800 > :not([hidden]) ~ :not([hidden]) {
+  border-color: #ede9df !important;
+}
+
+/* Typography in Light Mode */
+.jewel-theme-light h1,
+.jewel-theme-light h2,
+.jewel-theme-light h3,
+.jewel-theme-light .text-slate-100,
+.jewel-theme-light .text-slate-200,
+.jewel-theme-light .text-white {
+  color: #18181b !important;
+}
+
+/* Preserve text color on vibrant badges/buttons */
+.jewel-theme-light .bg-gradient-to-r.from-amber-500 span,
+.jewel-theme-light .bg-gradient-to-r.from-amber-500,
+.jewel-theme-light .bg-amber-500,
+.jewel-theme-light .bg-amber-400,
+.jewel-theme-light .text-slate-950 {
+  color: #18181b !important;
+}
+.jewel-theme-light .text-amber-300 {
+  color: #b45309 !important;
+}
+.jewel-theme-light .text-amber-400 {
+  color: #b45309 !important;
+}
+.jewel-theme-light .bg-amber-400\/20,
+.jewel-theme-light .bg-amber-500\/10,
+.jewel-theme-light .bg-amber-500\/20 {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+}
+
+.jewel-theme-light .text-slate-300 {
+  color: #27272a !important;
+}
+.jewel-theme-light .text-slate-400 {
+  color: #71717a !important;
+}
+.jewel-theme-light .text-slate-500 {
+  color: #a1a1aa !important;
+}
+
+/* Navigation Links */
+.jewel-theme-light nav a {
+  color: #3f3f46 !important;
+}
+.jewel-theme-light nav a:hover {
+  background-color: #f4f2ea !important;
+  color: #18181b !important;
+}
+.jewel-theme-light nav a.border-amber-500\/40 {
+  background-color: #fef3c7 !important;
+  color: #92400e !important;
+  border-color: #f59e0b !important;
+}
+
+/* Inputs & Form Controls in Light Mode */
+.jewel-theme-light input,
+.jewel-theme-light select,
+.jewel-theme-light textarea {
+  background-color: #ffffff !important;
+  border-color: #d6d1c4 !important;
+  color: #18181b !important;
+}
+.jewel-theme-light input::placeholder {
+  color: #a1a1aa !important;
+}
+.jewel-theme-light input:focus,
+.jewel-theme-light select:focus,
+.jewel-theme-light textarea:focus {
+  border-color: #d97706 !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px rgba(217, 119, 6, 0.15) !important;
+}
+
+/* Tables in Light Mode */
+.jewel-theme-light table thead {
+  background-color: #f5f4ed !important;
+  color: #52525b !important;
+}
+.jewel-theme-light table tbody tr:hover {
+  background-color: #faf9f6 !important;
+}
+
+/* Hover States in Light Mode */
+.jewel-theme-light .hover\:bg-slate-800:hover,
+.jewel-theme-light .hover\:bg-slate-700:hover {
+  background-color: #eeebe3 !important;
+  color: #18181b !important;
+}
+
+/* Custom Scrollbars in Light Mode */
+.jewel-theme-light ::-webkit-scrollbar-track {
+  background: #f1eee6;
+}
+.jewel-theme-light ::-webkit-scrollbar-thumb {
+  background: #d4cfc2;
+  border-radius: 9999px;
+}
+.jewel-theme-light ::-webkit-scrollbar-thumb:hover {
+  background: #b45309;
+}

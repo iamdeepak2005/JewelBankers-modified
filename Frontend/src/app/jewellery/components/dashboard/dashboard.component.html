@@ -1,0 +1,268 @@
+<div class="space-y-6">
+
+  <!-- Header Banner -->
+  <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 bg-gradient-to-r from-slate-900 via-slate-800 to-slate-900 border border-slate-700/60 p-6 rounded-2xl shadow-xl relative overflow-hidden">
+    <div class="absolute -right-12 -top-12 w-64 h-64 bg-amber-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="space-y-1 z-10">
+      <div class="flex items-center gap-2">
+        <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-500/20 text-amber-300 border border-amber-500/30">
+          Executive Overview
+        </span>
+        <span class="text-xs text-slate-400">Real-time Bullion & POS Sync</span>
+      </div>
+      <h1 class="text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+        Jewellery Command Center
+      </h1>
+      <p class="text-sm text-slate-400">
+        Monitor inventory valuation, live counter sales, quotations, and old gold exchange workflows.
+      </p>
+    </div>
+
+    <!-- Quick Action Launch Buttons -->
+    <div class="flex flex-wrap items-center gap-2.5 z-10">
+      <button
+        routerLink="/jewellery/pos"
+        class="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-bold text-sm shadow-lg shadow-amber-500/20 hover:from-amber-400 hover:to-yellow-400 transition"
+      >
+        <mat-icon class="text-lg">point_of_sale</mat-icon>
+        <span>POS Terminal</span>
+      </button>
+
+      <button
+        routerLink="/jewellery/estimate"
+        class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-medium text-sm transition"
+      >
+        <mat-icon class="text-lg text-amber-400">calculate</mat-icon>
+        <span>Estimate</span>
+      </button>
+
+      <button
+        routerLink="/jewellery/purchase"
+        class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-medium text-sm transition"
+      >
+        <mat-icon class="text-lg text-emerald-400">add_box</mat-icon>
+        <span>Stock Inward</span>
+      </button>
+
+      <button
+        routerLink="/jewellery/old-gold"
+        class="flex items-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-600 text-white font-medium text-sm transition"
+      >
+        <mat-icon class="text-lg text-yellow-300">recycling</mat-icon>
+        <span>Old Gold</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- KPI Metric Cards Grid -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+    <!-- Card 1: Available Stock -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-amber-500/40 transition">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Available Stock</span>
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+          <mat-icon>inventory_2</mat-icon>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-3xl font-extrabold text-white">{{ metrics.totalStockCount | number }}</span>
+        <span class="text-xs text-slate-400 ml-1.5">pieces in vault</span>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <span>Gold: <strong class="text-slate-200">{{ metrics.totalGoldWeightGrams | number:'1.2-2' }}g</strong></span>
+        <span>Silver: <strong class="text-slate-200">{{ metrics.totalSilverWeightGrams | number:'1.2-2' }}g</strong></span>
+      </div>
+    </div>
+
+    <!-- Card 2: Vault Valuation -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-amber-500/40 transition">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Stock Valuation</span>
+        <div class="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center text-yellow-400">
+          <mat-icon>account_balance_wallet</mat-icon>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-3xl font-extrabold text-amber-400">₹{{ metrics.totalStockValue | number:'1.0-0' }}</span>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <span>Total purchases: {{ metrics.totalPurchasesCount }}</span>
+        <span class="text-emerald-400 font-medium">Live Costing</span>
+      </div>
+    </div>
+
+    <!-- Card 3: Today's Counter Sales -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-emerald-500/40 transition">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Today's Sales</span>
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+          <mat-icon>trending_up</mat-icon>
+        </div>
+      </div>
+      <div class="mt-4">
+        <span class="text-3xl font-extrabold text-emerald-400">₹{{ metrics.todaySalesAmount | number:'1.0-0' }}</span>
+        <span class="text-xs text-slate-400 ml-1.5">({{ metrics.todaySalesCount }} bills)</span>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <span>Lifetime sales: ₹{{ metrics.totalSalesAmount | number:'1.0-0' }}</span>
+        <span class="text-slate-300 font-medium">{{ metrics.totalSalesCount }} total</span>
+      </div>
+    </div>
+
+    <!-- Card 4: Quotations & Exchanges -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden group hover:border-cyan-500/40 transition">
+      <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold uppercase tracking-wider text-slate-400">Active Pipeline</span>
+        <div class="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center text-cyan-400">
+          <mat-icon>pending_actions</mat-icon>
+        </div>
+      </div>
+      <div class="mt-4 flex items-baseline gap-4">
+        <div>
+          <span class="text-3xl font-extrabold text-cyan-300">{{ metrics.activeEstimatesCount }}</span>
+          <span class="text-xs text-slate-400 ml-1">Estimates</span>
+        </div>
+        <div class="text-slate-600">|</div>
+        <div>
+          <span class="text-3xl font-extrabold text-amber-300">{{ metrics.oldGoldExchangesCount }}</span>
+          <span class="text-xs text-slate-400 ml-1">Old Gold</span>
+        </div>
+      </div>
+      <div class="mt-3 pt-3 border-t border-slate-800/80 flex items-center justify-between text-xs text-slate-400">
+        <span>Ready for POS checkout</span>
+        <a routerLink="/jewellery/estimate" class="text-cyan-400 hover:underline">View quotes &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Main Split: Recent Activity & Quick Nav -->
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- Recent Sales Table (2 cols) -->
+    <div class="lg:col-span-2 bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+            <mat-icon class="text-base">receipt_long</mat-icon>
+          </div>
+          <h2 class="text-base font-bold text-white">Recent POS Transactions</h2>
+        </div>
+        <a routerLink="/jewellery/reports" class="text-xs text-amber-400 hover:underline">View Sales Ledger &rarr;</a>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <th class="py-3 px-3">Invoice #</th>
+              <th class="py-3 px-3">Customer</th>
+              <th class="py-3 px-3">Date</th>
+              <th class="py-3 px-3 text-right">Amount</th>
+              <th class="py-3 px-3 text-center">Status</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60 text-sm">
+            <tr *ngFor="let sale of metrics.recentSales" class="hover:bg-slate-800/40 transition">
+              <td class="py-3 px-3 font-mono font-semibold text-amber-300">
+                {{ sale.invoiceNumber }}
+              </td>
+              <td class="py-3 px-3 text-slate-200">
+                {{ sale.customerName }}
+              </td>
+              <td class="py-3 px-3 text-xs text-slate-400">
+                {{ sale.billDate | date:'shortDate' }}
+              </td>
+              <td class="py-3 px-3 text-right font-bold text-white">
+                ₹{{ sale.totalAmount | number:'1.2-2' }}
+              </td>
+              <td class="py-3 px-3 text-center">
+                <span class="px-2.5 py-0.5 rounded-full text-[11px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-800/60">
+                  {{ sale.status }}
+                </span>
+              </td>
+            </tr>
+
+            <tr *ngIf="!metrics.recentSales || metrics.recentSales.length === 0">
+              <td colspan="5" class="py-8 text-center text-slate-500">
+                No recent transactions recorded today. Create your first sale via POS terminal.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Quick Workflow Modules Hub (1 col) -->
+    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
+          <mat-icon class="text-base">hub</mat-icon>
+        </div>
+        <h2 class="text-base font-bold text-white">Jewellery Workflows</h2>
+      </div>
+
+      <div class="space-y-2.5">
+        <a
+          routerLink="/jewellery/pos"
+          class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/40 transition group"
+        >
+          <div class="w-10 h-10 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <mat-icon>point_of_sale</mat-icon>
+          </div>
+          <div>
+            <div class="text-sm font-semibold text-white group-hover:text-amber-300 transition">Sales POS Terminal</div>
+            <div class="text-xs text-slate-400">Instant barcode billing & multi-tender checkout</div>
+          </div>
+          <mat-icon class="ml-auto text-slate-500 group-hover:text-amber-400 group-hover:translate-x-0.5 transition-all">chevron_right</mat-icon>
+        </a>
+
+        <a
+          routerLink="/jewellery/inventory"
+          class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/40 transition group"
+        >
+          <div class="w-10 h-10 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <mat-icon>inventory_2</mat-icon>
+          </div>
+          <div>
+            <div class="text-sm font-semibold text-white group-hover:text-blue-300 transition">Inventory & Master</div>
+            <div class="text-xs text-slate-400">Vault pieces, locations, weights & status tracking</div>
+          </div>
+          <mat-icon class="ml-auto text-slate-500 group-hover:text-blue-400 group-hover:translate-x-0.5 transition-all">chevron_right</mat-icon>
+        </a>
+
+        <a
+          routerLink="/jewellery/barcodes"
+          class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/40 transition group"
+        >
+          <div class="w-10 h-10 rounded-lg bg-purple-500/10 text-purple-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <mat-icon>qr_code_2</mat-icon>
+          </div>
+          <div>
+            <div class="text-sm font-semibold text-white group-hover:text-purple-300 transition">Barcode & Thermal Tags</div>
+            <div class="text-xs text-slate-400">Batch generate & print 50x25mm jewellery labels</div>
+          </div>
+          <mat-icon class="ml-auto text-slate-500 group-hover:text-purple-400 group-hover:translate-x-0.5 transition-all">chevron_right</mat-icon>
+        </a>
+
+        <a
+          routerLink="/jewellery/old-gold"
+          class="flex items-center gap-3 p-3 rounded-xl bg-slate-800/60 hover:bg-slate-800 border border-slate-700/60 hover:border-amber-500/40 transition group"
+        >
+          <div class="w-10 h-10 rounded-lg bg-yellow-500/10 text-yellow-400 flex items-center justify-center group-hover:scale-110 transition-transform">
+            <mat-icon>recycling</mat-icon>
+          </div>
+          <div>
+            <div class="text-sm font-semibold text-white group-hover:text-yellow-300 transition">Old Gold Trade-ins</div>
+            <div class="text-xs text-slate-400">Purity testing, deductions & scrap adjustment</div>
+          </div>
+          <mat-icon class="ml-auto text-slate-500 group-hover:text-yellow-400 group-hover:translate-x-0.5 transition-all">chevron_right</mat-icon>
+        </a>
+      </div>
+    </div>
+
+  </div>
+
+</div>

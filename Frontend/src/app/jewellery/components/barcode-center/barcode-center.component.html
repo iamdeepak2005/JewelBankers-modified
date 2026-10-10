@@ -1,0 +1,203 @@
+<div class="space-y-6">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        <mat-icon class="text-purple-400">qr_code_2</mat-icon>
+        Barcode Infrastructure & Thermal Label Center
+      </h1>
+      <p class="text-sm text-slate-400">
+        Design, preview, and batch-print 50mm x 25mm Code128 thermal jewellery tags.
+      </p>
+    </div>
+
+    <!-- Print Selected Button -->
+    <button
+      [disabled]="selectedItems.size === 0"
+      (click)="printBatch()"
+      class="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-purple-500 to-indigo-500 text-white font-bold text-xs shadow-lg shadow-purple-500/20 hover:from-purple-400 transition disabled:opacity-50 shrink-0 self-start sm:self-auto"
+    >
+      <mat-icon class="text-sm">print</mat-icon>
+      <span>Print Selected Labels ({{ selectedItems.size }})</span>
+    </button>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- LEFT 1 COL: 50x25mm Label Visual Designer Preview -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-5">
+      <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Thermal Label Preview (50x25mm)</span>
+        <span class="text-[10px] text-amber-400 font-mono">1:1 Physical Ratio</span>
+      </div>
+
+      <!-- Thermal Label Physical Mockup -->
+      <div class="flex justify-center py-4 bg-slate-950/80 rounded-xl border border-slate-800/80">
+        <div class="w-[240px] h-[120px] bg-white text-slate-950 rounded-lg p-3 shadow-2xl flex flex-col justify-between border border-slate-300 select-none relative">
+          <!-- Shop Header -->
+          <div class="text-center font-extrabold text-[11px] uppercase tracking-wider text-slate-900 border-b border-slate-200 pb-0.5">
+            {{ shopName }}
+          </div>
+
+          <!-- Item Name -->
+          <div class="text-center font-semibold text-[10px] text-slate-700 truncate -mt-1">
+            {{ previewItem?.itemName || 'ORNAMENT PIECE' }}
+          </div>
+
+          <!-- Weights & Purity Grid -->
+          <div class="grid grid-cols-2 text-[9px] font-mono leading-tight px-1">
+            <div>Gr: <strong>{{ (previewItem?.grossweight || previewItem?.weight || 0) | number:'1.3-3' }}g</strong></div>
+            <div class="text-right">Net: <strong>{{ (previewItem?.netWeight || previewItem?.weight || 0) | number:'1.3-3' }}g</strong></div>
+            <div>Pur: <strong>{{ previewItem?.purity || 91.6 }}%</strong></div>
+            <div class="text-right font-mono">{{ previewItem?.huid ? 'HUID: ' + previewItem?.huid : '' }}</div>
+          </div>
+
+          <!-- Barcode Graphic (Live from backend or simulated) -->
+          <div class="flex flex-col items-center justify-center -mt-0.5">
+            <img
+              *ngIf="previewItem?.barcode?.barcodeValue"
+              [src]="getBarcodeImageUrl(previewItem?.barcode?.barcodeValue)"
+              alt="Barcode"
+              class="h-6 w-44 object-contain"
+            />
+            <div *ngIf="!previewItem?.barcode?.barcodeValue" class="h-6 flex items-center font-mono text-[9px] tracking-widest text-slate-400">
+              ||| | |||| || | ||||| |||
+            </div>
+            <div class="font-mono font-bold text-[9px] tracking-wider text-slate-800">
+              *{{ previewItem?.barcode?.barcodeValue || 'JW000000001' }}*
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Item Details Card -->
+      <div *ngIf="previewItem" class="bg-slate-950 p-4 rounded-xl border border-slate-800 space-y-2 text-xs">
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Selected Item:</span>
+          <strong class="text-white">{{ previewItem.itemName }}</strong>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Barcode Value:</span>
+          <span class="font-mono text-amber-300 font-bold">{{ previewItem.barcode?.barcodeValue || 'JW' + previewItem.id }}</span>
+        </div>
+        <div class="flex items-center justify-between">
+          <span class="text-slate-400">Print Count:</span>
+          <span class="font-mono text-slate-200">{{ previewItem.barcode?.printCount || 0 }} times</span>
+        </div>
+
+        <button
+          (click)="printSingle(previewItem)"
+          class="w-full mt-2 py-2 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs shadow-md transition"
+        >
+          Print This Label Now
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT 2 COLS: Inventory Batch Selection Table -->
+    <div class="lg:col-span-2 bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <mat-icon class="text-amber-400 text-base">format_list_bulleted</mat-icon>
+          <h2 class="text-sm font-bold text-white uppercase tracking-wider">Vault Inventory for Label Printing</h2>
+        </div>
+
+        <!-- Selection Actions -->
+        <div class="flex items-center gap-2 text-xs">
+          <button (click)="selectAll()" class="text-amber-400 hover:underline">Select All</button>
+          <span class="text-slate-600">|</span>
+          <button (click)="clearSelection()" class="text-slate-400 hover:underline">Deselect All</button>
+        </div>
+      </div>
+
+      <!-- Search Input -->
+      <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        placeholder="Filter available items by name, barcode, or design #..."
+        class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white text-xs placeholder-slate-500 focus:border-amber-400"
+      />
+
+      <!-- Table -->
+      <div class="overflow-x-auto max-h-[460px]">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="text-slate-400 border-b border-slate-800 uppercase text-[10px] tracking-wider sticky top-0 bg-slate-900 z-10">
+              <th class="py-2.5 px-3 w-8"></th>
+              <th class="py-2.5 px-3">Barcode</th>
+              <th class="py-2.5 px-3">Item Name</th>
+              <th class="py-2.5 px-2 text-right">Gross (g)</th>
+              <th class="py-2.5 px-2 text-right">Purity</th>
+              <th class="py-2.5 px-2 text-center">Prints</th>
+              <th class="py-2.5 px-3 text-right">Action</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <tr
+              *ngFor="let item of filteredItems"
+              (click)="selectForPreview(item)"
+              class="hover:bg-slate-800/40 cursor-pointer transition"
+              [ngClass]="{ 'bg-slate-800/60': previewItem?.id === item.id }"
+            >
+              <!-- Checkbox -->
+              <td class="py-2.5 px-3" (click)="$event.stopPropagation()">
+                <input
+                  type="checkbox"
+                  [checked]="item.id && selectedItems.has(item.id)"
+                  (change)="toggleSelect(item.id)"
+                  class="rounded bg-slate-950 border-slate-700 text-amber-500 focus:ring-0 cursor-pointer"
+                />
+              </td>
+
+              <!-- Barcode -->
+              <td class="py-2.5 px-3 font-mono font-bold text-amber-300">
+                {{ item.barcode?.barcodeValue || ('JW' + item.id) }}
+              </td>
+
+              <!-- Name -->
+              <td class="py-2.5 px-3 text-white font-medium">
+                {{ item.itemName || 'Gold Ornament' }}
+                <span *ngIf="item.designNo" class="text-slate-500 text-[10px]"> ({{ item.designNo }})</span>
+              </td>
+
+              <!-- Gross Wt -->
+              <td class="py-2.5 px-2 text-right font-mono text-slate-200">
+                {{ (item.grossweight || item.weight || 0) | number:'1.3-3' }}
+              </td>
+
+              <!-- Purity -->
+              <td class="py-2.5 px-2 text-right font-mono text-amber-400">
+                {{ item.purity || 91.6 }}%
+              </td>
+
+              <!-- Prints -->
+              <td class="py-2.5 px-2 text-center font-mono text-slate-400">
+                {{ item.barcode?.printCount || 0 }}
+              </td>
+
+              <!-- Action: Print -->
+              <td class="py-2.5 px-3 text-right" (click)="$event.stopPropagation()">
+                <button
+                  (click)="printSingle(item)"
+                  class="p-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-400"
+                  matTooltip="Print Label"
+                >
+                  <mat-icon class="text-xs">print</mat-icon>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="filteredItems.length === 0">
+              <td colspan="7" class="py-12 text-center text-slate-500">
+                No items available in vault. Add items via Stock Inward first.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+</div>

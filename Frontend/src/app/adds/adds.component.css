@@ -1,0 +1,173 @@
+.container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.container .slide .item {
+    width: 200px;
+    height: 250px;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%); /* Center items vertically */
+    border-radius: 20px;
+    box-shadow: 0 30px 50px #505050;
+    background-position: 50% 50%;
+    background-size: cover;
+    display: inline-block;
+    transition: 0.5s;
+}
+
+.slide .item {
+    left: 50%; /* Center all items initially */
+}
+
+.slide .item:nth-child(1) {
+    transform: translate(-100%, -50%); /* Move the first item off-screen to the left */
+}
+
+.slide .item:nth-child(2) {
+    transform: translate(0, -50%); /* Center the second item */
+}
+
+.slide .item:nth-child(3) {
+    left: calc(50% + 220px);
+}
+
+.slide .item:nth-child(4) {
+    left: calc(50% + 440px);
+}
+
+.slide .item:nth-child(5) {
+    left: calc(50% + 660px);
+}
+
+/* Hide items that are off-screen */
+.slide .item:nth-child(n + 6) {
+    opacity: 0;
+}
+
+/* Content styles */
+.item .content {
+    position: absolute;
+    top: 50%;
+    left: 100px;
+    width: 200px;
+    text-align: left;
+    color: #eee;
+    transform: translate(0, -50%);
+    font-family: system-ui;
+    display: none;
+}
+
+
+
+.slide .item:nth-child(2) .content {
+    display: block;
+}
+
+.active .name {
+
+    margin-bottom: 20px;
+    font-size: 40px;
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: 0;
+    animation: animate 1s ease-in-out 1 forwards;
+}
+
+.active .des {
+    width: 300px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: animate 1s ease-in-out 0.3s 1 forwards;
+}
+
+
+
+@keyframes animate {
+    from {
+        opacity: 0;
+        transform: translate(0, 100px);
+        filter: blur(33px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translate(0);
+        filter: blur(0);
+    }
+}
+
+.button {
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.button button svg{
+    width: 20px;
+}
+.button button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button button {
+    width: 40px;
+    height: 35px;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+    border: 1px solid #000;
+    background-color: #fff;
+    transition: 0.3s;
+}
+
+.button button:hover {
+    background: #ababab;
+    color: #fff;
+}
+
+.active {
+    height: 70vh;
+    transform: translateY(-10px) scale(1.05); /* Move it slightly up and scale it up */
+    transition: transform 0.5s ease; /* Smooth transition for the transform */
+    z-index: 1; /* Bring active item to the front */
+    color: #fff;
+    background-size: cover; /* Ensure the image covers the entire div */
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
+    border-radius: 25px;
+
+}
+
+
+.slide .item {
+    transition: transform 0.5s ease; /* Ensure smooth transitions for all items */
+}
+
+.slide .item:not(.active) {
+    transform: translateY(10px); /* Move non-active items slightly down */
+}
+.active content{
+    position: absolute;
+    top: 50%;
+    left: 10%;
+}
+.content{
+    margin-left: 60px;
+}
+.slide{
+    margin-top:8%;
+}

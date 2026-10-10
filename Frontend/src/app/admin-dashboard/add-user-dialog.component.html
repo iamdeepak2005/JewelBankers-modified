@@ -1,0 +1,57 @@
+<app-header ></app-header>
+<div class="box">
+<h1 mat-dialog-title>Add User</h1>
+<div mat-dialog-content>
+  <form [formGroup]="addUserForm">
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput type="password" formControlName="password">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Username</mat-label>
+      <input matInput formControlName="username">
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Database Name</mat-label>
+      <input matInput formControlName="databaseName">
+    </mat-form-field>
+    <div>
+      <label>
+        <input type="checkbox" value="admin" (change)="updateCheckbox('admin', $event)">
+        Admin
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" value="user" (change)="updateCheckbox('user', $event)">
+       User
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" (click)="updateStatus()" formControlName="status">
+        Paid
+      </label>
+    </div>
+    <div>
+      <label>
+        <input type="checkbox" (click)="updateWhatsapp()" formControlName="whatsapp">
+        Whatsapp
+      </label>
+    </div>
+    
+    <p>Checked Values: {{ checkboxValues }}</p>
+
+    
+  </form>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancel</button>
+  <button mat-button (click)="onSubmit()">Add</button>
+</div>
+
+</div>

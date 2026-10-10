@@ -1,0 +1,203 @@
+<div class="space-y-6">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        <mat-icon class="text-amber-400">assessment</mat-icon>
+        Reports, Books & GST Summaries
+      </h1>
+      <p class="text-sm text-slate-400">
+        Review daily sales registers, vault category distribution, and quarterly GST returns.
+      </p>
+    </div>
+
+    <!-- Navigation Tabs -->
+    <div class="flex items-center gap-1.5 bg-slate-900 border border-slate-800 p-1.5 rounded-xl text-xs">
+      <button
+        (click)="activeTab = 'sales'"
+        class="px-3.5 py-1.5 rounded-lg font-semibold transition"
+        [ngClass]="activeTab === 'sales' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'"
+      >
+        Sales Book
+      </button>
+      <button
+        (click)="activeTab = 'inventory'"
+        class="px-3.5 py-1.5 rounded-lg font-semibold transition"
+        [ngClass]="activeTab === 'inventory' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'"
+      >
+        Stock Ledger
+      </button>
+      <button
+        (click)="activeTab = 'gst'"
+        class="px-3.5 py-1.5 rounded-lg font-semibold transition"
+        [ngClass]="activeTab === 'gst' ? 'bg-amber-500 text-slate-950 font-bold' : 'text-slate-400 hover:text-white'"
+      >
+        GST Summary
+      </button>
+    </div>
+  </div>
+
+  <!-- TAB 1: DAILY SALES BOOK -->
+  <div *ngIf="activeTab === 'sales'" class="space-y-5">
+    <!-- Sales KPIs -->
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+        <span class="text-xs text-slate-400 block">Total Sales Count</span>
+        <span class="text-2xl font-bold text-white font-mono">{{ salesList.length }}</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">Counter POS transactions</span>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+        <span class="text-xs text-slate-400 block">Taxable Sales</span>
+        <span class="text-2xl font-bold text-slate-200 font-mono">₹{{ totalTaxableTurnover | number:'1.0-0' }}</span>
+        <span class="text-[10px] text-slate-400 block mt-0.5">Pre-GST value</span>
+      </div>
+      <div class="bg-slate-900 border border-slate-800 p-4 rounded-xl">
+        <span class="text-xs text-slate-400 block">Total Gross Turnover</span>
+        <span class="text-2xl font-bold text-amber-400 font-mono">₹{{ totalSalesTurnover | number:'1.0-0' }}</span>
+        <span class="text-[10px] text-emerald-400 block mt-0.5">Incl. 3% GST</span>
+      </div>
+    </div>
+
+    <!-- Sales Records Table -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-950/70 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <th class="py-3 px-4">Invoice #</th>
+              <th class="py-3 px-3">Date</th>
+              <th class="py-3 px-3">Customer</th>
+              <th class="py-3 px-2 text-center">Items</th>
+              <th class="py-3 px-2 text-right">Taxable (₹)</th>
+              <th class="py-3 px-2 text-right">GST (₹)</th>
+              <th class="py-3 px-3 text-right">Total (₹)</th>
+              <th class="py-3 px-2 text-center">Tender</th>
+              <th class="py-3 px-3 text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <tr *ngFor="let sale of salesList" class="hover:bg-slate-800/30">
+              <td class="py-3 px-4 font-mono font-bold text-amber-400">
+                {{ sale.invoiceNumber || ('INV-' + sale.billno) }}
+              </td>
+              <td class="py-3 px-3 text-slate-400">
+                {{ sale.billdate | date:'shortDate' }}
+              </td>
+              <td class="py-3 px-3 text-white font-medium">
+                {{ sale.customer?.customerName || sale.customer?.customername || 'Walk-in' }}
+              </td>
+              <td class="py-3 px-2 text-center font-mono text-slate-300">
+                {{ sale.salesItems?.length || 1 }}
+              </td>
+              <td class="py-3 px-2 text-right font-mono text-slate-300">
+                ₹{{ (sale.taxableAmount || sale.billamount || 0) | number:'1.2-2' }}
+              </td>
+              <td class="py-3 px-2 text-right font-mono text-slate-300">
+                ₹{{ (sale.gstamount || 0) | number:'1.2-2' }}
+              </td>
+              <td class="py-3 px-3 text-right font-mono font-bold text-amber-300">
+                ₹{{ (sale.totalamount || 0) | number:'1.2-2' }}
+              </td>
+              <td class="py-3 px-2 text-center">
+                <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-slate-800 text-slate-300">
+                  {{ sale.paymenttype || 'CASH' }}
+                </span>
+              </td>
+              <td class="py-3 px-3 text-right">
+                <button
+                  (click)="reprintInvoice(sale)"
+                  class="p-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-400"
+                  matTooltip="Reprint Invoice"
+                >
+                  <mat-icon class="text-xs">print</mat-icon>
+                </button>
+              </td>
+            </tr>
+
+            <tr *ngIf="salesList.length === 0">
+              <td colspan="9" class="py-12 text-center text-slate-500">
+                No sales records found in database.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 2: STOCK LEDGER BY CATEGORY -->
+  <div *ngIf="activeTab === 'inventory'" class="space-y-4">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6">
+      <h2 class="text-base font-bold text-white mb-4">Stock Breakdown by Category (Available in Vault)</h2>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-950/70 border-b border-slate-800 text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+              <th class="py-3 px-4">Category</th>
+              <th class="py-3 px-4 text-center">Available Pieces</th>
+              <th class="py-3 px-4 text-right">Total Weight (grams)</th>
+              <th class="py-3 px-4 text-right">Estimated Cost Value (₹)</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-800/60">
+            <tr *ngFor="let cat of inventoryCategorySummary" class="hover:bg-slate-800/30">
+              <td class="py-3 px-4 text-white font-bold text-sm">
+                {{ cat.category }}
+              </td>
+              <td class="py-3 px-4 text-center font-mono font-bold text-amber-400">
+                {{ cat.count }}
+              </td>
+              <td class="py-3 px-4 text-right font-mono text-slate-200">
+                {{ cat.weight | number:'1.3-3' }}g
+              </td>
+              <td class="py-3 px-4 text-right font-mono font-bold text-emerald-400">
+                ₹{{ cat.value | number:'1.0-0' }}
+              </td>
+            </tr>
+
+            <tr *ngIf="inventoryCategorySummary.length === 0">
+              <td colspan="4" class="py-12 text-center text-slate-500">
+                No available stock items in vault.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB 3: GST TAX SUMMARY -->
+  <div *ngIf="activeTab === 'gst'" class="space-y-5">
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-6 space-y-4">
+      <h2 class="text-base font-bold text-white">GST Return Summary (GSTR-1 Outward Supplies)</h2>
+
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block">Total Taxable Value</span>
+          <span class="text-xl font-bold text-white font-mono">₹{{ totalTaxableTurnover | number:'1.2-2' }}</span>
+        </div>
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block">CGST (1.5%)</span>
+          <span class="text-xl font-bold text-amber-300 font-mono">₹{{ (totalGstCollected / 2) | number:'1.2-2' }}</span>
+        </div>
+        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
+          <span class="text-slate-400 block">SGST (1.5%)</span>
+          <span class="text-xl font-bold text-amber-300 font-mono">₹{{ (totalGstCollected / 2) | number:'1.2-2' }}</span>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-between">
+        <div>
+          <span class="text-xs uppercase font-bold text-amber-300 block">Total 3% GST Liability</span>
+          <span class="text-xs text-slate-400">Total collected tax for current period</span>
+        </div>
+        <div class="text-2xl font-black text-amber-300 font-mono">
+          ₹{{ totalGstCollected | number:'1.2-2' }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

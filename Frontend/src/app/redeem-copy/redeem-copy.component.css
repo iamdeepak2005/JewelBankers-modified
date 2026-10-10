@@ -1,0 +1,10 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    border: 2px #333333;
+    padding: 20px;
+}
+.buttons{
+    display: flex;
+    justify-content: center;
+}

@@ -1,0 +1,616 @@
+<div class="space-y-6">
+
+  <!-- Header -->
+  <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+    <div>
+      <h1 class="text-2xl font-extrabold text-white tracking-tight flex items-center gap-2">
+        <mat-icon class="text-amber-400">calculate</mat-icon>
+        Rough Estimate / Quotation Builder
+      </h1>
+      <p class="text-sm text-slate-400">
+        Generate professional non-tax quotations with 7-day rate lock and watermark printouts.
+      </p>
+    </div>
+
+    <!-- Rate indicator -->
+    <div class="flex items-center gap-2 bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl text-xs">
+      <span class="text-slate-400">Locked 22K Rate:</span>
+      <input
+        type="number"
+        [(ngModel)]="goldRate"
+        (ngModelChange)="recalculateAll()"
+        class="w-20 bg-slate-950 border border-amber-500/40 rounded px-2 py-0.5 text-amber-300 font-mono font-bold text-xs text-right focus:outline-none"
+      />
+      <span class="text-slate-400">/g</span>
+    </div>
+  </div>
+
+  <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+    <!-- LEFT 2 COLS: Estimate Item Builder -->
+    <div class="lg:col-span-2 space-y-4">
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl shadow-xl p-5 space-y-4">
+        <!-- Header & Scanner Bar -->
+        <div class="space-y-3 border-b border-slate-800 pb-3">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div class="flex items-center gap-2">
+              <mat-icon class="text-amber-400 text-sm">format_list_bulleted</mat-icon>
+              <h2 class="text-sm font-bold text-white uppercase tracking-wider">Quotation Items ({{ items.length }})</h2>
+              <span class="text-[11px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 border border-slate-700">
+                Barcode + Manual
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <span *ngIf="hasRestoredDraft" class="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-amber-500/20 text-amber-300 text-[11px] font-medium border border-amber-500/30">
+                <mat-icon class="!w-3 !h-3 !text-[11px]">history</mat-icon>
+                Draft Restored
+              </span>
+              <button
+                *ngIf="items.length > 0"
+                type="button"
+                (click)="clearDraft()"
+                class="flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-500/10 text-rose-300 hover:bg-rose-500/20 text-xs font-semibold border border-rose-500/20 transition"
+                title="Clear all entered quotation items"
+              >
+                <mat-icon class="text-xs">delete_sweep</mat-icon>
+                <span>Clear All</span>
+              </button>
+              <span class="hidden sm:inline-flex items-center gap-1.5 text-[11px] text-emerald-400 bg-emerald-500/10 px-2.5 py-1 rounded-lg border border-emerald-500/20">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                Hardware Scanner Ready
+              </span>
+              <button
+                type="button"
+                (click)="addNewItem()"
+                class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold border border-amber-500/30 transition shadow-sm"
+              >
+                <mat-icon class="text-xs">add</mat-icon>
+                <span>+ Add Manual Item</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Barcode Scanning / Search Input Bar -->
+          <div class="p-2.5 bg-slate-950/80 border border-slate-800 rounded-xl flex flex-col sm:flex-row items-stretch sm:items-center gap-2">
+            <div class="relative flex-1">
+              <mat-icon class="absolute left-3 top-2.5 text-amber-400 !w-4 !h-4 !text-base">qr_code_scanner</mat-icon>
+              <input
+                type="text"
+                [(ngModel)]="barcodeInput"
+                (keydown.enter)="onBarcodeSubmit()"
+                placeholder="Scan barcode tag or type code (e.g. G-1001) & press Enter..."
+                class="w-full pl-9 pr-24 py-2 bg-slate-900 border border-slate-700/80 rounded-lg text-white placeholder:text-slate-500 text-xs font-mono focus:border-amber-400 focus:outline-none transition"
+              />
+              <button
+                type="button"
+                (click)="onBarcodeSubmit()"
+                [disabled]="scanning || !barcodeInput.trim()"
+                class="absolute right-1.5 top-1.5 bottom-1.5 px-3 rounded-md bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 text-xs font-semibold border border-amber-500/40 transition disabled:opacity-40 flex items-center gap-1"
+              >
+                <mat-icon *ngIf="scanning" class="animate-spin text-xs !w-3 !h-3">refresh</mat-icon>
+                <span>{{ scanning ? 'Fetching...' : 'Scan / Add' }}</span>
+              </button>
+            </div>
+            <div class="text-[11px] text-slate-400 px-2 text-center sm:text-right">
+              Scanned items auto-fill weights, purity & charges from inventory
+            </div>
+          </div>
+        </div>
+
+        <!-- Items Table -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse text-xs">
+            <thead>
+              <tr class="text-slate-400 border-b border-slate-800 uppercase text-[10px] tracking-wider">
+                <th class="py-2.5 px-2">Item Description</th>
+                <th class="py-2.5 px-1 text-center">Metal</th>
+                <th class="py-2.5 px-2 text-right">Purity%</th>
+                <th class="py-2.5 px-2 text-right">Gross (g)</th>
+                <th class="py-2.5 px-2 text-right">Stone (g)</th>
+                <th class="py-2.5 px-2 text-right">Net (g)</th>
+                <th class="py-2.5 px-2 text-right">Making</th>
+                <th class="py-2.5 px-2 text-right">Wastage%</th>
+                <th class="py-2.5 px-3 text-right">Total (₹)</th>
+                <th class="py-2.5 px-1 text-center"></th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-800/60">
+              <!-- Empty State -->
+              <tr *ngIf="items.length === 0">
+                <td colspan="10" class="py-12 text-center text-slate-400">
+                  <div class="flex flex-col items-center justify-center gap-2">
+                    <mat-icon class="!w-10 !h-10 !text-3xl text-slate-600">receipt_long</mat-icon>
+                    <p class="text-sm font-semibold text-slate-300">No Quotation Items Added</p>
+                    <p class="text-xs text-slate-500">Scan a barcode tag above or click "+ Add Manual Item" to generate an estimate.</p>
+                    <button
+                      type="button"
+                      (click)="addNewItem()"
+                      class="mt-2 flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-amber-500/20 text-amber-300 hover:bg-amber-500/30 text-xs font-semibold border border-amber-500/30 transition shadow-sm"
+                    >
+                      <mat-icon class="text-xs">add</mat-icon>
+                      <span>+ Add Manual Item</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngFor="let item of items; let i = index" class="hover:bg-slate-800/30 transition">
+                <td class="py-2 px-2">
+                  <div class="space-y-1">
+                    <input
+                      type="text"
+                      [(ngModel)]="item.itemName"
+                      (ngModelChange)="saveDraft()"
+                      placeholder="e.g. Gold Ornament / Ring"
+                      class="bg-slate-950 border border-slate-800 rounded px-2 py-1 text-white text-xs w-44 focus:border-amber-400"
+                    />
+                    <!-- Barcode indicator or Tag Action -->
+                    <div class="flex items-center gap-1.5">
+                      <span *ngIf="item.barcode" class="inline-flex items-center gap-1 px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 font-mono text-[10px] border border-amber-500/30">
+                        <mat-icon class="!w-3 !h-3 !text-[11px]">qr_code_2</mat-icon>
+                        {{ item.barcode }}
+                        <button
+                          type="button"
+                          (click)="clearItemBarcode(item)"
+                          class="ml-0.5 text-slate-400 hover:text-rose-400"
+                          title="Remove barcode tag"
+                        >
+                          <mat-icon class="!w-2.5 !h-2.5 !text-[10px]">close</mat-icon>
+                        </button>
+                      </span>
+                      <button
+                        *ngIf="!item.barcode"
+                        type="button"
+                        (click)="assignBarcodeToItem(item)"
+                        class="text-[10px] text-slate-500 hover:text-amber-400 flex items-center gap-0.5 transition"
+                        title="Link a barcode to this item"
+                      >
+                        <mat-icon class="!w-3 !h-3 !text-[11px]">qr_code</mat-icon>
+                        <span>+ Barcode</span>
+                      </button>
+                      <span *ngIf="!item.barcode" class="text-[10px] text-slate-600 italic">
+                        (Manual)
+                      </span>
+                    </div>
+                  </div>
+                </td>
+                <td class="py-2 px-1 text-center">
+                  <select
+                    [(ngModel)]="item.metalType"
+                    (ngModelChange)="onMetalTypeChange(item)"
+                    class="bg-slate-950 border border-slate-800 rounded text-[11px] text-amber-400 font-bold px-1 py-1 focus:border-amber-400"
+                  >
+                    <option value="GOLD">Gold</option>
+                    <option value="SILVER">Silver</option>
+                    <option value="PLATINUM">Plat</option>
+                  </select>
+                </td>
+                <td class="py-2 px-2 text-right">
+                  <input
+                    type="number"
+                    step="0.1"
+                    [(ngModel)]="item.purity"
+                    (ngModelChange)="recalculateItem(item)"
+                    class="w-14 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-right text-slate-300 font-mono text-xs focus:border-amber-400"
+                  />
+                </td>
+                <td class="py-2 px-2 text-right">
+                  <input
+                    type="number"
+                    step="0.001"
+                    [(ngModel)]="item.grossWeight"
+                    (ngModelChange)="recalculateItem(item)"
+                    class="w-16 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-right text-white font-mono text-xs focus:border-amber-400"
+                  />
+                </td>
+                <td class="py-2 px-2 text-right">
+                  <input
+                    type="number"
+                    step="0.001"
+                    [(ngModel)]="item.stoneWeight"
+                    (ngModelChange)="recalculateItem(item)"
+                    class="w-14 bg-slate-950 border border-slate-800 rounded px-1.5 py-1 text-right text-slate-300 font-mono text-xs focus:border-amber-400"
+                  />
+                </td>
+                <td class="py-2 px-2 text-right font-mono text-slate-300 font-semibold">
+                  {{ item.netWeight | number:'1.3-3' }}
+                </td>
+                <td class="py-2 px-2 text-right">
+                  <div class="flex items-center justify-end gap-1">
+                    <select
+                      [(ngModel)]="item.makingChargeType"
+                      (ngModelChange)="recalculateItem(item)"
+                      class="bg-slate-950 border border-slate-800 rounded text-[10px] text-slate-300"
+                    >
+                      <option value="PERCENT">%</option>
+                      <option value="PER_GRAM">/g</option>
+                      <option value="FLAT">₹</option>
+                    </select>
+                    <input
+                      type="number"
+                      [(ngModel)]="item.makingChargeRate"
+                      (ngModelChange)="recalculateItem(item)"
+                      class="w-12 bg-slate-950 border border-slate-800 rounded px-1 py-1 text-right text-white font-mono text-xs"
+                    />
+                  </div>
+                </td>
+                <td class="py-2 px-2 text-right">
+                  <input
+                    type="number"
+                    step="0.1"
+                    [(ngModel)]="item.wastagePercent"
+                    (ngModelChange)="recalculateItem(item)"
+                    class="w-12 bg-slate-950 border border-slate-800 rounded px-1 py-1 text-right text-slate-300 font-mono text-xs"
+                  />
+                </td>
+                <td class="py-2 px-3 text-right font-mono font-bold text-amber-300">
+                  ₹{{ item.itemTotal | number:'1.2-2' }}
+                </td>
+                <td class="py-2 px-1 text-center">
+                  <button (click)="removeItem(i)" class="text-slate-500 hover:text-rose-400" title="Remove row">
+                    <mat-icon class="text-xs">close</mat-icon>
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Footnote Totals -->
+        <div class="pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs">
+          <div class="text-slate-400">
+            Taxable: <strong class="text-white font-mono">₹{{ totalTaxable | number:'1.2-2' }}</strong> |
+            GST (3%): <strong class="text-white font-mono">₹{{ totalGst | number:'1.2-2' }}</strong>
+          </div>
+          <div class="text-right">
+            <span class="text-xs text-slate-400 uppercase tracking-wider block">Estimated Grand Total</span>
+            <span class="text-2xl font-black text-amber-300 font-mono">₹{{ grandTotal | number:'1.0-0' }}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button Card -->
+      <div class="flex items-center gap-3">
+        <button
+          [disabled]="submitting || items.length === 0"
+          (click)="saveAndPrintEstimate()"
+          class="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold text-sm shadow-xl shadow-amber-500/20 hover:from-amber-400 transition disabled:opacity-50"
+        >
+          <mat-icon>print</mat-icon>
+          <span>{{ submitting ? 'Saving...' : 'Save & Print Quotation PDF' }}</span>
+        </button>
+
+        <button
+          [disabled]="items.length === 0"
+          (click)="previewEstimate()"
+          type="button"
+          class="px-4 py-3 rounded-xl bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 font-semibold text-xs border border-amber-500/30 transition flex items-center gap-1.5"
+          title="Preview Quotation PDF without saving"
+        >
+          <mat-icon class="text-sm !w-4 !h-4">visibility</mat-icon>
+          <span>Preview PDF</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- RIGHT 1 COL: Customer & Active Quotes Pipeline -->
+    <div class="space-y-5">
+      <!-- Customer Card -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3 relative">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Customer Details</span>
+            <span *ngIf="customers.length > 0" class="text-[10px] px-1.5 py-0.5 rounded bg-amber-500/10 text-amber-400 font-semibold">
+              {{ customers.length }} in DB
+            </span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button
+              *ngIf="selectedCustomer"
+              (click)="clearCustomer()"
+              class="text-[11px] text-slate-400 hover:text-amber-400 transition underline"
+            >
+              Reset
+            </button>
+            <button
+              (click)="openAddCustomerModal()"
+              class="flex items-center gap-1 px-2 py-1 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 text-xs font-semibold border border-amber-500/30 transition shadow-sm"
+              title="Add New Customer to Database"
+            >
+              <mat-icon class="text-xs !w-3.5 !h-3.5 !text-sm">person_add</mat-icon>
+              <span>+ New</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- If no customer selected: Live Search Autocomplete -->
+        <div *ngIf="!selectedCustomer" class="space-y-2 relative">
+          <div class="relative">
+            <input
+              type="text"
+              [(ngModel)]="customerSearchText"
+              (focus)="showCustomerDropdown = true"
+              placeholder="Search by name, phone or address..."
+              class="w-full pl-8 pr-8 py-2.5 rounded-xl bg-slate-950 border border-slate-700 text-slate-200 text-xs focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition placeholder:text-slate-500"
+            />
+            <mat-icon class="absolute left-2 top-2.5 text-slate-500 !w-4 !h-4 !text-base">search</mat-icon>
+            <button
+              *ngIf="customerSearchText"
+              (click)="customerSearchText = ''"
+              class="absolute right-2.5 top-2.5 text-slate-500 hover:text-slate-300"
+            >
+              <mat-icon class="!w-4 !h-4 !text-sm">close</mat-icon>
+            </button>
+          </div>
+
+          <!-- Dropdown List -->
+          <div
+            *ngIf="showCustomerDropdown"
+            class="absolute top-full left-0 right-0 mt-1 bg-slate-950 border border-slate-700 rounded-xl shadow-2xl max-h-60 overflow-y-auto z-50 divide-y divide-slate-800"
+          >
+            <div class="p-2 bg-slate-900/90 sticky top-0 flex items-center justify-between text-[11px] text-slate-400">
+              <span>Matching Customers ({{ filteredCustomers.length }})</span>
+              <button (click)="showCustomerDropdown = false" class="text-slate-400 hover:text-white">✕ Close</button>
+            </div>
+
+            <div
+              *ngFor="let c of filteredCustomers"
+              (click)="selectCustomer(c)"
+              class="p-2.5 hover:bg-amber-500/10 cursor-pointer transition flex items-center justify-between gap-2"
+            >
+              <div class="overflow-hidden">
+                <div class="text-xs font-bold text-slate-200 truncate flex items-center gap-1.5">
+                  <span>{{ c.customerName || c.customername }}</span>
+                  <span *ngIf="c.area" class="text-[10px] text-amber-400 font-normal">({{ c.area }})</span>
+                </div>
+                <div class="text-[11px] text-slate-400 flex items-center gap-2 mt-0.5 truncate">
+                  <span *ngIf="c.phoneno || c.mobileno" class="text-amber-300/80">
+                    📞 {{ c.phoneno || c.mobileno }}
+                  </span>
+                  <span *ngIf="c.address" class="text-slate-400 truncate">
+                    📍 {{ c.address }}
+                  </span>
+                </div>
+              </div>
+              <span class="text-[10px] px-2 py-0.5 rounded bg-slate-800 text-slate-300 shrink-0 font-medium">Select</span>
+            </div>
+
+            <div *ngIf="filteredCustomers.length === 0" class="p-4 text-center text-xs text-slate-500">
+              <p>No customer found matching "{{ customerSearchText }}"</p>
+              <button
+                (click)="openAddCustomerModal()"
+                class="mt-2 inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold text-xs hover:bg-amber-400 transition"
+              >
+                <mat-icon class="!w-4 !h-4 !text-sm">add</mat-icon>
+                Add as New Customer
+              </button>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between text-[11px] text-slate-500 pt-1">
+            <span>Or leave empty for <strong>Walk-in</strong></span>
+            <button (click)="openAddCustomerModal()" class="text-amber-400 hover:underline flex items-center gap-0.5 font-medium">
+              <span>+ Register New</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Selected Customer Card -->
+        <div *ngIf="selectedCustomer" class="bg-slate-950 p-3 rounded-xl border border-amber-500/40 flex items-center justify-between gap-3 shadow-inner">
+          <div class="flex items-center gap-3 overflow-hidden">
+            <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-slate-950 flex items-center justify-center font-bold text-sm shadow-md shrink-0">
+              {{ (selectedCustomer.customerName || selectedCustomer.customername || 'C').charAt(0).toUpperCase() }}
+            </div>
+            <div class="overflow-hidden">
+              <div class="text-xs font-bold text-white flex items-center gap-2 truncate">
+                <span class="text-amber-300 truncate">{{ selectedCustomer.customerName || selectedCustomer.customername }}</span>
+                <span *ngIf="selectedCustomer.customerid" class="text-[10px] px-1.5 py-0.2 rounded bg-slate-800 text-slate-400 font-mono">
+                  #{{ selectedCustomer.customerid }}
+                </span>
+              </div>
+              <div class="text-[11px] text-slate-300 mt-0.5 truncate">
+                <span *ngIf="selectedCustomer.phoneno || selectedCustomer.mobileno || selectedCustomer.mobilenumber">
+                  📞 {{ selectedCustomer.phoneno || selectedCustomer.mobileno || selectedCustomer.mobilenumber }}
+                </span>
+                <span *ngIf="!(selectedCustomer.phoneno || selectedCustomer.mobileno || selectedCustomer.mobilenumber)" class="text-slate-500 italic">
+                  No phone
+                </span>
+              </div>
+              <div *ngIf="selectedCustomer.address" class="text-[10px] text-slate-400 truncate mt-0.5">
+                📍 {{ selectedCustomer.address }}
+              </div>
+            </div>
+          </div>
+          <button
+            (click)="clearCustomer()"
+            class="p-1 rounded-lg text-slate-400 hover:text-amber-400 hover:bg-slate-800 transition shrink-0"
+            title="Change customer"
+          >
+            <mat-icon class="!w-4 !h-4 !text-base">close</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <!-- Saved Active Quotations -->
+      <div class="bg-slate-900 border border-slate-800 rounded-2xl p-5 shadow-xl space-y-3">
+        <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+          <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Active Quotations ({{ savedEstimates.length }})</span>
+          <button (click)="loadActiveEstimates()" class="text-amber-400 text-xs hover:underline">Refresh</button>
+        </div>
+
+        <div class="space-y-2.5 max-h-96 overflow-y-auto">
+          <div
+            *ngFor="let est of savedEstimates"
+            class="p-3 rounded-xl bg-slate-950 border border-slate-800/80 space-y-1.5 hover:border-amber-500/40 transition"
+          >
+            <div class="flex items-center justify-between">
+              <span class="font-mono text-xs font-bold text-amber-400">
+                #{{ est.estimateNumber || est.estimateNo || est.id }}
+              </span>
+              <span class="text-sm font-black text-white font-mono">
+                ₹{{ est.grandTotal | number:'1.0-0' }}
+              </span>
+            </div>
+            <div class="text-[11px] text-slate-400 flex items-center justify-between">
+              <span>{{ est.customer?.customerName || 'Walk-in' }}</span>
+              <span class="text-[10px] text-slate-500">{{ est.estimateDate | date:'shortDate' }}</span>
+            </div>
+            <div class="flex items-center justify-end gap-2 pt-1 border-t border-slate-900">
+              <button
+                (click)="convertToSale(est)"
+                class="px-2.5 py-1 rounded bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-[10px] font-bold text-slate-950 flex items-center gap-1 shadow-sm transition"
+                title="Convert this quotation into POS sale invoice"
+              >
+                <mat-icon class="!w-3.5 !h-3.5 !text-xs">shopping_cart_checkout</mat-icon>
+                <span>Convert to Sale</span>
+              </button>
+              <button
+                (click)="printExisting(est)"
+                class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-[10px] font-semibold text-slate-300"
+              >
+                Print
+              </button>
+              <button
+                *ngIf="est.id"
+                (click)="deleteExisting(est.id)"
+                class="px-2 py-1 rounded bg-rose-950/40 hover:bg-rose-900 text-[10px] font-semibold text-rose-300"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+
+          <div *ngIf="savedEstimates.length === 0" class="text-center py-6 text-slate-500 text-xs">
+            No active quotations currently saved.
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<!-- QUICK ADD CUSTOMER MODAL (Saves to DB & selects immediately) -->
+<div
+  *ngIf="showAddCustomerModal"
+  class="fixed inset-0 z-50 bg-black/75 backdrop-blur-sm flex items-center justify-center p-4"
+>
+  <div class="bg-slate-900 border border-slate-700 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 animate-in fade-in zoom-in-95 duration-150">
+    <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-xl bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold">
+          <mat-icon class="!text-lg !w-5 !h-5">person_add</mat-icon>
+        </div>
+        <div>
+          <h3 class="text-sm font-bold text-white">Add New Customer</h3>
+          <p class="text-[11px] text-slate-400">Instantly saved to database (Jewellery & Pawn Broker)</p>
+        </div>
+      </div>
+      <button (click)="closeAddCustomerModal()" class="text-slate-400 hover:text-white transition">
+        <mat-icon class="!w-5 !h-5">close</mat-icon>
+      </button>
+    </div>
+
+    <form (ngSubmit)="saveNewCustomer()" class="space-y-3.5 text-xs">
+      <!-- Full Name (Required) -->
+      <div>
+        <label class="block font-semibold text-slate-300 mb-1">
+          Full Name <span class="text-rose-400 font-bold">*</span>
+        </label>
+        <input
+          type="text"
+          [(ngModel)]="newCustomer.customerName"
+          name="custName"
+          required
+          placeholder="e.g. Ramesh Kumar"
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+        />
+      </div>
+
+      <!-- Phone Number (Optional) -->
+      <div>
+        <label class="block font-semibold text-slate-300 mb-1">
+          Mobile / Phone Number <span class="text-slate-500 font-normal">(Optional)</span>
+        </label>
+        <input
+          type="tel"
+          [(ngModel)]="newCustomer.phoneno"
+          name="custPhone"
+          placeholder="e.g. 9876543210"
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+        />
+      </div>
+
+      <!-- Address (Optional) -->
+      <div>
+        <label class="block font-semibold text-slate-300 mb-1">
+          Door No & Street Address <span class="text-slate-500 font-normal">(Optional)</span>
+        </label>
+        <textarea
+          rows="2"
+          [(ngModel)]="newCustomer.address"
+          name="custAddr"
+          placeholder="e.g. 14/221 Paari Street, 4th Cross"
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400 focus:ring-1 focus:ring-amber-400"
+        ></textarea>
+      </div>
+
+      <!-- Area & City -->
+      <div class="grid grid-cols-2 gap-3">
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">Area / Locality</label>
+          <input
+            type="text"
+            [(ngModel)]="newCustomer.area"
+            name="custArea"
+            placeholder="e.g. M.K.B. Nagar"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400"
+          />
+        </div>
+        <div>
+          <label class="block font-semibold text-slate-300 mb-1">City / District</label>
+          <input
+            type="text"
+            [(ngModel)]="newCustomer.city"
+            name="custCity"
+            placeholder="e.g. Chennai"
+            class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400"
+          />
+        </div>
+      </div>
+
+      <!-- Pincode -->
+      <div>
+        <label class="block font-semibold text-slate-300 mb-1">Pincode</label>
+        <input
+          type="text"
+          [(ngModel)]="newCustomer.pincode"
+          name="custPin"
+          placeholder="e.g. 600039"
+          class="w-full px-3 py-2 rounded-xl bg-slate-950 border border-slate-700 text-white focus:border-amber-400"
+        />
+      </div>
+
+      <!-- Actions -->
+      <div class="flex items-center justify-end gap-2 pt-3 border-t border-slate-800">
+        <button
+          type="button"
+          (click)="closeAddCustomerModal()"
+          class="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700 transition font-semibold"
+        >
+          Cancel
+        </button>
+        <button
+          type="submit"
+          [disabled]="savingCustomer || !newCustomer.customerName.trim()"
+          class="px-5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold hover:from-amber-400 hover:to-yellow-300 transition shadow-lg shadow-amber-500/20 disabled:opacity-50 flex items-center gap-1.5"
+        >
+          <span *ngIf="savingCustomer">Saving...</span>
+          <span *ngIf="!savingCustomer">Save & Select Customer</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

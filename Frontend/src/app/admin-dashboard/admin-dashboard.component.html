@@ -1,0 +1,24 @@
+
+<div class="main-content">
+  <div class="ag-theme-quartz">
+    <a href="\login">HOME</a>
+    <div layout="row" layout-align="center center">
+  
+    <h1 class="center">
+      
+      Admin Dashboard</h1>
+    </div>
+    <button style="margin: 10px;" mat-flat-button color="primary" (click)="addUser()">
+      <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="add"></mat-icon>
+      
+      Add User</button>
+      <mat-divider></mat-divider>
+    <ag-grid-angular
+      style="height: 100vh;"
+      [rowData]="rowData"
+      [rowHeight]="rowHeight"
+      [columnDefs]="columnDefs"
+      (gridReady)="onGridReady($event)"
+    ></ag-grid-angular>
+  </div>
+</div>

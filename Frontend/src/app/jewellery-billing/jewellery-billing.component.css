@@ -1,0 +1,88 @@
+/* Container Styling */
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for a modern feel */
+  }
+  
+  /* Form Header */
+  h1 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333; /* Dark gray for text */
+    margin-bottom: 20px;
+  }
+  
+  /* Form Group Styling */
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  /* Labels */
+  label {
+    font-weight: bold;
+    color: #555; /* Medium gray for labels */
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  /* Input Fields */
+  input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  
+  /* Input Focus State */
+  input:focus {
+    border-color: #007bff; /* Blue border on focus */
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+  }
+  
+  /* Submit Button */
+  button {
+    background-color: #007bff; /* Bootstrap blue */
+    color: #fff; /* White text */
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Button Hover State */
+  button:hover {
+    background-color: #0056b3; /* Darker blue */
+  }
+  
+  /* Center Align Button */
+  .text-center {
+    text-align: center;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .container {
+      padding: 15px;
+    }
+  
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+.m{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+  

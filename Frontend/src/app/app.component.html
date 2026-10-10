@@ -1,0 +1,52 @@
+<!-- <app-rates-card class="rates" *ngIf="showElement"></app-rates-card> -->
+
+<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-multiple" [fullScreen] = "true"><p style="color: white" > Loading ... </p></ngx-spinner>
+<router-outlet></router-outlet>
+
+ 
+
+<!-- <app-rates-card></app-rates-card> -->
+<div *ngIf="transactionBox === 'Y'" class="example-box" cdkDrag>
+    <h4>Recent Transactions</h4>
+    <ul class="scrollable-list">
+      <li  
+        [@listAnimation]
+        *ngFor="let transaction of transactions.slice().reverse()" 
+        (click)="handleTransactionClick(transaction)"
+        [ngClass]="{
+          'pledged': transaction.type === 'pledged', 
+          'redeemed': transaction.type === 'redeemed',
+          'updated': transaction.type === 'updated',
+          'opened': transaction.type === 'opened',
+          'canceled': transaction.type === 'canceled'
+        }">
+        <strong>{{ getTransactionLabel(transaction.type) }}</strong>
+        {{ transaction.bill.billSerial.toUpperCase() }} {{ transaction.bill.billNo }} 
+        {{ transaction.bill.customer.customerName }} 
+        ₹{{ transaction.bill.amount }} 
+        {{ transaction.bill.billDetails[0]?.productDescription }}
+      </li>
+    </ul>
+</div>                                                                                                      
+
+
+<app-ai-composer *ngIf="AI"></app-ai-composer>
+
+<!-- @if(!this.authenticated){
+  <div class="rates">
+    <div class="stats shadow">
+      
+      <div class="stat">
+        <div class="m">
+          <div class="stat-title">Gold Rate</div>
+          <div class="stat-value">{{gold_rate}}</div>
+        </div>
+        <div class="m">
+          <div class="stat-title">Silver Rate</div>
+          <div class="stat-value">{{silver_rate}}</div>
+        </div>
+      </div>
+      
+    </div>
+    </div>
+} -->

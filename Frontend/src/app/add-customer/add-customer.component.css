@@ -1,0 +1,132 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff; /* Light Azure Blue background */
+    color: #333;
+    margin: 0;
+    padding: 0;
+  }
+  
+  header {
+    background-color: #007fff; /* Azure Blue */
+    padding: 15px;
+    text-align: center;
+  }
+  
+  header a {
+    color: white;
+    margin: 0 15px;
+    text-decoration: none;
+    font-weight: bold;
+  }
+  
+  header a:hover {
+    text-decoration: underline;
+  }
+  
+  section {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  
+  .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #e6f7ff; /* Light Azure Blue background */
+  }
+  
+  .mat-form-field-appearance-fill .mat-form-field-flex:hover {
+    background-color: #cceeff; /* Darker Azure Blue on hover */
+  }
+  
+  
+  .mat-input-element {
+    color: #333;
+  }
+  
+  .mat-datepicker-toggle-default-icon,
+  .mat-datepicker-toggle-default-icon:hover {
+    color: #007fff; /* Azure Blue for datepicker icon */
+  }
+  
+  button {
+    background-color: #007fff; /* Azure Blue button */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  button:hover {
+    background-color: #005bb5; /* Darker Azure Blue on hover */
+  }
+  
+  textarea, input[type="text"], input[type="number"], input[type="password"] {
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+  
+  textarea:focus, input[type="text"]:focus, input[type="number"]:focus, input[type="password"]:focus {
+    outline: none;
+    border-color: #005bb5; /* Darker Azure Blue border on focus */
+  }
+  
+  .mat-hint {
+    color: #007fff; /* Azure Blue hint text */
+  }
+  section {
+    display: table;
+  }
+  
+  .example-label {
+    display: table-cell;
+    font-size: 14px;
+    margin-left: 8px;
+    min-width: 120px;
+  }
+  
+  .example-button-row {
+    display: table-cell;
+    max-width: 600px;
+  }
+  
+  .example-button-row .mat-mdc-button-base {
+    margin: 8px 8px 8px 0;
+  }
+  
+  .example-flex-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  
+  .example-button-container {
+    display: flex;
+    justify-content: center;
+    width: 120px;
+  }
+  form div button{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-right: 55px;
+    padding: 8px 38px;
+    
+  }
+  #bsno{
+    cursor:not-allowed;
+  }
+  #addcc{
+    text-decoration: none;
+    font-size: larger;
+    color: #005bb5;
+  }

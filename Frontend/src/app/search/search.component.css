@@ -1,0 +1,748 @@
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.search {
+  display: inline-block;
+  position: absolute;
+
+  /* margin-bottom: 80px; */
+}
+
+.search input[type="text"] {
+  width: 700px;
+  height: 65px;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-size: 1.1rem;
+
+}
+
+.search button[type="submit"] {
+  background-color: rgb(29, 29, 29);
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  position: absolute;
+  top: 0;
+  right: 0;
+  transition: .9s ease;
+  height: 65px;
+  width: 85px;
+}
+
+.search button[type="submit"]:hover {
+  transform: scale(1.1);
+  color: rgb(255, 255, 255);
+  background-color: rgba(25, 25, 25, 0.8);
+}
+
+.results {
+  /* padding: 20px; */
+}
+
+body {
+  background-color: #121212;
+  /* Dark background color */
+  color: #ffffff;
+  /* Light text color */
+  font-family: Arial, sans-serif;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  background-color: #1e1e1e;
+  /* Slightly lighter dark color for the table */
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  /* Subtle shadow */
+  border: 1px solid #444444;
+  /* Border around the entire table */
+}
+
+.table th,
+.table td {
+  padding: 12px 15px;
+  text-align: left;
+  border: 2px solid #474545;
+  /* Border for each cell */
+}
+
+.table thead th {
+  background-color: #333333;
+  /* Darker background for the header */
+  color: #ffffff;
+  font-weight: 400;
+}
+
+.table tbody tr {
+  border-bottom: 1px solid #444444;
+  /* Border between rows */
+}
+
+.table tbody tr:nth-of-type(even) {
+  background-color: #2a2a2a;
+  /* Slightly lighter dark color for alternate rows */
+}
+
+.table tbody td {
+  color: #e0e0e0;
+  /* Light gray text color */
+}
+
+.table tbody tr:hover {
+  background-color: #3a3a3a;
+  /* Slightly lighter background on hover */
+}
+
+
+.main {
+  margin-top: 100px;
+}
+
+h2 {
+  font-size: 1.4rem;
+  font-weight: 300;
+  text-align: center;
+  position: relative;
+  top: 35px;
+}
+
+.mat-mdc-cell,
+.mat-mdc-header-cell {
+  color: white;
+}
+
+.toggle {
+  position: absolute;
+  right: 5%;
+
+}
+
+/* mat-form-field{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  top:15px;
+  
+
+} */
+.dateRange {
+  text-align: center;
+}
+
+.dateRange div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: white;
+  background-color: #1D1D1D;
+  padding: 5px 20px;
+  border-radius: 25px;
+
+}
+
+/* Add this to your component's CSS file */
+
+/* Highlighted Row (Danger theme) */
+.highlight-row td {
+  background-color: #422b2b;
+  /* Muted dark red background to match the dark theme */
+  color: #ff6f6f;
+  /* Lighter red text for contrast */
+  font-weight: 500;
+  /* Slightly bold text to emphasize the row */
+  border-bottom: 1px solid #633232;
+  /* Dark red border for separation */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for highlighted row */
+.highlight-row:hover td {
+  background-color: #5c2e2e;
+  /* Slightly brighter dark red on hover */
+  transform: scale(1.02);
+  /* Slight zoom effect on hover */
+  box-shadow: 0 4px 12px rgba(255, 111, 111, 0.3);
+  /* Softer red shadow effect */
+}
+
+/* Non-highlighted rows (Dark theme) */
+table.mat-table td {
+  background-color: #1e1e1e;
+  /* Dark background for non-highlighted rows */
+  color: #dcdcdc;
+  /* Light gray text for readability */
+  border-bottom: 1px solid #333;
+  /* Subtle border to separate rows */
+}
+
+.cancel-class {
+  background-color: hsl(261, 39%, 57%);
+  /* Using the specified color theme */
+  color: #ffffff;
+  /* White text for contrast */
+  font-weight: 500;
+  /* Slightly bold text for emphasis */
+  border: 1px solid hsl(261deg, 70%, 40%);
+  /* A darker shade for the border */
+  padding: 10px 15px;
+  /* Padding for better touch targets */
+  border-radius: 4px;
+  /* Slightly rounded corners */
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+/* Hover effect for cancel button */
+.cancel-class:hover {
+  background-color: hsl(261deg, 70%, 40%);
+  /* Lighter shade on hover */
+  transform: scale(1.015);
+  /* Slight zoom effect on hover */
+  box-shadow: 0 4px 12px rgba(255, 255, 255, 0.3);
+  /* Soft white shadow effect */
+}
+
+
+
+
+
+
+
+
+/* From Uiverse.io by adamgiebl */
+.cssbuttons-io-button {
+  background: #1D1D1D;
+  color: white;
+  font-family: inherit;
+  padding: 0.35em;
+  padding-left: 1.2em;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 0.9em;
+  border: none;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  box-shadow: inset 0 0 1.6em -0.6em #1D1D1D;
+  overflow: hidden;
+  position: relative;
+  height: 2.8em;
+  padding-right: 3.3em;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.cssbuttons-io-button .icon {
+  background: white;
+  margin-left: 1em;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 2.2em;
+  width: 2.2em;
+  border-radius: 0.7em;
+  box-shadow: 0.1em 0.1em 0.6em 0.2em #1D1D1D;
+  right: 0.3em;
+  transition: all 0.3s;
+}
+
+.cssbuttons-io-button:hover .icon {
+  width: calc(100% - 0.6em);
+}
+
+.cssbuttons-io-button .icon svg {
+  width: 1.1em;
+  transition: transform 0.3s;
+  color: #1D1D1D;
+}
+
+.cssbuttons-io-button:hover .icon svg {
+  transform: translateX(0.1em);
+}
+
+.cssbuttons-io-button:active .icon {
+  transform: scale(0.95);
+}
+
+/* From Uiverse.io by njesenberger */
+.toggle-container {
+  --active-color: #1868e3;
+  --inactive-color: #d3d3d6;
+  position: relative;
+  aspect-ratio: 292 / 142;
+  height: 1.875em;
+}
+
+.toggle-input {
+  appearance: none;
+  margin: 0;
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.toggle {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.toggle-background {
+  fill: var(--inactive-color);
+  transition: fill .4s;
+}
+
+.toggle-input:checked+.toggle .toggle-background {
+  fill: var(--active-color);
+}
+
+.toggle-circle-center {
+  transform-origin: center;
+  transition: transform .6s;
+}
+
+.toggle-input:checked+.toggle .toggle-circle-center {
+  transform: translateX(150px);
+}
+
+.toggle-circle {
+  transform-origin: center;
+  transition: transform .45s;
+  backface-visibility: hidden;
+}
+
+.toggle-circle.left {
+  transform: scale(1);
+}
+
+.toggle-input:checked+.toggle .toggle-circle.left {
+  transform: scale(0);
+}
+
+.toggle-circle.right {
+  transform: scale(0);
+}
+
+.toggle-input:checked+.toggle .toggle-circle.right {
+  transform: scale(1);
+}
+
+.toggle-icon {
+  transition: fill .4s;
+}
+
+.toggle-icon.on {
+  fill: var(--inactive-color);
+}
+
+.toggle-input:checked+.toggle .toggle-icon.on {
+  fill: #fff;
+}
+
+.toggle-icon.off {
+  fill: #eaeaec;
+}
+
+.toggle-input:checked+.toggle .toggle-icon.off {
+  fill: var(--active-color);
+}
+
+.filter {
+  display: flex;
+  gap: 10px;
+  font-family: cursive;
+
+}
+
+.buttons {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.filterhead {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start;
+  /* Aligns text elements to the start (left-aligned) */
+  position: absolute;
+  right: 0;
+  margin-right: 40px;
+}
+
+.newThing {
+  margin-top: 80px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.isSearchDateAlso {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.searchandfilter {
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  height: 200px;
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+}
+
+/* Dropdown Label */
+
+
+/* Dropdown (mat-select) container */
+mat-select {
+  background-color: #1e1e1e;
+  /* Pure black background */
+  color: #ffffff;
+  /* White text for dropdown */
+  border-radius: 25px;
+  border: 1px solid #ffffff;
+  /* White border */
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  padding: 15px;
+  text-align: center;
+
+}
+
+.loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+}
+
+/* Dropdown hover effect */
+mat-select:hover {
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+  /* Subtle white glow */
+  transform: scale(1.01);
+  /* Slight zoom on hover */
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+  text-align: center;
+}
+
+/* Dropdown trigger (selected value display) */
+.mat-select-trigger {
+  color: #ffffff;
+  /* White text */
+  font-size: 14px;
+  font-weight: 500;
+  padding: 4px 8px;
+}
+
+
+/* mat-select:hover,
+mat-select.mat-focused {
+  animation: gradient-border 2s infinite linear;
+} */
+
+/* Hover effect for options */
+
+
+/* Focused or active state for mat-select */
+.mat-select-panel {
+  border: 1px solid #ffffff;
+  /* White border around dropdown panel */
+  background-color: #000000;
+  /* Match with dropdown container */
+  box-shadow: 0px 4px 15px rgba(255, 255, 255, 0.2);
+  /* Subtle glow */
+}
+
+/* @keyframes gradient-border {
+  0% {
+    background-image: linear-gradient(90deg, #511FAD, #FF007F, #FFD700);
+  }
+  50% {
+    background-image: linear-gradient(90deg, #FFD700, #511FAD, #FF007F);
+  }
+  100% {
+    background-image: linear-gradient(90deg, #FF007F, #FFD700, #511FAD);
+  }
+} */
+
+/* Focused option style */
+.p {
+  width: 20%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.filterSAP form {
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+}
+
+#go:hover {
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 7px 29px 0px;
+}
+
+#go:active {
+  background-color: hsl(261deg 80% 48%);
+  color: hsl(0, 0%, 100%);
+  box-shadow: rgb(93 24 220) 0px 0px 0px 0px;
+  transform: translateY(10px);
+  transition: 100ms;
+}
+
+/* General Styles for All Screen Sizes */
+.searchandfilter,
+.filterSAP {
+  padding: 10px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.filterSAP form {
+  margin-top: 30px;
+}
+
+/* Small Devices (Mobile Phones) */
+@media screen and (max-width: 600px) {
+  .searchandfilter {
+    flex-direction: column;
+  }
+
+  .filter {
+    margin-bottom: 10px;
+    width: 100%;
+  }
+
+  .main .search {
+    display: block;
+    width: 100%;
+  }
+
+  .main .search input {
+    width: 100%;
+    padding: 8px;
+    font-size: 14px;
+  }
+
+  .buttons {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .buttons button {
+    margin: 5px;
+    width: 100%;
+    /* Full-width buttons on mobile */
+  }
+
+  .table {
+    font-size: 12px;
+    /* Smaller font for smaller screens */
+  }
+
+  .table th,
+  .table td {
+    padding: 8px;
+  }
+
+  .filterSAP form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+
+  .filterSAP .p {
+    width: 100%;
+    /* Makes elements take 45% of the row */
+    margin-top: 30px;
+
+  }
+
+  .toggle-container {
+    margin-bottom: 20px;
+  }
+}
+
+/* Medium Devices (Tablets) */
+@media screen and (min-width: 601px) and (max-width: 1024px) {
+
+  /* .filterSAP form {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+  }
+  .filterSAP {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+  .filterSAP .p {
+      width: 100%; 
+      margin: 10px;
+  }
+  .table {
+      font-size: 14px;
+  }
+  .table th, .table td {
+      padding: 10px;
+  }
+  .toggle-container{
+    margin-bottom: 20px;
+  } */
+}
+
+/* Responsive Table Styles */
+.results {
+  overflow-x: auto;
+  /* Enables horizontal scrolling for small screens */
+  display: block;
+  /* Makes the table container block-level */
+}
+
+.table {
+  width: 100%;
+  /* Full width for responsive scaling */
+  border-collapse: collapse;
+  /* Consistent cell spacing */
+}
+
+.table th,
+.table td {
+  padding: 8px 16px;
+  /* Cell padding for better readability */
+  text-align: left;
+}
+
+.table th {
+  position: sticky;
+  /* Keeps the header fixed */
+  top: 0;
+  z-index: 1;
+}
+
+@media (max-width: 768px) {
+
+  .table th,
+  .table td {
+    font-size: 14px;
+    /* Adjust font size for smaller screens */
+    padding: 6px 12px;
+    /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+
+  .table th,
+  .table td {
+    font-size: 12px;
+    /* Further reduce font size for very small screens */
+    padding: 4px 8px;
+    /* Adjust padding */
+  }
+}
+
+cdk-virtual-scroll-viewport {
+  margin-top: 20px;
+}
+
+.results {
+  position: relative;
+}
+
+table th.mat-header-cell {
+  position: fixed;
+  top: 0;
+  /* Keep the header at the top of the page */
+  background-color: white;
+  /* Set background for the header */
+  z-index: 1000;
+  /* Ensure header is above the content */
+  width: 100%;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  /* Optional: adds shadow for better visibility */
+}
+
+table {
+  margin-top: 50px;
+  /* Adjust this based on the header's height */
+}
+
+.cdk-virtual-scroll-viewport {
+  padding-top: 50px;
+  /* Adjust padding to prevent content from hiding behind the fixed header */
+}
+
+@media only screen and (max-width: 600px) {
+  .filterSAP form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    gap: 5px;
+  }
+
+  .buttons {
+    gap: 0px;
+  }
+
+  .dateRange {
+    text-align: center;
+  }
+
+  .dateRange div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    background-color: #1D1D1D;
+    padding: 5 px 5px;
+    border-radius: 15px;
+  }
+}

@@ -1,0 +1,139 @@
+<div class="mainmain">
+    <div class="scaled-div">
+        <div class="close" (click)="onNoClick()">
+            <mat-icon>close</mat-icon>
+        </div>
+        
+        <form [formGroup]="supplierForm" (ngSubmit)="onSubmit()">
+        
+            <h3>Supplier Details</h3>
+            <div>
+                <div class="major">
+                    <div class="span123">
+                        @if(selectFiles){
+                            <div class="m">
+                                <img [src]="photoPreview" alt="">
+                            </div>
+                          }
+                          @else{
+                            <div class="m">
+                                <mat-icon class="person">person</mat-icon>
+                            </div>
+                          }
+                          <div  class="btns">
+                            <input #fileInput type="file" (change)="onFileChange($event)" accept="image/*" class="custom-file-input">
+        
+                            <button mat-fab aria-label="Example icon button with a delete icon" (click)="fileInput.click()" >
+                                <mat-icon>attach_file</mat-icon>
+                            </button>     
+                      
+                                  
+                            <button (click)="openCamera()" mat-fab aria-label="Example icon button with a delete icon"  >
+                                <mat-icon>camera</mat-icon>
+                            </button>
+                            <button (click)="removeCustomerPhoto($event)" mat-fab aria-label="Example icon button with a delete icon"  >
+                                <mat-icon>delete</mat-icon>
+                            </button>
+        
+                            </div>
+            
+                      
+                    </div> 
+            
+            
+                      
+        <div class="min">
+                    
+            <div>
+                <label for="suppliername">Supplier Name</label>
+                <input #supplierName matInput formControlName="suppliername" required />
+              </div>
+              <div>
+                <label for="address">Address</label>
+                <textarea name="" id=""formControlName="address"></textarea>
+               
+              </div>
+        
+              
+        </div>
+                    </div>  
+            
+                </div>
+        <div class="span123">
+            <div>
+                <label for="mobile">Mobile</label>
+                <input matInput formControlName="mobile" />
+              </div>
+              <div>
+                <label for="email">Email</label>
+                <input matInput formControlName="email" />
+              </div>
+        
+        
+        </div>
+        <div class="span123">
+            
+                  
+              <div>
+                <label for="openingbaltype">Type</label>
+                <mat-select formControlName="openingbaltype">
+                  <mat-option value="CREDIT">CREDIT</mat-option>
+                  <mat-option value="DEBIT">DEBIT</mat-option>
+                </mat-select>
+              </div>
+              <div>
+                <label for="prooftype">Type</label>
+                <mat-select formControlName="prooftype">
+                  <mat-option value="A">Aadhar</mat-option>
+                  <mat-option value="B">PanCard</mat-option>
+                  <mat-option value="C">Credit</mat-option>
+                </mat-select>
+              </div>
+        
+        
+        </div>
+        
+        
+        
+            <div class="span123">
+                <div>
+                    <label for="proofdetails">Proof Details</label>
+                    <input matInput formControlName="proofdetails" />
+                  </div>
+                  
+            <div>
+                <label for="gstno">GST Number</label>
+                <input matInput formControlName="gstno" />
+              </div>
+        
+            
+        
+        
+            </div>
+        
+        
+          
+         
+        <div class="span123">
+              
+            <div>
+                <label for="openingbalance">Opening Balance</label>
+                <input matInput formControlName="openingbalance" type="number" />
+              </div>
+        
+            
+              <div>
+                <label for="openingdetails">Details</label>
+                <input matInput formControlName="openingdetails" />
+              </div>
+        </div>
+          
+        
+          
+            <button  type="submit" [disabled]="supplierForm.invalid" class="newbutton">
+              Submit
+            </button>
+          </form>
+          
+    </div>
+</div>

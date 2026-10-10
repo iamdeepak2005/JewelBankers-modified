@@ -1,0 +1,59 @@
+
+<app-header class="header"> </app-header>
+
+    <section class="hero">
+        <div class="hero-content">
+            
+
+
+
+
+
+<div class="container">
+    <div class="slide" #slide>
+      
+        
+        <div class="mainActive">
+            <div class="active" style="background-image: url({{items[activeIndex].image}});">
+                <div class="content">
+                    <div  class="name">{{items[activeIndex].name}}</div>
+                    <div   class="des">{{items[activeIndex].description}}</div>
+                    <button class="globalButton"(click)="info(items[activeIndex])">Play Video</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- <div class="item" style="background-image: url(https://i.ibb.co/NSwVv8D/img3.jpg);">
+            <div class="content">
+                <div class="name">Iceland</div>
+                <div class="des">Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ab, eum!</div>
+                <button>See More</button>
+            </div>
+        </div> -->
+        @for (i of items; track $index) {
+            
+            <div class="item" style="background-image: url({{i.image}});">
+            </div>
+            
+        }
+
+    </div>
+
+    <div class="button">
+        <button class="arrow left"  #prevButton><svg fill="#000000" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 571.815 571.815" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M76.208,296.042l415.78,272.132c8.286,6.646,12.062,3.941,8.431-6.04L329.355,302.084 c-3.629-9.981-3.596-26.156,0.076-36.123l170.91-256.26c3.672-9.966-0.101-12.702-8.43-6.11L76.284,272.07 C67.958,278.661,67.921,289.395,76.208,296.042z"></path> </g> </g> </g></svg></button>
+        <button class="arrow right" #nextButton><svg fill="#000000" height="200px" width="200px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512.003 512.003" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M507.284,248.364L12.35,0.898C8.894-0.826,4.721-0.007,2.153,2.86c-2.56,2.884-2.867,7.125-0.759,10.351l159.07,242.79 L1.393,498.792c-2.108,3.226-1.801,7.467,0.759,10.351c1.664,1.86,4.002,2.859,6.383,2.859c1.289,0,2.594-0.29,3.814-0.896 l494.933-247.467c2.893-1.451,4.719-4.403,4.719-7.637S510.176,249.815,507.284,248.364z"></path> </g> </g> </g></svg></button>
+    </div>
+</div>
+
+
+
+            <!-- <h1>Welcome to Your JewelBankers</h1>
+            <p>Explore and manage your bills with ease.</p> -->
+        </div>
+
+
+
+    </section>
+
+
+

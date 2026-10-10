@@ -1,0 +1,97 @@
+<div class="close" (click)="onNoClick()" tabindex="0" (keydown)="onTabPress($event)">
+    <mat-icon>close</mat-icon>
+</div>
+
+<div  class="photo">
+    <div *ngIf="isPhoto; else noPhoto">
+      <div class="squareip">
+        <div class="photo-preview">
+          <img [src]="photoPreview" alt="Customer Photo" />
+          <div class="card-title">
+            {{ bill.customer.customerName }} <br />
+          </div>
+        </div>
+        <div class="photo-preview">
+          <img [src]="photoPreview1" alt="Item Photo" />
+          <div class="card-title">
+            {{ bill.billDetails[0].productDescription }} <br />
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noPhoto>
+      <div class="squareip">
+        <div class="card">
+          <div class="card-photo"></div>
+          <div class="card-title">
+            {{ bill.customer.customerName }} <br />
+          </div>
+        </div>
+        <div class="photo-preview">
+          <img [src]="photoPreview1" alt="Item Photo" />
+          <div class="card-title">
+            {{ bill.billDetails[0].productDescription }} <br />
+          </div>
+        </div>
+      </div>
+    </ng-template>
+
+    <table class="styled-table">
+      <tr>
+        <td><span class="variable">Status:</span></td>
+        <td>
+          <span class="special" *ngIf="redeemStatus === 'R'"
+            >Redeemed</span
+          >
+          <span class="open" *ngIf="redeemStatus === 'O'">Open</span>
+          <span class="special" *ngIf="redeemStatus === 'C'"
+            >Cancel</span
+          >
+        </td>
+      </tr>
+
+      <tr>
+        <td><span class="variable">Customer Name:</span></td>
+        <td>{{ bill.customer.customerName }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Customer Address:</span></td>
+        <td>{{ bill.customer.fullAddress }}</td>
+      </tr>
+
+      <tr>
+        <td><span class="variable">Pledge Date:</span></td>
+        <td>{{ bill.billDate }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Amount:</span></td>
+        <td>₹{{ bill.amount }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Redemption Total</span></td>
+        <td>{{ bill.amount + bill.redemptionInterest }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Total Received:</span></td>
+        <td>{{ bill.amount + bill.receivedinterest }}</td>
+      </tr>
+
+      <tr>
+        <td><span class="variable">No. of Months:</span></td>
+        <td>{{ bill.interestinmonths }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Weight:</span></td>
+        <td>{{ bill.grams }} gms</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Quantity:</span></td>
+        <td>{{ bill.billDetails[0].productQuantity }}</td>
+      </tr>
+      <tr>
+        <td><span class="variable">Item Description:</span></td>
+        <td>{{ getProductDescriptions(bill.billDetails) }}</td>
+      </tr>
+    </table>
+  </div>

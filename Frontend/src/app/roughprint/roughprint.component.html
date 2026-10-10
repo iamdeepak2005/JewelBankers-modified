@@ -1,0 +1,208 @@
+<app-header></app-header>
+<div class="mainman">
+    <div class="main">
+        <div class="container">
+          <!-- Left Section: Input Form -->
+          <div class="form-section">
+            <div class="header-section">
+                <div class="input-container">
+                  <label for="shopName" class="label">Shop Name</label>
+                  <input
+                    id="shopName"
+                    type="text"
+                    [(ngModel)]="shopName"
+                    placeholder="Enter shop name"
+                    class="input-field"
+                    (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+
+                  />
+                </div>
+              </div>
+              
+      
+            <div class="form">
+                <div class="rates">
+                    <div class="rate-input">
+                      <label for="goldRate">Gold Rate (₹/gm)</label>
+                      <input
+                        id="goldRate"
+                        type="text"
+                        [(ngModel)]="goldRate"
+                        placeholder="Enter gold rate"
+                        (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+
+                      />
+                    </div>
+                    <div class="rate-input">
+                      <label for="silverRate">Silver Rate (₹/gm)</label>
+                      <input
+                        id  ="silverRate"
+                        type="text"
+                        [(ngModel)]="silverRate"
+                        placeholder="Enter silver rate"
+                        (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+
+                      />
+                    </div>
+                  </div>
+    
+              <div class="span">
+                <div class="field-group">
+                  <label for="articleType">Article Type</label>
+                  <select id="articleType" [(ngModel)]="article" (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+                  >
+                    <option value="gold">Gold</option>
+
+                    <option value="silver">Silver</option>
+                  </select>
+                </div>
+                <div class="field-group">
+                  <label for="itemName">Item Name</label>
+                 
+                    <input
+                    #itemFocus
+                      id="itemName"
+                      matInput
+                      placeholder="Enter item name"
+                      [(ngModel)]="itemName"
+                      (ngModelChange)="filterItemNames()"
+                      [matAutocomplete]="auto"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onItemSelected($event)">
+                      <mat-option *ngFor="let item of filteredItemNames" [value]="item">
+                        {{ item }}
+                      </mat-option>
+                    </mat-autocomplete>
+                </div>
+                
+                
+              </div>
+      
+              <div class="field-group">
+                <label for="weight">Weight (gm)</label>
+                <input
+                  id="weight"
+                  type="text"
+                  placeholder="Enter weight"
+                  [(ngModel)]="weight"
+                  (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+                />
+              </div>
+      
+              <div class="field-group">
+                <label for="makingCharges">Other Charges (₹)</label>
+                <input
+                  id="makingCharges"
+                  type="text"
+                  placeholder="Enter Other charges"
+                  [(ngModel)]="makingCharges"
+                  (input)="calculateTotal(weight, makingCharges,article,gsta,sgsta,goldRate,silverRate)"
+                />
+              </div>
+            </div>
+            <div class="btns">
+              <button class="globalButton" (click)="printPreview()">Print</button>
+              <button class="globalButton" (click)="resetPreview()">Reset</button>
+
+            </div>
+          </div>
+      
+          <!-- Right Section: Print Preview -->
+          <div class="print-preview">
+            <div>
+                <div >
+
+                  <div class ="head">
+                    <label for=""> <span class="highlight">{{ shopName }}</span>
+                      </label>
+                      <label  class="rooooo">Rough Estimate</label>
+                  </div>
+
+                  </div>
+                  
+ 
+            </div>
+            <div class="rates-preview">
+              <div><span class="highlight">Gold Rate:</span> ₹{{ goldRate }}/gm</div>
+              <div><span class="highlight">Silver Rate:</span> ₹{{ silverRate }}/gm</div>
+            </div>
+      
+            <hr />
+      
+ 
+      
+            <div class="details">
+              <div class="rates-preview1">
+                <div><span  class="highlight">Item Name: </span>{{itemName}}</div>
+                <div class="dates">
+                  <div>Date: {{currentDate.getDate()}}/{{currentDate.getMonth()+1}}/{{currentDate.getFullYear()}}
+                  </div>
+                  <div>Time: {{currentDate.getHours()}}:{{currentDate.getMinutes()}}</div>
+                </div>
+
+   
+              </div>
+              <div class="super" style="font-family: Arial, sans-serif;">
+                <div style="display: flex; align-items: flex-start;">
+                  <!-- Left Column -->
+                  <div style="width: 250px; text-align: left; padding-right: 10px;">
+                    <span class="highlight">Weight</span><br>
+                    <span class="highlight">Rate</span><br>
+                    <span class="highlight">Other Charges</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">Gross Total</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">GST</span><br>
+                    <span class="highlight">SGST</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">Net Total</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                  </div>
+                  
+              
+                  <!-- Middle Column -->
+                  <div style="width: 20px; text-align: center;">
+                    :<br>
+                    :<br>
+                    :<br>
+                    <br> <!-- Spacing for alignment -->
+                    <br> <!-- Spacing for alignment -->
+                    :<br>
+                    :<br>
+                    <br>
+                    :
+                    <br>
+                  </div>
+              
+                  <!-- Right Column -->
+                  <div style="flex: 1; text-align: left; padding-left: 10px;">
+                    <span class="highlight">{{weight}} gm</span><br>
+                    <span class="highlight">₹</span>{{rate}}<br>
+                    <span class="highlight">₹</span>{{makingCharges }}<br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">₹{{grossTotalAmount}}</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">₹</span>{{gsta}}<br>
+                    <span class="highlight">₹</span>{{sgsta}}<br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                    <span class="highlight">₹{{netTotalAmount}}</span><br>
+                    <hr style="border: none; border-top: 1px dashed #000; margin: 8px 0;"> <!-- Dashed Line -->
+                  </div>
+                  
+                </div>
+              </div>
+               
+            </div>
+      
+            <hr />
+      
+            <div class="instructions">
+              <p>* Please verify all details before proceeding with payment.</p>
+            </div>
+          </div>
+    
+        </div>
+    
+      </div>
+
+</div>

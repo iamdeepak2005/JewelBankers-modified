@@ -1,0 +1,334 @@
+<app-header></app-header>
+
+<section>
+  <form
+    autocomplete="off"
+    action="/login"
+    [formGroup]="redeemform"
+    (ngSubmit)="onRedemSubmit(redeemform)"
+  >
+    <div class="thisis">
+      <h1>Redeem bills with ease.</h1>
+
+      <div class="new">
+        <div class="formss">
+          <table class="form">
+            <tbody>
+              <tr>
+                <td><mat-label>Bill Serial</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    maxlength="2"
+                    required
+                    formControlName="billSerial"
+                  />
+                  <div
+                    *ngIf="redeemform.controls['billSerial'].errors?.['required'] && redeemform.controls['billSerial'].touched"
+                  >
+                    <div class="danger">This is required</div>
+                  </div>
+                  <div
+                    *ngIf="redeemform.controls['billSerial'].errors?.['maxlength'] && (redeemform.controls['billSerial'].touched || redeemform.controls['billSerial'].pristine || redeemform.controls['billSerial'].dirty)"
+                  >
+                    <div class="danger">Max-length is only 3 Calm down!!!</div>
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Bill Number</mat-label></td>
+                <td>
+                  <input
+                    #myInput
+                    matInput
+                    type="text"
+                    placeholder="00000"
+                    
+                    formControlName="billNo"
+                  />
+                  <div
+                    *ngIf="redeemform.controls['billNo'].errors?.['required'] && redeemform.controls['billNo'].touched"
+                  >
+                    <div class="danger">This is required</div>
+                  </div>
+                  <div
+                    *ngIf="redeemform.controls['billNo'].errors?.['maxlength'] && (redeemform.controls['billNo'].touched || redeemform.controls['billNo'].pristine || redeemform.controls['billNo'].dirty)"
+                  >
+                    <div class="danger">Max-length is only 3 Calm down!!!</div>
+                  </div>
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Redeeming Date</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    [matDatepicker]="dp"
+                    formControlName="redemptionDate"
+                    placeholder="MMMM-DD-YYYY"
+                    style="width: 80%"
+                    autocomplete="nope"
+                    
+                    (focusout)="onFocusOut($event)"   
+                    (dateChange)="onBillSelected()"
+                  />
+                  <mat-datepicker-toggle
+                    matIconSuffix
+                    [for]="dp"
+                  ></mat-datepicker-toggle>
+                  <mat-datepicker #dp></mat-datepicker>
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Redemption Serial</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    maxlength="2"
+                    required
+                    formControlName="billRedemSerial"
+                    autocomplete="nope"
+                  />
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Redemption Number</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="Enter Redemption Number"
+                    formControlName="billRedemNo"
+                    autocomplete="nope"
+                  />
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Redemption Interest</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="0"
+                    formControlName="redemptionInterest"
+                    autocomplete="nope"
+                  />
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <tr>
+                <td><mat-label>Received Interest</mat-label></td>
+                <td>
+                  <input
+                    matInput
+                    type="text"
+                    placeholder="0"
+                    formControlName="receivedinterest"
+                    autocomplete="nope"
+                  />
+                </td>
+                <td class="icon-cell">
+                  <!-- Add icons if necessary -->
+                </td>
+              </tr>
+              <!-- <tr>
+              <td><mat-label>Redemption Total</mat-label></td>
+              <td>
+                <input
+                  matInput
+                  type="text"
+                  placeholder="0"
+                  formControlName="redemptionTotal"
+                  autocomplete="nope" 
+                />
+              </td>
+  
+            </tr> -->
+
+              <tr>
+                <td><mat-label>Select Type</mat-label></td>
+                <td>
+                  <mat-select formControlName="redemptionStatus">
+                    @for (food of foods; track food) {
+                    <mat-option [value]="food.value">{{
+                      food.viewValue
+                    }}</mat-option>
+                    }
+                  </mat-select>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <div class="buttons">
+            <button
+              mat-raised-button
+              class="globalButton"
+              color="primary"
+              type="submit"
+            >
+              @if(redeemform.get('redemptionStatus')?.value==='R'){ Redeem }
+              @else if (redeemform.get('redemptionStatus')?.value==='O') { Open
+              } @else { Cancel }
+            </button>
+
+            @if(redeemform.get('redemptionStatus')?.value==='R'){
+            <button
+              mat-raised-button
+              class="globalButton"
+              color="primary"
+              type="submit"
+              (click)="onRedeemPrint()"
+            >
+              Print
+            </button>
+            }
+
+            <!-- <button mat-raised-button color="warn" (click)="undoRedemption()">
+            Undo
+          </button> -->
+            <button
+              mat-raised-button
+              color="warn"
+              type="button"
+              (click)="reset()"
+              class="globalButton"
+            >
+              Reset
+            </button>
+          </div>
+        </div>
+        <div class="preview">
+          @if (!billfound) {
+
+          <div id="container">
+            <div class="squareip">
+              <div id="square" class="shimmer"></div>
+              <div id="square" class="shimmer"></div>
+            </div>
+            <div id="content">
+              <div id="content-title" class="shimmer"></div>
+              <div id="content-desc">
+                <div class="line shimmer"></div>
+                <div class="line shimmer"></div>
+                <div class="line shimmer"></div>
+                <div class="line shimmer"></div>
+                <div class="line shimmer"></div>
+                <div class="line shimmer"></div>
+              </div>
+            </div>
+          </div>
+          }
+          <div *ngIf="billfound" class="photo">
+            <div *ngIf="isPhoto; else noPhoto">
+              <div class="squareip">
+                <div class="photo-preview">
+                  <img [src]="photoPreview" alt="Customer Photo" />
+                  <div class="card-title">
+                    {{ bill.customer.customerName }} <br />
+                  </div>
+                </div>
+                <div class="photo-preview">
+                  <img [src]="photoPreview1" alt="Item Photo" />
+                  <div class="card-title">
+                    {{ bill.billDetails[0].productDescription }} <br />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <ng-template #noPhoto>
+              <div class="squareip">
+                <div class="card">
+                  <div class="card-photo"></div>
+                  <div class="card-title">
+                    {{ bill.customer.customerName }} <br />
+                  </div>
+                </div>
+                <div class="photo-preview">
+                  <img [src]="photoPreview1" alt="Item Photo" />
+                  <div class="card-title">
+                    {{ bill.billDetails[0].productDescription }} <br />
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+            <table class="styled-table">
+              <tr>
+                <td><span class="variable">Status:</span></td>
+                <td>
+                  <span class="special" *ngIf="redeemStatus === 'R'"
+                    >Redeemed</span
+                  >
+                  <span class="open" *ngIf="redeemStatus === 'O'">Open</span>
+                  <span class="special" *ngIf="redeemStatus === 'C'"
+                    >Cancel</span
+                  >
+                </td>
+              </tr>
+
+              <tr>
+                <td><span class="variable">Customer Name:</span></td>
+                <td>{{ bill.customer.customerName }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Customer Address:</span></td>
+                <td>{{ bill.customer.address }}</td>
+              </tr>
+
+              <tr>
+                <td><span class="variable">Pledge Date:</span></td>
+                <td>{{ bill.billDate }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Amount:</span></td>
+                <td>₹{{ bill.amount }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Redemption Total</span></td>
+                <td>{{ bill.amount + bill.redemptionInterest }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Total Received:</span></td>
+                <td>{{ bill.amount + bill.receivedinterest }}</td>
+              </tr>
+
+              <tr>
+                <td><span class="variable">No. of Months:</span></td>
+                <td>{{ bill.interestinmonths }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Weight:</span></td>
+                <td>{{ bill.grams }} gms</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Quantity:</span></td>
+                <td>{{ bill.billDetails[0].productQuantity }}</td>
+              </tr>
+              <tr>
+                <td><span class="variable">Item Description:</span></td>
+                <td>{{ getProductDescriptions(bill.billDetails) }}</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</section>
+<app-footer></app-footer>

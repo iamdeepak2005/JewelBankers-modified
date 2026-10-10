@@ -1,0 +1,72 @@
+
+  <div class="close" (click)="onNoClick()">
+    <mat-icon>close</mat-icon>
+  </div>
+  <h3>Item Details</h3>
+  <form [formGroup]="itemForm" (ngSubmit)="onSubmit()">
+      <div formGroupName="itemType">
+        <div class="span1234">
+          <div class="small-input">
+            <mat-label for="code">Code:</mat-label>
+            <input matInput id="code" formControlName="code" />
+          </div>
+          
+          <div class="large-input">
+            <mat-label for="description">Description:</mat-label>
+            <input matInput id="description" formControlName="description" />
+          </div>
+        </div>
+  
+  
+  
+        
+        
+  
+        <div class="span">      
+          <div>
+            <mat-label for="currentrate">Current Rate:</mat-label>
+            <input matInput id="currentrate" formControlName="currentrate" />
+          </div>
+          <div>
+              <mat-label for="gstpercentage">GST Percentage:</mat-label>
+              <input matInput id="gstpercentage" formControlName="gstpercentage" />
+            </div>
+            
+            <div>
+              <mat-label for="gstmakingpercentage">Making Percentage:</mat-label>
+              <input matInput id="gstmakingpercentage" formControlName="gstmakingpercentage" />
+            </div>
+        </div>
+      </div>
+      <div class="span1234">
+        <div class="small-input">
+          <mat-label for="type">Type:</mat-label>
+          <input matInput id="type" formControlName="type" />
+        </div>
+          
+      <div class="large-input">
+        <mat-label for="name">Item Name:</mat-label>
+        <input matInput id="name" formControlName="name" />
+      </div>
+    
+  
+      </div>
+      <div class="span">
+        <div>
+          <mat-label for="quantity">Quantity:</mat-label>
+          <input matInput id="quantity" formControlName="quantity" type="number" />
+        </div>
+        <div>
+          <mat-label for="weight">Weight:</mat-label>
+          <input matInput id="weight" formControlName="weight" type="number" />
+        </div>
+      
+        <div>
+          <mat-label for="purity">Purity:</mat-label>
+          <input matInput id="purity" formControlName="purity" type="number" />
+        </div>
+      </div>
+      <div class="btns">    
+        <button class="newbutton"type="submit" (click)="onSubmit()">Submit</button>
+      </div>
+  </form>

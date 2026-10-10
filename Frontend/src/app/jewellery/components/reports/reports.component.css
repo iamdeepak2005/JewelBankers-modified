@@ -1,0 +1,4 @@
+/* Scoped styles for Reports Component */
+:host {
+  display: block;
+}

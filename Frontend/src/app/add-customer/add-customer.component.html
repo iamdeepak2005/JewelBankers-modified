@@ -1,0 +1,101 @@
+
+  <section>
+    <a href="/redeem" id="addcc">Add Customer</a> 
+  
+    <form action="/login" [formGroup]="billform"  (ngSubmit)="onSubmit(billform)">
+  
+
+
+      <mat-form-field class="example-full-width">
+          <mat-label>Customer Name</mat-label>
+          <input  matInput formControlName="name" [formControl]="myControl"  placeholder="Enter Customer Name" [matAutocomplete]="auto"  >
+          <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCustomerSelected($event.option.value)">
+            <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+      <br>
+      <mat-form-field>
+        <mat-label>Relationship</mat-label>
+        <mat-select formControlName="Relationship">
+          <mat-option value="S\O">S\O</mat-option>
+          <mat-option value="D\O">D\O</mat-option>
+          <mat-option value="W\O">W\O</mat-option>
+          <mat-option value="C\O">C\O</mat-option>
+          <mat-option value="Others">Others</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="example-full-width">
+        <mat-label>Relation Name</mat-label>
+        <input  matInput formControlName="relationame" [formControl]="myControl"  placeholder="Enter Relation Name" [matAutocomplete]="auto"  >
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onCustomerSelected($event.option.value)">
+          <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+    </mat-form-field>
+  
+      <mat-form-field floatLabel="always">
+        <mat-label>Customer ID</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder=""formControlName="customerid">
+        <span matTextPrefix></span>
+      </mat-form-field>
+  <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Area</mat-label>
+        <textarea matInput placeholder="Enter Area " formControlName="area"></textarea>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Street</mat-label>
+        <textarea matInput placeholder="Enter Street " formControlName="street"></textarea>
+      </mat-form-field>
+    <br>
+
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>District</mat-label>
+        <textarea matInput placeholder="Enter District " formControlName="district"></textarea>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Country</mat-label>
+        <textarea matInput placeholder="Enter Country " formControlName="country"></textarea>
+      </mat-form-field>
+      <br>
+      
+
+      <br>
+      <mat-form-field floatLabel="always">
+        <mat-label>Pin Code</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" formControlName="pincode">
+        <span matTextPrefix></span>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Address</mat-label>
+        <textarea matInput placeholder="Enter Customer Address" formControlName="address"></textarea>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="example-full-width">
+        <mat-label>Email</mat-label>
+        <input matInput placeholder="dkag709@gmail.com" formControlName="email" >
+      </mat-form-field>
+      <br>
+      <mat-form-field floatLabel="always">
+        <mat-label>Phone Number</mat-label>
+        <input matInput type="number" class="example-right-align" placeholder="0" formControlName="phone">
+        <span matTextPrefix></span>
+      </mat-form-field>
+      
+      <br>
+
+      <div>
+        <button class="btn btn-primary" > ADD </button>
+        <button type="reset" (click)="billform.reset()">RESET</button>
+      </div>
+     
+    </form>
+  </section>
+  

@@ -1,0 +1,4 @@
+/* Scoped styles for Barcode Center */
+:host {
+  display: block;
+}

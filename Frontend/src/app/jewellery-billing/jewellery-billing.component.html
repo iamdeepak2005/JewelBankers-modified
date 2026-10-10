@@ -1,0 +1,140 @@
+<div class="container">
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="itemname">Item Name</label>
+        <input
+        matInput 
+        placeholder="Ex. One gold...." 
+        [formControl]="itemControl" 
+        maxlength="20000" 
+        minlength="20" 
+        class="description" 
+        [matAutocomplete]="autoItem"
+        rows="15"
+        />
+        <mat-autocomplete #autoItem="matAutocomplete">
+            <mat-option *ngFor="let option of filteredItemOptions | async; trackBy: trackByFn" [value]="option">
+              {{ option }}
+            </mat-option>
+          </mat-autocomplete>
+      </div>
+  
+
+  
+
+      <div class="m">
+        <div class="form-group">
+            <label for="grossWt">Gross Weight</label>
+            <input
+              type="text"
+              id="grossWt"
+              class="form-control"
+              formControlName="grossWt"
+              placeholder="Enter Gross Weight"
+            />
+          </div>
+        <div class="form-group">
+            <label for="stoneWt">Stone Weight</label>
+            <input
+              type="text"
+              id="stoneWt"
+              class="form-control"
+              formControlName="stoneWt"
+              placeholder="Enter Stone Weight"
+            />
+          </div>
+      
+
+      </div>
+
+
+  
+<div class="m">
+    <div class="form-group">
+        <label for="purity">Purity</label>
+        <input
+          type="text"
+          id="purity"
+          class="form-control"
+          formControlName="purity"
+          placeholder="Enter Purity"
+        />
+      </div>
+      <div class="form-group">
+        <label for="wastage">Wastage</label>
+        <input
+          type="text"
+          id="wastage"
+          class="form-control"
+          formControlName="wastage"
+          placeholder="Enter Wastage"
+        />
+      </div>
+</div>
+  
+<div class="m">
+    <div class="form-group">
+        <label for="rate">Rate</label>
+        <input
+          type="text"
+          id="rate"
+          class="form-control"
+          formControlName="rate"
+          placeholder="Enter Rate"
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="amount">Amount</label>
+        <input
+          type="text"
+          id="amount"
+          class="form-control"
+          formControlName="amount"
+          placeholder="Enter Amount"
+        />
+      </div>
+</div>
+  
+<div class="m">
+    
+    <div class="form-group">
+        <label for="qty">Quantity</label>
+        <input
+          type="text"
+          id="qty"
+          class="form-control"
+          formControlName="qty"
+          placeholder="Enter Quantity"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="totalAmt">Total Amount</label>
+        <input
+          type="text"
+          id="totalAmt"
+          class="form-control"
+          formControlName="totalAmt"
+          placeholder="Enter Total Amount"
+        />
+      </div>
+      
+</div>
+<div class="form-group">
+    <label for="netWt">Net Weight</label>
+    <input
+      type="text"
+      id="netWt"
+      class="form-control"
+      formControlName="netWt"
+      placeholder="Enter Net Weight"
+    />
+  </div>
+  
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </form>
+  </div>
+  

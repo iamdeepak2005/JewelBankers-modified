@@ -1,0 +1,382 @@
+<div class="ss">
+  <app-jewellery-header></app-jewellery-header>
+</div>
+<app-header></app-header>
+
+
+<div class="main">
+    <div class="contentScreenJewellery">
+      <div class="h2">
+        <h2 class="gold-gradient">{{shopName}}  </h2>
+        <p>{{shopAddress}}</p>
+      </div>
+      <div class="detail">
+        <div class="supplierName">
+          <mat-label class="matselectJewellery">{{this.toggleForm.get('toggling')?.value=='p'?"Supplier":this.toggleForm.get('toggling')?.value=='s'?"Customer":"Trader"}} Name</mat-label>
+          
+          <input 
+             
+          #myInput  matInput
+          [formControl]="myControl" 
+          [placeholder]= "this.toggleForm.get('toggling')?.value=='p'?'Enter Supplier Name':this.toggleForm.get('toggling')?.value=='s'?'Enter Customer Name':'Enter Trader Name'"  
+          [matAutocomplete]="auto" 
+          required *ngIf="isInputVisible"
+        >
+        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="onSupplierSelected()">
+          <mat-option *ngFor="let option of filteredOptions | async; trackBy: trackByFn" [value]="option">
+            {{ option }}
+          </mat-option>
+        </mat-autocomplete>
+
+      </div>
+      
+        <button class="edit"mat-fab aria-label="Example icon button with a delete icon" (click)="openDialogEdit()" >
+          <mat-icon>edit</mat-icon>
+        </button>     
+        
+      <form [formGroup]="toggleForm">
+        <mat-label>Select Type</mat-label>
+        <mat-button-toggle-group formControlName="toggling" aria-label="Font Style">
+          <mat-button-toggle value="p">Purchase</mat-button-toggle>
+          <mat-button-toggle value="s">Selling</mat-button-toggle>
+          <mat-button-toggle value="r">Trade</mat-button-toggle>
+        </mat-button-toggle-group>
+      </form>
+      <div class="supplyDate">
+        <mat-label>Date</mat-label>
+        <div class="date">
+          <input matInput [matDatepicker]="picker" (dateChange)="onDateChange($event)" [(ngModel)]="selectedDate">
+          <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </div>
+        <!-- This will show the formatted date with the same time (if desired) -->
+       
+      </div>
+      
+      
+
+      </div>
+
+        @if(this.toggleForm.get('toggling')?.value=='p'){
+ 
+          <div class="pur">
+      
+            <!-- <app-jewellery-billing></app-jewellery-billing> -->
+
+            <form [formGroup]="form" >
+              <div  class="nnn">
+                <button *ngIf="formArray.length ==0" (click)="addRow1()" mat-fab aria-label="Example icon button with a delete icon">
+                  <mat-icon>add</mat-icon>
+                </button> 
+      
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Item Name Details</th>
+                      <th>G. Wt</th>
+                      <th>S. Wt</th>
+                      <th>Nt. Wt</th>
+                      <th>Pty</th>
+                      <th>Rate</th>
+                      <th>Amount</th>
+                      <th>Wstg/grm</th>
+                      <!-- <th>Fin Wastage</th>
+                      <th>Purity Wastage</th> -->
+                      <th>Qty</th>
+                      <th>Total Amount</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody formArrayName="items">
+                    <tr *ngFor="let skill of formArray.controls; let i = index" [formGroupName]="i">
+                      <td>
+                        <input matInput formControlName="itemname" placeholder="Item Name" [matAutocomplete]="autoItem" #itemnameInputPurchase/>
+                        <mat-autocomplete #autoItem="matAutocomplete"(optionSelected)="onItemSelected($event.option.value,i)">
+                          <!-- Use the specific observable for each row (filteredItemOptions[i]) -->
+                          <mat-option *ngFor="let option of filteredItemOptions[i] | async; trackBy: trackByFn" [value]="option" >
+                            {{ option }}
+                          </mat-option>
+                        </mat-autocomplete>
+                      </td>                      <td><input matInput formControlName="grossWt" placeholder="Gross Wt" /></td>
+                      <td><input matInput formControlName="stoneweight" placeholder="Stone Wt" /></td>
+                      <td><input matInput formControlName="netWt" placeholder="Net Wt" /></td>
+                      <td><input matInput formControlName="purity" placeholder="Purity" /></td>
+                      <td><input matInput formControlName="rate" placeholder="Rate" /></td>
+                      <td><input matInput formControlName="amount" placeholder="Amount" /></td>
+                      <td><input matInput formControlName="wastagepercent" placeholder="Wastage" /></td>
+                      <td><input matInput formControlName="qty" placeholder="Quantity" /></td>
+                      <td><input matInput formControlName="totalamount" placeholder="Total Amt" /></td>
+                      <td class="actionsss">
+                         <div class="btns">                                   
+                          <button (click)="addRow1()" mat-fab aria-label="Example icon button with a delete icon">
+                            <mat-icon>add</mat-icon>
+                            </button>
+                            <button (click)="editPurchaseItem(i)" mat-fab aria-label="Example icon button with a delete icon">
+                              <mat-icon>edit</mat-icon>
+                              </button>
+                          <button *ngIf="formArray.length > 1" mat-fab aria-label="Example icon button with a delete icon" (click)="removeItem(i)">
+                            <mat-icon>delete</mat-icon>
+                          </button>
+                         </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td></td>
+                      <td>Total Amount</td>
+                      <td><input type="text"  [value]="totalPurchaseAmount | number:'1.2-2'"></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!-- <p class="btn123">
+                <button type="submit" class="globalButton" (click)="onSubmit()">SUBMIT</button>
+                <button type="reset" class="globalButton" (click)="resetPurchase()">RESET</button>
+              </p> -->
+            </form>    
+  
+  
+          </div>
+        }
+      @if(this.toggleForm.get('toggling')?.value=='s'){
+        <form [formGroup]="sellingForm" >
+          <div  class="nnn">
+            <button  *ngIf="sellingFormArray  .length == 0" (click)="addSellingRow()" mat-fab aria-label="Example icon button with a delete icon">
+              <mat-icon>add</mat-icon>
+            </button>
+
+  
+            <table >
+              <thead>
+                <tr>
+                  <th>Item Name Details</th>
+                  <th>G. Wt</th>
+                  <th>S. Wt</th>
+                  <th>Nt. Wt</th>
+                  <th>Pty</th>
+                  <th>Rate</th>
+                  <th>Amount</th>
+                  <th>Wstg/grm</th>
+                  <th>Qty</th>
+                  <th>Total Amount</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="items">
+                <tr *ngFor="let skill of sellingFormArray.controls; let i = index" [formGroupName]="i" >
+                  <td>
+                    <input matInput formControlName="itemname" placeholder="Item Name" [matAutocomplete]="autoItem" #itemnameInputSelling/>
+                    <mat-autocomplete #autoItem="matAutocomplete" (optionSelected)="onItemSelectedPurchase($event.option.value,i)">
+                      <!-- Use the specific observable for each row (filteredItemOptions[i]) -->
+                      <mat-option *ngFor="let option of filteredItemOptions[i] | async; trackBy: trackByFn" [value]="option">
+                        {{ option }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </td>
+                  
+                  <td><input matInput formControlName="grossWt" placeholder="Gross Wt" /></td>
+                  <td><input matInput formControlName="stoneweight" placeholder="Stone Wt" /></td>
+                  <td><input matInput formControlName="netWt" placeholder="Net Wt" /></td>
+                  <td><input matInput formControlName="purity" placeholder="Purity" /></td>
+                  <td><input matInput formControlName="rate" placeholder="Rate" /></td>
+                  <td><input matInput formControlName="amount" placeholder="Amount" /></td>
+                  <td><input matInput formControlName="wastagepercent" placeholder="Wastage" /></td>
+                  <td><input matInput formControlName="qty" placeholder="Quantity" /></td>
+                  <td><input matInput formControlName="totalamount" placeholder="Total Amt" /></td>
+                  <td class="actionsss">
+                     <div class="btns">                                   
+                      <button (click)="addSellingRow()" mat-fab aria-label="Example icon button with a delete icon">
+                        <mat-icon>add</mat-icon>
+                      </button>
+                      
+                      <button mat-fab aria-label="Example icon button with a delete icon" (click)="removeSellingItem(i)">
+                        <mat-icon>delete</mat-icon>
+                      </button>
+                     </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Total Amount</td>
+                  <td><input type="text"  [value]="totalAmount | number:'1.2-2'" ></td>
+                </tr>
+              </tbody>
+            </table>
+
+    
+          </div>
+          <!-- <p class="btn123">
+            <button type="submit" class="globalButton" (click)="onSubmit()">SUBMIT</button>
+            <button type="reset" class="globalButton" (click)="resetSelling()">RESET</button>
+          </p> -->
+        </form> 
+
+              }
+
+
+              @if(this.toggleForm.get('toggling')?.value=='r'){
+                <form [formGroup]="tradingForm" >
+  
+                  <div  class="nnn">
+                    <button *ngIf="tradingFormArray.length == 0"(click)="addTradingRow()" mat-fab aria-label="Example icon button with a delete icon">
+                      <mat-icon>add</mat-icon>
+                    </button>
+                    <table>
+                      <thead>
+                        <tr>
+                          <th>Item Name Details</th>
+                          <th>G. Wt</th>
+                          <th>S. Wt</th>
+                          <th>Nt. Wt</th>
+                          <th>Pty</th>
+                          <th>Rate</th>
+                          <th>Amount</th>
+                          <th>Wstg/grm</th>
+                          <th>Qty</th>
+                          <th>Total Amount</th>
+                          <th>Actions</th>
+                        </tr>
+                      </thead>
+                      <tbody formArrayName="items">
+                        <tr *ngFor="let skill of tradingFormArray.controls; let i = index" [formGroupName]="i" >
+                          <td>
+                            <input matInput formControlName="itemname" placeholder="Item Name" [matAutocomplete]="autoItem" #itemnameInput/>
+                            <mat-autocomplete #autoItem="matAutocomplete">
+                              <!-- Use the specific observable for each row (filteredItemOptions[i]) -->
+                              <mat-option *ngFor="let option of filteredItemOptions[i] | async; trackBy: trackByFn" [value]="option">
+                                {{ option }}
+                              </mat-option>
+                            </mat-autocomplete>
+                          </td>
+                          
+                          <td><input matInput formControlName="grossWt" placeholder="Gross Wt" /></td>
+                          <td><input matInput formControlName="stoneweight" placeholder="Stone Wt" /></td>
+                          <td><input matInput formControlName="netWt" placeholder="Net Wt" /></td>
+                          <td><input matInput formControlName="purity" placeholder="Purity" /></td>
+                          <td><input matInput formControlName="rate" placeholder="Rate" /></td>
+                          <td><input matInput formControlName="amount" placeholder="Amount" /></td>
+                          <td><input matInput formControlName="wastagepercent" placeholder="Wastage" /></td>
+                          <td><input matInput formControlName="qty" placeholder="Quantity" /></td>
+                          <td><input matInput formControlName="totalamount" placeholder="Total Amt" /></td>
+                          <td class="actionsss">
+                             <div class="btns">                                   
+                              <button (click)="addTradingRow()" mat-fab aria-label="Example icon button with a delete icon">
+                                <mat-icon>add</mat-icon>
+                              </button>
+                              <button *ngIf="tradingFormArray.length > 1" mat-fab aria-label="Example icon button with a delete icon" (click)="removeTradingItem(i)">
+                                <mat-icon>delete</mat-icon>
+                              </button>
+                             </div>
+                          </td>
+                        </tr>
+                                        <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td>Total Amount</td>
+                  <td><input type="text"  [value]="totalTradingAmount | number:'1.2-2'" ></td>
+                </tr>
+                      </tbody>
+                    </table>
+        
+            
+                  </div>
+                  <!-- <p class="btn123">
+                    <button class="globalButton" type="submit" (click)="onSubmit()">SUBMIT</button>
+                    <button type="reset" class="globalButton" (click)="resetTrading()">RESET</button>
+                  </p> -->
+                </form> 
+        
+              }
+                <!-- <div class="supplierTransactionDetails">
+                  <table mat-table [dataSource]="dataSource1" >
+                    <ng-container matColumnDef="date">
+                      <th mat-header-cell *matHeaderCellDef>Date</th>
+                      <td mat-cell *matCellDef="let row">{{ row.date }}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="itemsTraded">
+                      <th mat-header-cell *matHeaderCellDef>Items Traded</th>
+                      <td mat-cell *matCellDef="let row">{{ row.itemsTraded }}</td>
+                    </ng-container>
+                
+                    <ng-container matColumnDef="totalAmountTraded">
+                      <th mat-header-cell *matHeaderCellDef>Total Amount Traded</th>
+                      <td mat-cell *matCellDef="let row">{{ row.totalAmountTraded }}</td>
+                    </ng-container>
+                
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+                
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+                  </table>
+     
+                </div> -->
+  
+                      
+      <form class="total" [formGroup]="prices">
+        <div class="m1">
+          
+          <div class="box discount-box">
+            <mat-label>Discounted Price</mat-label>
+            <input type="text" matInput formControlName="discountPrice">
+            <mat-label>Discounted Amount</mat-label>
+            <input type="text" matInput formControlName="discountedAmount">
+          </div>
+
+          <div class="box gst-box">
+            <mat-label>CGST</mat-label>
+            <input type="text" matInput formControlName="cgst">
+            <mat-label>SGST</mat-label>
+            <input type="text" matInput formControlName="sgst">
+          </div>
+          
+          <div class="box payment-box">
+            <mat-label>Payment Type</mat-label>
+            <mat-select formControlName="pType">
+              <mat-option value="CHEQUE">Cheque</mat-option>
+              <mat-option value="CASH">Cash</mat-option>
+              <mat-option value="CREDITCARD">Credit Card</mat-option>
+              <mat-option value="UPI">UPI</mat-option>
+            </mat-select>
+            
+            <mat-label>Grand Total</mat-label>
+            <input type="text" matInput formControlName="total">
+          </div>
+  
+        
+         
+        </div>
+  
+      
+
+      </form>
+      <p class="btn123">
+        <button type="submit" class="globalButton" (click)="onSubmit()">SUBMIT</button>
+        <button type="reset" class="globalButton" (click)="resetPurchase()">RESET</button>
+      </p>
+  
+
+
+
+    </div>
+
+
+</div>

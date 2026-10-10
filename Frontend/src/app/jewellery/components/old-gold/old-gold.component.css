@@ -1,0 +1,4 @@
+/* Scoped styles for Old Gold Component */
+:host {
+  display: block;
+}

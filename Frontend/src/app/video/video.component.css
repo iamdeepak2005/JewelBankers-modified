@@ -1,0 +1,32 @@
+/* Container for video content to control height proportion */
+.video-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 85vh; /* Set to 85% of the viewport height */
+}
+
+.video-container {
+    position: relative;
+    width: 95%;
+    max-width: 100%;
+    height: 100%; /* Let it inherit from .video-content */
+    overflow: hidden;
+}
+
+.custom-video {
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
+    object-fit: cover; /* Maintain aspect ratio and cover container */
+}
+
+/* Centering the button and controlling its height */
+.button {
+    display: flex;
+    justify-content: center;
+    margin-top: 1rem;
+}
+.newbutton {
+    margin-bottom: 10px;
+}

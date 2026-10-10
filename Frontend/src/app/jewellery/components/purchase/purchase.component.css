@@ -1,0 +1,4 @@
+/* Scoped styles for Purchase Component */
+:host {
+  display: block;
+}

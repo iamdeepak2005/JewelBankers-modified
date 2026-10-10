@@ -1,0 +1,368 @@
+<div class="payment-page-wrapper">
+
+  <!-- Top Bar -->
+  <header class="page-header">
+    <div class="header-left">
+      <a routerLink="/jewellery/dashboard" class="back-link">
+        <mat-icon>arrow_back</mat-icon>
+        <span>Back to Dashboard</span>
+      </a>
+      <div class="page-title-group">
+        <div class="badge-rzp">
+          <span class="pulse-dot"></span>
+          Razorpay Payment Automation
+        </div>
+        <h1 class="page-title">Instant Pay & Dynamic QR Scanner</h1>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div class="mode-tabs">
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="paymentMode === 'subscription'"
+          (click)="switchMode('subscription')"
+        >
+          <mat-icon class="text-sm">verified</mat-icon>
+          <span>Subscription & AI</span>
+        </button>
+        <button
+          type="button"
+          class="tab-btn"
+          [class.active]="paymentMode === 'custom'"
+          (click)="switchMode('custom')"
+        >
+          <mat-icon class="text-sm">receipt_long</mat-icon>
+          <span>Custom / Invoice</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content Grid -->
+  <div class="content-grid">
+
+    <!-- Left Column: Plan Selection / Custom Form -->
+    <div class="left-panel">
+
+      @if (paymentMode === 'subscription') {
+        <div class="panel-section">
+          <div class="section-title">
+            <mat-icon class="text-amber-400">workspace_premium</mat-icon>
+            <span>Select Subscription Plan</span>
+          </div>
+
+          <div class="plans-list">
+            @for (plan of plans; track plan.id) {
+              <div
+                class="plan-card"
+                [class.selected]="selectedPlan.id === plan.id"
+                [class.popular]="plan.popular"
+                (click)="selectPlan(plan)"
+              >
+                @if (plan.badge) {
+                  <div class="plan-tag">{{ plan.badge }}</div>
+                }
+
+                <div class="plan-info-top">
+                  <div class="plan-title">{{ plan.name }}</div>
+                  <div class="plan-pricing">
+                    <span class="cur">₹</span>
+                    <span class="amt">{{ plan.amount }}</span>
+                    <span class="dur">/{{ plan.days }} days</span>
+                  </div>
+                </div>
+
+                <ul class="plan-perks">
+                  @for (f of plan.features; track f) {
+                    <li>
+                      <mat-icon class="check-icon">check_circle</mat-icon>
+                      <span>{{ f }}</span>
+                    </li>
+                  }
+                </ul>
+              </div>
+            }
+          </div>
+        </div>
+      } @else {
+        <div class="panel-section">
+          <div class="section-title">
+            <mat-icon class="text-amber-400">calculate</mat-icon>
+            <span>Custom Amount / Sale Invoice</span>
+          </div>
+
+          <div class="custom-form">
+            <div class="form-field">
+              <label>Amount to Collect (₹)</label>
+              <div class="input-with-icon">
+                <span class="prefix-cur">₹</span>
+                <input
+                  type="number"
+                  [(ngModel)]="customAmount"
+                  (change)="generateOrder()"
+                  placeholder="Enter amount"
+                  min="1"
+                />
+              </div>
+            </div>
+
+            <div class="form-field">
+              <label>Bill / Invoice Reference (Optional)</label>
+              <input
+                type="text"
+                [(ngModel)]="customBillRef"
+                (change)="generateOrder()"
+                placeholder="e.g. INV-2026-0042"
+                class="regular-input"
+              />
+            </div>
+
+            <div class="quick-amounts">
+              <span class="quick-label">Quick:</span>
+              <button type="button" class="quick-btn" (click)="customAmount = 500; generateOrder()">₹500</button>
+              <button type="button" class="quick-btn" (click)="customAmount = 1000; generateOrder()">₹1,000</button>
+              <button type="button" class="quick-btn" (click)="customAmount = 5000; generateOrder()">₹5,000</button>
+              <button type="button" class="quick-btn" (click)="customAmount = 10000; generateOrder()">₹10,000</button>
+            </div>
+          </div>
+        </div>
+      }
+
+      <!-- Security / Trust Banner -->
+      <div class="trust-banner">
+        <div class="trust-item">
+          <mat-icon class="text-emerald-400">lock</mat-icon>
+          <span>256-bit SSL Encrypted</span>
+        </div>
+        <div class="trust-item">
+          <mat-icon class="text-amber-400">bolt</mat-icon>
+          <span>Instant UPI Settlement</span>
+        </div>
+        <div class="trust-item">
+          <mat-icon class="text-sky-400">verified_user</mat-icon>
+          <span>Razorpay Verified Gateway</span>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Right Column: Live Dynamic Scanner & Checkout -->
+    <div class="right-panel">
+
+      <!-- ============================================ -->
+      <!-- SUCCESS SCREEN (PAID)                        -->
+      <!-- ============================================ -->
+      @if (isPaid) {
+        <div class="scanner-card success-mode">
+          <div class="success-badge-pulse">
+            <span class="dot-green"></span>
+            STATUS: PAID
+          </div>
+
+          <div class="success-check-circle">
+            <mat-icon>verified</mat-icon>
+          </div>
+
+          <h2 class="paid-heading">Payment Received & Verified!</h2>
+          <p class="paid-sub">
+            Transaction recorded into database. Your subscription / bill has been credited instantly.
+          </p>
+
+          <div class="receipt-box">
+            <div class="receipt-line">
+              <span class="lbl">Amount Confirmed:</span>
+              <span class="val font-mono text-amber-300 font-extrabold text-lg">₹{{ paymentResult?.amount || order?.amount }}</span>
+            </div>
+            <div class="receipt-line">
+              <span class="lbl">Razorpay Payment ID:</span>
+              <span class="val font-mono text-xs">{{ paymentResult?.paymentId }}</span>
+            </div>
+            <div class="receipt-line">
+              <span class="lbl">Order ID:</span>
+              <span class="val font-mono text-xs">{{ paymentResult?.orderId || order?.orderId }}</span>
+            </div>
+            @if (paymentResult?.newEndDate) {
+              <div class="receipt-line">
+                <span class="lbl">New Expiry Date:</span>
+                <span class="val text-emerald-400 font-bold">{{ paymentResult?.newEndDate }} ({{ paymentResult?.daysLeft }} days active)</span>
+              </div>
+            }
+            <div class="receipt-line">
+              <span class="lbl">Timestamp:</span>
+              <span class="val text-xs text-slate-400">{{ paymentResult?.paidAt || 'Just now' }}</span>
+            </div>
+          </div>
+
+          <div class="success-actions">
+            <a routerLink="/jewellery/dashboard" class="btn-dash">
+              <mat-icon>dashboard</mat-icon>
+              <span>Go to Dashboard</span>
+            </a>
+            <button type="button" class="btn-new-pay" (click)="generateOrder()">
+              <mat-icon>refresh</mat-icon>
+              <span>Collect Another Payment</span>
+            </button>
+          </div>
+        </div>
+      }
+
+      <!-- ============================================ -->
+      <!-- DYNAMIC QR SCANNER CARD                      -->
+      <!-- ============================================ -->
+      @else {
+        <div class="scanner-card">
+          <!-- Summary Header -->
+          <div class="scanner-header">
+            <div>
+              <div class="scanner-subtitle">Amount to Pay</div>
+              <div class="scanner-amount">₹{{ order?.amount || (paymentMode === 'subscription' ? selectedPlan.amount : customAmount) }}</div>
+            </div>
+            <div class="order-chip font-mono">
+              {{ order?.orderId || 'Generating...' }}
+            </div>
+          </div>
+
+          <!-- Dynamic QR Frame -->
+          <div class="qr-frame-wrapper">
+            @if (loading) {
+              <div class="qr-loading-box">
+                <div class="spinner-radar"></div>
+                <span>Generating live Razorpay Order & Scanner...</span>
+              </div>
+            } @else {
+              <div class="qr-viewport">
+                <!-- Target corners -->
+                <div class="target-corner t-tl"></div>
+                <div class="target-corner t-tr"></div>
+                <div class="target-corner t-bl"></div>
+                <div class="target-corner t-br"></div>
+
+                <!-- Animated Radar Scan Line -->
+                <div class="radar-line"></div>
+
+                <!-- QR Image -->
+                <img [src]="qrCodeUrl" alt="Razorpay Dynamic UPI Scanner" class="qr-img" />
+              </div>
+
+              <!-- Supported UPI Apps -->
+              <div class="upi-icons-strip">
+                <span class="app-chip">Google Pay</span>
+                <span class="app-chip">PhonePe</span>
+                <span class="app-chip">Paytm</span>
+                <span class="app-chip">BHIM UPI</span>
+                <span class="app-chip">CRED</span>
+              </div>
+
+              <!-- Live Polling & Timer -->
+              <div class="scan-status-strip">
+                <div class="listening-box">
+                  <span class="ping-dot"></span>
+                  <span>Auto-detecting payment...</span>
+                </div>
+                <div class="timer-chip">
+                  <mat-icon class="text-xs">schedule</mat-icon>
+                  <span>{{ timerDisplay }}</span>
+                </div>
+              </div>
+            }
+          </div>
+
+          <!-- Payment Options -->
+          <div class="scanner-buttons">
+            <!-- Razorpay Standard Checkout Popup -->
+            <button
+              type="button"
+              class="btn-rzp-checkout"
+              (click)="payWithCheckout()"
+              [disabled]="loading || verifying"
+            >
+              <mat-icon>credit_card</mat-icon>
+              <span>Pay via Cards / NetBanking / Wallets</span>
+            </button>
+
+            <!-- Test Mode Instant Simulation -->
+            <div class="test-helper-bar">
+              <button
+                type="button"
+                class="btn-sim-pay"
+                (click)="simulatePayment()"
+                title="Simulate instant payment verification for testing"
+              >
+                <mat-icon class="sim-bolt">bolt</mat-icon>
+                <span>Simulate Instant Payment (Test Mode)</span>
+              </button>
+            </div>
+          </div>
+
+        </div>
+      }
+
+    </div>
+
+  </div>
+
+  <!-- Recent Payments Audit Table -->
+  <section class="history-section">
+    <div class="history-header">
+      <div class="history-title">
+        <mat-icon class="text-amber-400">history</mat-icon>
+        <span>Recent Payment Transactions</span>
+      </div>
+      <button type="button" class="btn-refresh" (click)="loadPaymentHistory()">
+        <mat-icon>refresh</mat-icon>
+        <span>Refresh</span>
+      </button>
+    </div>
+
+    <div class="history-table-container">
+      <table class="history-table">
+        <thead>
+          <tr>
+            <th>Date & Time</th>
+            <th>Order ID</th>
+            <th>Payment ID</th>
+            <th>Plan / Description</th>
+            <th>Amount</th>
+            <th>Method</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @if (recentTransactions.length === 0) {
+            <tr>
+              <td colspan="7" class="text-center py-6 text-slate-500">
+                {{ loadingHistory ? 'Loading transactions...' : 'No transactions recorded yet. Complete a payment above.' }}
+              </td>
+            </tr>
+          } @else {
+            @for (tx of recentTransactions; track tx.id) {
+              <tr>
+                <td class="text-slate-400 text-xs">{{ tx.createdAt | date:'medium' }}</td>
+                <td class="font-mono text-xs text-slate-300">{{ tx.orderId }}</td>
+                <td class="font-mono text-xs text-slate-300">{{ tx.paymentId || '—' }}</td>
+                <td class="font-semibold text-slate-200">{{ tx.planName || tx.paymentType }}</td>
+                <td class="font-mono font-bold text-amber-300">₹{{ tx.amount | number:'1.2-2' }}</td>
+                <td>
+                  <span class="method-chip">{{ tx.paymentMethod || 'UPI' }}</span>
+                </td>
+                <td>
+                  <span
+                    class="status-chip"
+                    [class.status-paid]="tx.status === 'PAID'"
+                    [class.status-created]="tx.status === 'CREATED'"
+                    [class.status-failed]="tx.status === 'FAILED'"
+                  >
+                    {{ tx.status }}
+                  </span>
+                </td>
+              </tr>
+            }
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+</div>

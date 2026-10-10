@@ -1,0 +1,189 @@
+<div
+  class="jewel-layout-root flex h-screen w-screen overflow-hidden font-sans transition-colors duration-300"
+  [class.jewel-theme-dark]="currentTheme === 'dark'"
+  [class.jewel-theme-light]="currentTheme === 'light'"
+>
+
+  <!-- SIDEBAR -->
+  <aside
+    class="sidebar bg-slate-900 border-r border-slate-800/80 flex flex-col justify-between transition-all duration-300 z-30 shadow-2xl shrink-0"
+    [class.w-64]="sidebarOpen"
+    [class.w-20]="!sidebarOpen"
+  >
+    <!-- Brand Header -->
+    <div>
+      <div class="h-16 flex items-center justify-between px-4 border-b border-slate-800">
+        <div class="flex items-center gap-3 overflow-hidden cursor-pointer" routerLink="/jewellery/dashboard">
+          <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-amber-600 via-amber-400 to-yellow-200 flex items-center justify-center text-slate-950 font-bold shadow-lg shadow-amber-500/20 shrink-0">
+            <mat-icon class="text-slate-950">diamond</mat-icon>
+          </div>
+          <div *ngIf="sidebarOpen" class="flex flex-col whitespace-nowrap overflow-hidden">
+            <span class="font-bold text-base tracking-wide bg-gradient-to-r from-amber-200 to-yellow-400 bg-clip-text text-transparent">
+              JEWELBANKERS
+            </span>
+            <span class="text-[10px] text-amber-400/80 font-semibold tracking-widest uppercase -mt-0.5">
+              Jewellery ERP
+            </span>
+          </div>
+        </div>
+        <button
+          *ngIf="sidebarOpen"
+          (click)="toggleSidebar()"
+          class="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+        >
+          <mat-icon class="text-sm">menu_open</mat-icon>
+        </button>
+      </div>
+
+      <!-- Quick Pawn Broker Toggle Banner -->
+      <div class="p-3">
+        <button
+          (click)="goToPawnBroker()"
+          class="w-full flex items-center gap-2.5 px-3 py-2.5 rounded-xl bg-gradient-to-r from-emerald-950/80 to-slate-900 border border-emerald-500/40 text-emerald-300 hover:text-emerald-200 hover:border-emerald-400 hover:shadow-lg hover:shadow-emerald-950/50 transition group"
+          [matTooltip]="!sidebarOpen ? 'Switch to Pawn Broker Module' : ''"
+        >
+          <mat-icon class="text-emerald-400 group-hover:scale-110 transition-transform">account_balance</mat-icon>
+          <div *ngIf="sidebarOpen" class="flex flex-col text-left overflow-hidden">
+            <span class="text-xs font-semibold tracking-wide">Pawn Broker</span>
+            <span class="text-[10px] text-emerald-400/70">Pledges & Redemptions</span>
+          </div>
+          <mat-icon *ngIf="sidebarOpen" class="ml-auto text-xs opacity-60 group-hover:translate-x-0.5 transition-transform">arrow_forward</mat-icon>
+        </button>
+      </div>
+
+      <!-- Navigation Menu -->
+      <nav class="px-3 space-y-1.5 mt-1">
+        <a
+          *ngFor="let item of navItems"
+          [routerLink]="item.route"
+          routerLinkActive="bg-amber-500/10 text-amber-300 border-amber-500/40 shadow-sm"
+          [routerLinkActiveOptions]="{ exact: item.route === '/jewellery/dashboard' }"
+          class="flex items-center gap-3 px-3 py-2.5 rounded-xl border border-transparent text-slate-300 hover:bg-slate-800 hover:text-white transition group relative"
+          [matTooltip]="!sidebarOpen ? item.label : ''"
+        >
+          <mat-icon class="text-slate-400 group-hover:text-amber-400 group-hover:scale-110 transition-transform shrink-0">
+            {{ item.icon }}
+          </mat-icon>
+          <span *ngIf="sidebarOpen" class="text-sm font-medium whitespace-nowrap">
+            {{ item.label }}
+          </span>
+          <span
+            *ngIf="sidebarOpen && item.badge"
+            class="ml-auto text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full bg-amber-400/20 text-amber-300 border border-amber-400/30"
+          >
+            {{ item.badge }}
+          </span>
+        </a>
+      </nav>
+    </div>
+
+    <!-- Sidebar Bottom / User Area -->
+    <div class="p-3 border-t border-slate-800">
+      <button
+        *ngIf="!sidebarOpen"
+        (click)="toggleSidebar()"
+        class="w-full flex items-center justify-center p-2 mb-2 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <button
+        (click)="logout()"
+        class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-rose-400 hover:bg-rose-950/30 hover:text-rose-300 border border-transparent hover:border-rose-900/50 transition group"
+        [matTooltip]="!sidebarOpen ? 'Logout' : ''"
+      >
+        <mat-icon class="group-hover:rotate-12 transition-transform shrink-0">logout</mat-icon>
+        <span *ngIf="sidebarOpen" class="text-sm font-medium">Logout</span>
+      </button>
+    </div>
+  </aside>
+
+  <!-- MAIN WRAPPER -->
+  <div class="flex-1 flex flex-col min-w-0 overflow-hidden bg-slate-950">
+
+    <!-- TOPBAR -->
+    <header class="h-16 bg-slate-900/90 backdrop-blur border-b border-slate-800/80 flex items-center justify-between px-6 z-20 shrink-0">
+
+      <!-- Left: Rate Ticker -->
+      <div class="flex items-center gap-3 overflow-x-auto py-1">
+        <div class="flex items-center gap-2 bg-slate-800/80 border border-amber-500/30 rounded-xl px-3 py-1.5 shadow-sm shrink-0">
+          <span class="w-2 h-2 rounded-full bg-amber-400 animate-pulse"></span>
+          <span class="text-xs font-bold text-amber-300">Gold 22K:</span>
+          <span class="text-xs font-extrabold text-white">₹{{ goldRate22K | number }}<span class="text-[10px] text-slate-400 font-normal">/g</span></span>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-800/60 border border-slate-700/60 rounded-xl px-3 py-1.5 shadow-sm shrink-0">
+          <span class="text-xs font-medium text-slate-400">Gold 24K:</span>
+          <span class="text-xs font-bold text-slate-200">₹{{ goldRate24K | number }}<span class="text-[10px] text-slate-400 font-normal">/g</span></span>
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-800/60 border border-slate-700/60 rounded-xl px-3 py-1.5 shadow-sm shrink-0">
+          <span class="text-xs font-medium text-slate-400">Silver:</span>
+          <span class="text-xs font-bold text-slate-200">₹{{ silverRate | number }}<span class="text-[10px] text-slate-400 font-normal">/g</span></span>
+        </div>
+
+        <button
+          (click)="loadRates()"
+          class="p-1.5 rounded-lg text-slate-400 hover:text-amber-300 hover:bg-slate-800 transition"
+          matTooltip="Refresh bullion market rates"
+        >
+          <mat-icon class="text-xs">refresh</mat-icon>
+        </button>
+      </div>
+
+      <!-- Right: Scanner Status & Quick Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Hardware Scanner Pulse -->
+        <div
+          class="flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium border transition-all"
+          [ngClass]="activeScan ? 'bg-emerald-950 border-emerald-500 text-emerald-300 shadow-md shadow-emerald-900/50' : 'bg-slate-800/80 border-slate-700 text-slate-300'"
+        >
+          <mat-icon class="text-xs" [ngClass]="activeScan ? 'text-emerald-400 animate-bounce' : 'text-slate-400'">
+            qr_code_scanner
+          </mat-icon>
+          <span class="hidden sm:inline">{{ activeScan ? 'Barcode Scanned!' : 'Scanner Ready' }}</span>
+        </div>
+
+        <!-- Theme Toggle Button (Dark / Light) -->
+        <button
+          (click)="toggleTheme()"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border transition text-xs font-semibold"
+          [ngClass]="currentTheme === 'dark'
+            ? 'bg-slate-800/80 border-slate-700 text-amber-300 hover:bg-slate-700 hover:text-amber-200'
+            : 'bg-amber-100/70 border-amber-300/80 text-amber-900 hover:bg-amber-200/80'"
+          [matTooltip]="currentTheme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'"
+        >
+          <mat-icon class="text-sm">
+            {{ currentTheme === 'dark' ? 'light_mode' : 'dark_mode' }}
+          </mat-icon>
+          <span class="hidden md:inline">{{ currentTheme === 'dark' ? 'Light' : 'Dark' }}</span>
+        </button>
+
+        <!-- Razorpay Subscription & Payment Scanner Button -->
+        <button
+          (click)="openSubscriptionPayment()"
+          class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition text-xs font-semibold cursor-pointer"
+          matTooltip="Razorpay Automated Payment & Scanner"
+        >
+          <mat-icon class="text-sm text-amber-400">qr_code_scanner</mat-icon>
+          <span class="hidden sm:inline">UPI / Pay</span>
+        </button>
+
+        <!-- Quick POS Link Button -->
+        <button
+          routerLink="/jewellery/pos"
+          class="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-bold text-xs shadow-md shadow-amber-500/25 hover:from-amber-400 hover:to-yellow-400 transition"
+        >
+          <mat-icon class="text-sm">shopping_cart_checkout</mat-icon>
+          <span>New Bill</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- CONTENT BODY (Router Outlet) -->
+    <main class="flex-1 overflow-y-auto overflow-x-hidden p-6 bg-gradient-to-b from-slate-950 via-slate-900/50 to-slate-950">
+      <router-outlet></router-outlet>
+    </main>
+
+  </div>
+</div>

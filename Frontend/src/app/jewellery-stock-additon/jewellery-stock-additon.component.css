@@ -1,0 +1,433 @@
+
+
+
+
+
+.date{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+input[matInput] {
+  height: 25px; /* Increase the height for better clarity */
+  width: 80%;
+  padding: 0 10px;
+  margin: 5px 0;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  font-size: 14px; /* Adjust font size for readability */
+}
+
+
+
+
+
+
+
+
+
+
+input[matInput] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+
+
+
+
+
+mat-label {
+  font-size: 14px;
+  color: black; /* Black text for labels */
+}
+
+input[matInput] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border-radius: 4px;
+  border: 1px solid #ccc; /* Soft border to match the design */
+  background-color: #fff; /* White input fields for contrast */
+  color: black; /* Black text inside inputs */
+}
+
+
+
+h2 {
+  color: #333; /* Dark grey color for titles (less harsh than pure black) */
+  font-size: 1.75rem; /* Slightly smaller font size */
+  font-weight: 600; /* Slightly bold for emphasis */
+  margin-bottom: 20px;
+  text-align: center;
+  letter-spacing: 1px; /* Slight letter-spacing for a more sophisticated look */
+  text-transform: uppercase; /* Uppercase text for a modern feel */
+}
+
+
+/* Specific Styling for different boxes */
+
+input[matInput]::placeholder {
+  color: #888; /* Lighter grey for placeholders */
+}
+/* Container Styling */
+.contentScreenJewellery{
+  background-color: #f5f5f5; /* Light grey background for the entire screen */
+  padding: 20px;
+  font-family: Arial, sans-serif !important;
+  width: 100%;
+}
+
+h1 {
+  color: black; /* Black header */
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+/* General Form Styles */
+
+
+.supplierName, .supplyDate {
+  width: 48%; /* Two columns for supplier and date */
+  padding: 10px;
+}
+
+mat-label {
+  font-size: 14px;
+  color: black; /* Black color for labels */
+}
+
+.inputJewellery, input[matInput]{
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc; /* Light grey border */
+  border-radius: 4px;
+  background-color: white; /* White background for inputs */
+  color: black; /* Black text for inputs */
+}
+
+input[matInput]::placeholder {
+  color: #888; /* Lighter grey placeholder text */
+}
+
+
+
+
+
+
+
+/* Transaction Table Styling */
+
+
+
+
+
+/* Styling for add button inside the table */
+
+
+
+
+
+
+
+form {
+  max-width: 100%;
+  margin: auto;
+}
+
+
+
+.btns{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.suplierTransctionDetails {
+  margin: 20px auto;
+  width: 90%;
+  font-family: "Georgia", serif;
+  color: #333;
+}
+
+.ss{
+  position: fixed;
+  top: 0%;
+  z-index: 10;
+}
+table {
+  width: 100%; /* Ensure the table takes up the available width */
+  border-collapse: collapse; /* For consistent borders */
+}
+
+table th:first-child,
+table td:first-child {
+  width: 25%; /* Adjust this percentage or use a fixed width like 200px */
+}
+
+table th, 
+table td {
+  text-align: left; /* Align text to the left */
+  border: 1px solid #ddd; /* Add a border to each cell */
+}
+
+
+
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  text-align: left;
+  border: 1px solid #ddd; /* Light gray borders */
+  color: #000; /* Black text */
+}
+
+th {
+  background-color: #f0f0f0; /* Slightly darker for headers */
+  font-size: 0.8rem;
+}
+table th {
+  text-align: center; /* Center text horizontally */
+  vertical-align: middle; /* Center text vertically */
+  font-weight: bold; /* Ensure headers are bold for emphasis */
+  color: #000; /* Black text for better readability */
+}
+
+
+tr:nth-child(even) td {
+  background-color: #f7f7f7; /* Alternate row color */
+}
+
+/* Input Fields */
+input[matInput] {
+  margin: 0px;
+
+  background-color: #ffffff; /* White input background */
+  color: #000000; /* Black text */
+}
+
+input[matInput]::placeholder {
+  text-align: center;
+  font-size: 0.5rem;
+  color: #aaa; /* Lighter placeholder color */
+}
+
+/* Buttons */
+button[mat-fab] {
+  border: none;
+  cursor: pointer;
+  margin: 0 5px;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+button[mat-raised-button] {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+
+/* Autocomplete Styles */
+
+
+
+/* Additional Styles */
+.btns {
+  display: flex;
+  align-items: center;
+}
+
+.pur {
+  margin: 20px 0;
+}
+table input[matInput] {
+  text-align: center;
+  background-color: transparent; /* No background color */
+  border: none; /* No border */
+  color: #000000; /* Black text for readability */
+  padding: 5px; /* Add padding for alignment */
+  outline: none; /* Remove outline on focus */
+}
+
+table input[matInput]::placeholder {
+  color: #aaa; /* Lighter placeholder color */
+}
+
+
+.detail{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+.supplierName ,.supplyDate{
+  width: 48%;
+  padding: 10px;
+}
+.nnn{
+  display: flex;
+  align-items: center;
+}
+input[matInput]:focus {
+  margin: 0px;
+  outline: none; /* Remove the default outline */
+  border: 1px solid black; /* Add a black border on focus */
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5); /* Optional subtle shadow for focus effect */
+  background-color: white; /* Keep the background white */
+  color: black; /* Ensure text remains black */
+}
+.btn123{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}.total {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-start;
+  background: #f8f9fa; /* Light background */
+  padding: 10px 15px;
+  border-top: 2px solid #e0e0e0;
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  color: #333;
+}
+
+
+
+input[type="text"], mat-select {
+  padding: 4px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  font-size: 12px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.mat-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #666;
+}
+
+.gst-box {
+  background: #fffdf7;
+  border: 1px solid #f9e5b7;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.discount-box {
+  background: #f7f7ff;
+  border: 1px solid #c9c9f9;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+.payment-box {
+  background: #f0fff0;
+  border: 1px solid #a7e7a7;
+  border-radius: 4px;
+  padding: 8px;
+}
+
+input[type="text"]:focus, mat-select:focus {
+  outline: none;
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.m1{
+  display: flex;
+}
+@media screen and (max-width: 600px) {
+  .total {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  .box {
+    width: 100%;
+  }
+}
+.actionsss{
+  padding: 5px;
+}
+.gold-gradient {
+  background: linear-gradient(45deg, #e6be8a, #f1c27d, #d4af37); /* Softer gold gradient colors */
+  -webkit-background-clip: text; /* For Safari */
+  background-clip: text; /* For other browsers */
+  color: transparent; /* Make text color transparent to show the gradient */
+  font-weight: bold; /* Optional, for a stronger look */
+  font-size: 1.5rem; /* Optional, adjust size as needed */
+  border-radius: 25px;
+  box-shadow: 0 0 12px rgba(255, 223, 0, 0.4), 0 0 18px rgba(255, 223, 0, 0.3); /* Gold box shadow */
+  padding: 8px;
+  display: inline-block;
+  margin-right: 20px;
+}
+.h2{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.h2 p{
+  font-size: 0.8rem;
+}
+app-header{
+  display: none;
+}
+@media only screen and (max-width: 600px) {
+  .h2{
+    display: none;
+  }
+  app-header{
+    display: block;
+    width: 100%;
+  }
+  .detail{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  .detail form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+
+  }
+
+}
+.edit{
+  margin-top: 10px;
+}
+.m1234{
+  display: flex;
+  flex-direction: column;
+}
+.total{
+  margin-top: 20px;
+}

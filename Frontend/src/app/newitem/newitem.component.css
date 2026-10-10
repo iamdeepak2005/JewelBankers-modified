@@ -1,0 +1,191 @@
+/* General page styling */
+body {
+    background-color: #f5f5f5;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Form container styling */
+form {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Heading style */
+h3 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Input and label styling */
+mat-label {
+    color: #555;
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+mat-input {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+mat-input:focus {
+    border-color: #6200ee;
+    outline: none;
+}
+
+/* Input container */
+div {
+    margin-bottom: 15px;
+}
+
+/* Input type number styling */
+input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+/* Submit button styling */
+/* Focus effect on inputs */
+mat-input:focus {
+    border-color: #3700b3;
+    box-shadow: 0 0 5px rgba(55, 0, 179, 0.3);
+}
+
+input {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+/* General styling for mat labels */
+mat-label {
+    color: #555;
+}
+.span{
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+}.span1234 {
+    display: flex;
+    flex-direction: row; /* Adjust as needed */
+    gap: 10px;
+  }
+  
+  .small-input input {
+    width: 100px; /* Set a smaller width for the first input */
+  }
+  
+  .large-input input {
+    width: 350px; /* Set a larger width for the second input */
+  }
+  /* General Form Colors */
+form {
+    background-color: #f9f9f9; /* Light background */
+    color: #333333; /* Darker text for contrast */
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  
+  input[matInput] {
+    background: #ffffff; /* White input background */
+    border: 1px solid #cccccc; /* Light gray border */
+    color: #333333; /* Dark text */
+    padding: 10px;
+    border-radius: 4px;
+    transition: border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Focus Effect */
+  input[matInput]:focus {
+    border-color: #0078d7; /* Azure blue border on focus */
+    box-shadow: 0 0 5px #0078d7; /* Subtle azure glow */
+    outline: none;
+  }
+  
+  /* Labels */
+  mat-label {
+    color: #555555; /* Neutral gray for labels */
+    font-size: 0.95em;
+    margin-bottom: 5px;
+    display: block;
+  }
+  
+  /* Buttons */
+  
+  /* Hover Effect */
+  input[matInput]:hover {
+    border-color: #005a9e; /* Subtle darker blue on hover */
+    background: #f7fbff; /* Slightly tinted background on hover */
+  }
+  
+  /* Placeholder Text */
+  ::placeholder {
+    color: #aaaaaa; /* Light gray placeholder text */
+    opacity: 1;
+  }
+  h3 {
+    font-size: 1.8em; /* Larger font size for emphasis */
+    font-weight: bold;
+    text-align: center;
+    background: linear-gradient(90deg, #f9e79f, #f7dc6f); /* Lighter gold gradient */
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; /* Transparent fill to show gradient */
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1); /* Softer shadow for depth */
+    animation: shimmer 4s ease-in-out infinite; /* Subtle shimmering effect */
+  }
+  
+  /* Shimmer Effect */
+  @keyframes shimmer {
+    0% {
+      background-position: -150%;
+    }
+    100% {
+      background-position: 150%;
+    }
+  }
+  
+  h3:hover {
+    transform: scale(1.03); /* Gentle zoom effect on hover */
+    transition: transform 0.3s ease-in-out; /* Smooth transition */
+  }
+.btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.close {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background-color: #dc3545; /* Slightly softer red for a refined look */
+    width: 40px; /* Fixed size for the button */
+    height: 40px; /* Fixed size for the button */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    cursor: pointer; /* Show pointer on hover */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .close:hover {
+    background-color: #c82333; /* Darker red on hover */
+    transform: scale(1.1); /* Slight scale effect for hover */
+  }

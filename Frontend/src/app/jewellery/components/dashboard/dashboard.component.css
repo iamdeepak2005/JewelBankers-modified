@@ -1,0 +1,4 @@
+/* Scoped styles for Jewellery Dashboard */
+:host {
+  display: block;
+}

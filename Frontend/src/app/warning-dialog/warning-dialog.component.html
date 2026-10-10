@@ -1,0 +1,242 @@
+<div class="payment-modal-container">
+
+  <!-- ========================================== -->
+  <!-- STATE 1: PAYMENT SUCCESS / PAID STATUS     -->
+  <!-- ========================================== -->
+  @if (isPaid) {
+    <div class="success-screen">
+      <!-- Animated Green Success Checkmark -->
+      <div class="success-icon-wrap">
+        <div class="success-glow"></div>
+        <div class="success-circle">
+          <mat-icon class="check-icon">check_circle</mat-icon>
+        </div>
+      </div>
+
+      <div class="status-badge-paid">
+        <span class="dot-pulse"></span>
+        STATUS: PAID
+      </div>
+
+      <h2 class="success-title">Payment Confirmed!</h2>
+      <p class="success-subtitle">
+        Your subscription has been successfully updated and recorded in the database.
+      </p>
+
+      <!-- Receipt Card -->
+      <div class="receipt-card">
+        <div class="receipt-row">
+          <span class="label">Amount Paid</span>
+          <span class="value font-mono highlight">₹{{ paymentResult?.amount || selectedPlan.amount }}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Payment ID</span>
+          <span class="value font-mono text-xs">{{ paymentResult?.paymentId || 'pay_confirmed' }}</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Order ID</span>
+          <span class="value font-mono text-xs">{{ paymentResult?.orderId || order?.orderId }}</span>
+        </div>
+        <div class="receipt-row" *ngIf="paymentResult?.newEndDate">
+          <span class="label">New Expiry Date</span>
+          <span class="value font-bold text-emerald-400">{{ paymentResult?.newEndDate }} ({{ paymentResult?.daysLeft }} days left)</span>
+        </div>
+        <div class="receipt-row">
+          <span class="label">Gateway</span>
+          <span class="value">Razorpay Secured</span>
+        </div>
+      </div>
+
+      <div class="auto-close-notice">
+        Redirecting to JewelBankers in <span class="countdown-sec">{{ autoCloseTimer }}s</span>...
+      </div>
+
+      <button type="button" class="btn-continue" (click)="continueToApp()">
+        <mat-icon>verified</mat-icon>
+        <span>Continue to Application</span>
+      </button>
+    </div>
+  }
+
+  <!-- ========================================== -->
+  <!-- STATE 2: DYNAMIC RAZORPAY SCANNER VIEW     -->
+  <!-- ========================================== -->
+  @else if (isPay) {
+    <div class="scanner-screen">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <div class="header-branding">
+          <div class="rzp-pill">
+            <span class="rzp-dot"></span>
+            Razorpay Automated UPI
+          </div>
+          <h3 class="modal-title">Scan & Pay via UPI</h3>
+        </div>
+        <button type="button" class="btn-close" (click)="closeDialog()" aria-label="Close">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <!-- Plan Summary Strip -->
+      <div class="plan-summary-strip">
+        <div class="plan-info">
+          <span class="plan-name">{{ selectedPlan.name }}</span>
+          <span class="plan-duration">{{ selectedPlan.days }} Days Validity</span>
+        </div>
+        <div class="plan-cost">
+          ₹{{ selectedPlan.amount }}
+        </div>
+      </div>
+
+      <!-- QR Scanner Section -->
+      <div class="qr-scanner-card">
+        @if (loading) {
+          <div class="qr-loading-state">
+            <div class="spinner-pulse"></div>
+            <p>Generating Razorpay Dynamic Order & Scanner...</p>
+          </div>
+        } @else {
+          <div class="qr-viewport">
+            <!-- Corner scan targets -->
+            <div class="corner corner-tl"></div>
+            <div class="corner corner-tr"></div>
+            <div class="corner corner-bl"></div>
+            <div class="corner corner-br"></div>
+
+            <!-- Dynamic Scan Radar Line -->
+            <div class="radar-scan-line"></div>
+
+            <!-- QR Code Image -->
+            <img [src]="qrCodeUrl" alt="Razorpay UPI Dynamic QR Scanner" class="qr-image" />
+          </div>
+
+          <!-- Supported UPI Apps -->
+          <div class="upi-app-strip">
+            <span class="upi-tag">Google Pay</span>
+            <span class="upi-tag">PhonePe</span>
+            <span class="upi-tag">Paytm</span>
+            <span class="upi-tag">BHIM</span>
+            <span class="upi-tag">CRED</span>
+          </div>
+
+          <!-- Real-time Status and Timer -->
+          <div class="live-status-bar">
+            <div class="listening-indicator">
+              <span class="ping-circle"></span>
+              <span class="listening-text">Auto-detecting payment...</span>
+            </div>
+            <div class="timer-badge">
+              <mat-icon class="timer-icon">schedule</mat-icon>
+              <span>{{ timerDisplay }}</span>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Alternative Payment Buttons -->
+      <div class="payment-actions">
+        <!-- Razorpay Standard Checkout Button -->
+        <button
+          type="button"
+          class="btn-checkout"
+          (click)="openRazorpayModal()"
+          [disabled]="loading || verifying"
+        >
+          <mat-icon>credit_card</mat-icon>
+          <span>Pay with Cards / NetBanking / Wallet</span>
+        </button>
+
+        <!-- Test Simulation (Instant Verification) -->
+        <div class="test-helper-strip">
+          <button
+            type="button"
+            class="btn-simulate"
+            (click)="simulateInstantPayment()"
+            title="Instant confirmation simulation for testing"
+          >
+            <mat-icon class="sim-icon">bolt</mat-icon>
+            <span>Simulate Instant Payment (Test Mode)</span>
+          </button>
+        </div>
+
+        <button type="button" class="btn-back" (click)="isPay = false">
+          <mat-icon>arrow_back</mat-icon>
+          <span>Change Plan</span>
+        </button>
+      </div>
+    </div>
+  }
+
+  <!-- ========================================== -->
+  <!-- STATE 3: WARNING & PLAN SELECTION VIEW     -->
+  <!-- ========================================== -->
+  @else {
+    <div class="warning-screen">
+      <!-- Warning Header -->
+      <div class="warning-header">
+        <div class="warning-icon-wrap" [class.expired]="isNotAuthenticated">
+          <mat-icon>{{ isNotAuthenticated ? 'lock_clock' : 'warning_amber' }}</mat-icon>
+        </div>
+        <h3 class="warning-title">
+          {{ isNotAuthenticated ? 'Your Account Has Expired' : 'Subscription Renewal Approaching' }}
+        </h3>
+        <p class="warning-message">
+          @if (isNotAuthenticated) {
+            Access to JewelBankers AI features, automated billing, and live reports is currently paused. Please renew to resume instant access.
+          } @else {
+            Your access expires in <strong class="days-pill">{{ daysLeft }} days</strong>. Renew today to enjoy continuous service without interruptions.
+          }
+        </p>
+      </div>
+
+      <!-- Plan Selector Cards -->
+      <div class="plans-container">
+        <div class="plans-label">Select a Subscription Plan</div>
+
+        <div class="plan-cards-grid">
+          @for (plan of plans; track plan.id) {
+            <div
+              class="plan-card"
+              [class.active]="selectedPlan.id === plan.id"
+              (click)="selectPlan(plan)"
+            >
+              @if (plan.badge) {
+                <div class="plan-badge">{{ plan.badge }}</div>
+              }
+              <div class="plan-top">
+                <div class="plan-header-title">{{ plan.name }}</div>
+                <div class="plan-price">
+                  <span class="currency">₹</span>
+                  <span class="amount">{{ plan.amount }}</span>
+                  <span class="period">/{{ plan.days }}d</span>
+                </div>
+              </div>
+
+              <ul class="plan-features">
+                @for (f of plan.features; track f) {
+                  <li>
+                    <mat-icon class="feat-check">check</mat-icon>
+                    <span>{{ f }}</span>
+                  </li>
+                }
+              </ul>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Actions -->
+      <div class="warning-actions">
+        <button type="button" class="btn-pay-now" (click)="pay()">
+          <mat-icon>qr_code_scanner</mat-icon>
+          <span>Proceed to Razorpay Scanner (₹{{ selectedPlan.amount }})</span>
+        </button>
+
+        <button type="button" class="btn-cancel" (click)="closeDialog()">
+          <span>Dismiss</span>
+        </button>
+      </div>
+    </div>
+  }
+
+</div>

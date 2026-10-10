@@ -1,0 +1,76 @@
+<div class="close" (click)="onNoClick()" tabindex="0" (keydown)="onTabPress($event)">
+    <mat-icon>close</mat-icon>
+  </div>
+  
+<div class="results">
+    <mat-label id="results"></mat-label>
+    <table class="resultsTable" mat-table [dataSource]="dataSource">
+      <!-- Bill Serial Column -->
+      <ng-container matColumnDef="billSerial">
+        <th mat-header-cell *matHeaderCellDef> Bill Serial </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.billSerial}} </td>
+      </ng-container>
+  
+      <!-- Bill No Column -->
+      <ng-container matColumnDef="billNo">
+        <th mat-header-cell *matHeaderCellDef> Bill No </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.billNo}} </td>
+      </ng-container>
+  
+      <!-- Bill Date Column -->
+      <ng-container matColumnDef="billDate">
+        <th mat-header-cell *matHeaderCellDef> Bill Date </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.billDate}} </td>
+      </ng-container>
+  
+      <!-- Amount Column -->
+      <ng-container matColumnDef="amount">
+        <th mat-header-cell *matHeaderCellDef> Amount </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.amount}} </td>
+      </ng-container>
+  
+      <!-- Weight Column -->
+      <ng-container matColumnDef="weight">
+        <th mat-header-cell *matHeaderCellDef> Weight (grams) </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.weight}} </td>
+      </ng-container>
+  
+      <!-- Product Description Column -->
+      <ng-container matColumnDef="productDescription">
+        <th mat-header-cell *matHeaderCellDef> Product Description </th>
+
+        <td
+        mat-cell
+        *matCellDef="let bill"
+        class="truncate-cell"
+        matTooltip="{{ bill.productDescription }}">
+        {{ truncateText(bill.productDescription, 20) }}
+      </td>
+      
+          
+      </ng-container>
+      
+      
+  
+      <!-- Interest Column -->
+      <ng-container matColumnDef="interest">
+        <th mat-header-cell *matHeaderCellDef> Interest </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.interest}} </td>
+      </ng-container>
+  
+      <!-- Total Column -->
+      <ng-container matColumnDef="total">
+        <th mat-header-cell *matHeaderCellDef> Total </th>
+        <td mat-cell *matCellDef="let bill"> {{bill.total}} </td>
+      </ng-container>
+  
+      <!-- Header Row and Data Row -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+  <div class="total">
+    <mat-label><span class="label">Interest:</span><span class="resultLabel">{{intrest}}</span></mat-label>
+    <mat-label><span class="label">Grand Total:</span><span class="resultLabel">{{total}}</span></mat-label>  
+  </div>
+  

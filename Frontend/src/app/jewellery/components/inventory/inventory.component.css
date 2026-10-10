@@ -1,0 +1,4 @@
+/* Scoped styles for Jewellery Inventory */
+:host {
+  display: block;
+}

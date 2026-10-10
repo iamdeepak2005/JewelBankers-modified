@@ -1,0 +1,77 @@
+# =============================================================================
+# JewelBankers Monorepo .gitignore
+# =============================================================================
+
+# --- Dependencies ---
+node_modules/
+Frontend/node_modules/
+whatsapp-service/node_modules/
+
+# --- Angular Build Output & Cache ---
+Frontend/.angular/
+Frontend/dist/
+.angular/
+dist/
+tmp/
+out-tsc/
+bazel-out/
+
+# --- Maven / Java Build Output ---
+Backend/target/
+Backend/BOOT-INF/
+target/
+BOOT-INF/
+*.class
+*.jar
+*.war
+Backend/*.jar
+
+# --- WhatsApp Baileys Auth Credentials & Sessions (CRITICAL) ---
+whatsapp-service/whatsapp_auth_info/
+whatsapp-service/auth_info/
+whatsapp_auth_info/
+auth_info/
+*.session
+
+# --- Application Uploads & Runtime Data ---
+Backend/uploads/
+uploads/
+**/bills/**
+
+# --- Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- IDEs and Editors ---
+.vscode/
+Backend/.vscode/
+Frontend/.vscode/
+.idea/
+Backend/.idea/
+*.iml
+*.iws
+*.ipr
+.apt_generated
+.factorypath
+.project
+.classpath
+.settings/
+Backend/.settings/
+Frontend/.project
+Frontend/.classpath
+Frontend/.settings/
+.springBeans
+.sts4-cache
+
+# --- OS System Files ---
+.DS_Store
+Thumbs.db
+ehthumbs.db
+
+# --- Temporary Scratch Files ---
+scratch_*.js
+test_wa.json
+**/.git_backup/
+.git_backup/

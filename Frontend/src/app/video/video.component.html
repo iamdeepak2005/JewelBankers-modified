@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>{{data.videoPath.name}}</h1>
+<div mat-dialog-content class="video-content">
+  <div class="video-container">
+    <video [src]="data.videoPath.videoPath" controls autoplay class="custom-video">
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</div>
+<div mat-dialog-actions class="button">
+  <button mat-button mat-dialog-close class="newbutton" (click)="close()">Close</button>
+</div>

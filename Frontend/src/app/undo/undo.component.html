@@ -1,0 +1,131 @@
+
+
+<section>
+
+<form action="">
+
+
+    <div class="dropdown-container">
+        <span for="options">Undo</span>
+        <select id="options" class="dropdown">
+          <option value="pledgeUndo">Pledge</option>
+          <option value="redeemUndo">Redemption</option>
+        </select>
+      </div>
+    <hr>
+    <h4>Enter Details To Undo.....</h4>
+
+
+<div class="pledgeBill">
+    <mat-form-field class="PledgeBillSerial">
+      <mat-label>Bill No.</mat-label>
+      <mat-label></mat-label>
+      <!-- <input matInput placeholder="Enter billno" maxlength="2" required formControlName="billSerial"> -->
+      <input placeholder="Enter billno" maxlength="2" required formControlName="billSerial" class="input" type="text" />
+    </mat-form-field>
+
+
+
+    <mat-form-field class="PledgeBillNo" floatLabel="always">
+      <mat-label></mat-label>
+      <input matInput type="number" class="input"  placeholder="00000"  formControlName="billno">
+    </mat-form-field>
+
+  </div>
+  <div class="details1">
+
+    <mat-form-field  class="customerName">
+      <mat-label>Customer Name</mat-label>
+      <input placeholder="Enter Customer Name" formControlName="name" class="input" type="text" />
+    </mat-form-field>
+
+
+
+    <mat-form-field floatLabel="always" style="display: none;">
+      <mat-label>Customer ID</mat-label>
+      <input matInput type="number" class="input" placeholder=""formControlName="customerid">
+      <span matTextPrefix></span>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="customerAddress">
+      <mat-label>Customer Address</mat-label>
+      <textarea matInput class="input" placeholder="Enter Customer Address" formControlName="adrress"></textarea>
+    </mat-form-field>
+
+
+
+    <mat-form-field class="article">
+      <mat-label>Article</mat-label>
+      <input  placeholder= "Enter Article"class="input" formControlName="article">
+        <!-- <mat-option value="5">Gold</mat-option>
+        <mat-option value="3">Silver</mat-option>
+        <mat-option value="6">Bronze</mat-option>
+        <mat-option value="7">Copper</mat-option>
+        <mat-option value="Others">Others</mat-option> -->
+      
+    </mat-form-field>
+  </div>
+
+
+  <div class="details2">
+    <mat-form-field class="amount" floatLabel="always">
+      <mat-label>Amount</mat-label>
+      <input class="input" matInput type="number" placeholder="0" formControlName="amount">
+      <span matTextPrefix>₹</span>
+      <span matTextSuffix>.00</span>
+    </mat-form-field>
+
+    
+    <mat-form-field class="presentValue" floatLabel="always">
+      <mat-label>Present Value</mat-label>
+      <input matInput type="number"class="input" placeholder="0" formControlName="presentvalue"> 
+      <span matTextPrefix>₹</span>
+      <span matTextSuffix>.00</span>
+    </mat-form-field>
+    
+
+    <mat-form-field class="pledgeDate">
+      <mat-label>Pledge Date</mat-label>
+      <input class="input" type="date" matInput [matDatepicker]="dp" formControlName="date">
+      <mat-hint>MMMM DD, YYYY</mat-hint>
+      <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+      <mat-datepicker #dp></mat-datepicker>
+    </mat-form-field>
+
+
+    
+    <mat-form-field class ="weight" floatLabel="always">
+      <mat-label>Weight</mat-label>
+      <input class="input" matInput type="number"  placeholder="0" formControlName="weight">
+      <span matTextPrefix></span>
+      <span matTextSuffix>gms</span>
+    </mat-form-field>
+  </div>
+ 
+<div class="details3">
+    <mat-form-field  class ="quantity" floatLabel="always">
+      <mat-label>Quantity</mat-label>
+      <input  placeholder="Enter Quantity"class="input" matInput type="number"   value="1" formControlName="quantity">
+      <span matTextPrefix></span>
+    </mat-form-field>
+
+
+    <mat-form-field class ="itemDescription">
+      <mat-label>Item Description</mat-label>
+      <textarea  class="input"  matInput placeholder="Ex.One gold...." formControlName="description"></textarea>
+    </mat-form-field>
+    
+</div>
+<div class ="button234">
+    <button class="btn btn-primary"><span>Save</span>
+    </button>
+    <button  type="reset" (click)="redeemform.reset()"><span>Reset</span>
+    </button>
+    <button><span>Print</span>
+    </button>
+</div>
+
+</form>
+</section>

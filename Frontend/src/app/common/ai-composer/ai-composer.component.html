@@ -1,0 +1,382 @@
+<!-- DOCKED FLOATING AI LAUNCHER (When drawer is closed) -->
+<div class="ai-launcher-container" *ngIf="!isOpen">
+  <div class="ai-launcher-pill" (click)="toggleDrawer()">
+    <div class="ai-sparkle-icon">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L14.2 7.8L20 10L14.2 12.2L12 18L9.8 12.2L4 10L9.8 7.8L12 2Z" fill="url(#sparkle-grad)" stroke="#F59E0B" stroke-width="0.5"/>
+        <path d="M19 16L20 19L23 20L20 21L19 24L18 21L15 20L18 19L19 16Z" fill="#FBBF24"/>
+        <defs>
+          <linearGradient id="sparkle-grad" x1="4" y1="2" x2="20" y2="18" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#F59E0B"/>
+            <stop offset="1" stop-color="#D97706"/>
+          </linearGradient>
+        </defs>
+      </svg>
+    </div>
+    <span class="ai-launcher-label">Jewel AI</span>
+    <span class="ai-launcher-hint">Ask anything or speak...</span>
+    
+    <button class="ai-icon-btn mic-btn" (click)="$event.stopPropagation(); toggleListening()" [class.listening]="isListening" title="Voice Assistant">
+      <mat-icon>{{ isListening ? 'mic_off' : 'mic' }}</mat-icon>
+      <span *ngIf="isListening" class="pulse-ring"></span>
+    </button>
+
+    <button class="ai-icon-btn camera-btn" (click)="$event.stopPropagation(); triggerFileInput()" title="Analyze Image/Receipt">
+      <mat-icon>photo_camera</mat-icon>
+    </button>
+  </div>
+</div>
+
+<!-- EXPANDABLE FULL AI ASSISTANT DRAWER -->
+<div class="ai-drawer-overlay" *ngIf="isOpen" (click)="closeDrawer()">
+  <div class="ai-drawer-panel" (click)="$event.stopPropagation()">
+    
+    <!-- DRAWER HEADER -->
+    <div class="ai-drawer-header">
+      <div class="ai-header-left">
+        <div class="ai-avatar">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+            <path d="M12 2L14.4 8.6L21 11L14.4 13.4L12 20L9.6 13.4L3 11L9.6 8.6L12 2Z" fill="#F59E0B"/>
+          </svg>
+        </div>
+        <div class="ai-header-info">
+          <div class="ai-header-title">
+            <h3>Jewel AI Assistant</h3>
+            <span class="ai-badge">Gemini 2.0</span>
+          </div>
+          <span class="ai-header-sub">Jewellery & Pawnbroker Intelligence</span>
+        </div>
+      </div>
+
+      <div class="ai-header-actions">
+        <button class="ai-action-btn" (click)="clearChat()" title="Clear conversation">
+          <mat-icon>delete_sweep</mat-icon>
+        </button>
+        <button class="ai-action-btn close-btn" (click)="closeDrawer()" title="Minimize">
+          <mat-icon>expand_more</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- SUGGESTION CHIPS -->
+    <div class="ai-chips-scroll">
+      <div class="ai-chips-container">
+        <button *ngFor="let chip of suggestionChips" class="ai-chip" (click)="useSuggestion(chip.prompt)">
+          {{ chip.label }}
+        </button>
+      </div>
+    </div>
+
+    <!-- MESSAGES CONVERSATION CONTAINER -->
+    <div class="ai-messages-container" #chatScroll>
+      <div *ngFor="let msg of messages" class="ai-message-row" [ngClass]="msg.sender">
+        
+        <!-- Assistant Avatar -->
+        <div *ngIf="msg.sender === 'assistant'" class="msg-avatar assistant-avatar">
+          <mat-icon>auto_awesome</mat-icon>
+        </div>
+
+        <div class="ai-bubble" [ngClass]="msg.sender">
+          
+          <!-- Multimodal Image Preview if sent -->
+          <div *ngIf="msg.image" class="msg-image-wrap">
+            <img [src]="msg.image" alt="Attached preview" class="msg-image-thumb"/>
+          </div>
+
+          <!-- Loading state -->
+          <div *ngIf="msg.loading" class="ai-typing-indicator">
+            <span></span><span></span><span></span>
+            <p>Thinking & consulting business services...</p>
+          </div>
+
+          <!-- Message Text -->
+          <div *ngIf="!msg.loading" class="msg-text-content">
+            {{ msg.text }}
+          </div>
+
+          <!-- RICH CARDS FOR TOOL RESULTS -->
+          <div *ngIf="msg.response?.toolResults && msg.response!.toolResults!.length > 0" class="ai-cards-container">
+            <div *ngFor="let tool of msg.response!.toolResults" class="ai-tool-card">
+
+              <!-- 1. CUSTOMER SEARCH RESULTS CARD -->
+              <div *ngIf="tool.displayType === 'customer_card' && tool.data" class="customer-results-wrapper">
+                <div class="card-header-bar">
+                  <mat-icon>people_alt</mat-icon>
+                  <span>Customer Matches</span>
+                </div>
+
+                <!-- Multiple Matches List -->
+                <div *ngIf="tool.data.length" class="customer-list">
+                  <div *ngFor="let c of tool.data" class="customer-card-item">
+                    <div class="customer-top-line">
+                      <strong class="cust-name">{{ c.customerName }}</strong>
+                      <span class="match-tag" [ngClass]="c.matchCategory?.toLowerCase()">
+                        {{ (c.similarityScore * 100) | number:'1.0-0' }}% {{ c.matchCategory }}
+                      </span>
+                    </div>
+
+                    <div class="customer-details-grid">
+                      <span *ngIf="c.phoneno || c.mobileno" class="cust-meta">
+                        <mat-icon>phone</mat-icon> {{ c.mobileno || c.phoneno }}
+                      </span>
+                      <span *ngIf="c.area || c.street || c.address" class="cust-meta">
+                        <mat-icon>place</mat-icon> {{ c.area || c.street || c.address }}
+                      </span>
+                    </div>
+
+                    <div class="customer-stats-bar">
+                      <span class="stat-pill open-pledges">Open Pledges: {{ c.openPledgeCount || 0 }}</span>
+                      <span class="stat-pill closed-pledges">Redeemed: {{ c.redeemedPledgeCount || 0 }}</span>
+                    </div>
+
+                    <div class="customer-card-actions">
+                      <button class="card-action-btn" (click)="useSuggestion('Get transaction history for customer ID ' + c.customerid)">
+                        <mat-icon>history</mat-icon> View History
+                      </button>
+                      <button class="card-action-btn primary" (click)="useSuggestion('Search open pledges for ' + c.customerName)">
+                        <mat-icon>folder_open</mat-icon> Open Pledges
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 2. PLEDGE RESULTS CARD -->
+              <div *ngIf="tool.displayType === 'pledge_card' && tool.data" class="pledge-card-wrapper">
+                <div class="card-header-bar">
+                  <mat-icon>receipt_long</mat-icon>
+                  <span>Pledge Information</span>
+                </div>
+
+                <!-- Single Pledge Object -->
+                <div *ngIf="!tool.data.length && tool.data.billSequence" class="pledge-single-item">
+                  <div class="pledge-head">
+                    <span class="pledge-serial">{{ tool.data.billSerial }}{{ tool.data.billNo }}</span>
+                    <span class="status-badge" [class.open]="tool.data.status === 'OPEN'" [class.redeemed]="tool.data.status === 'REDEEMED'">
+                      {{ tool.data.status }}
+                    </span>
+                  </div>
+
+                  <div class="pledge-body-grid">
+                    <div>
+                      <label>Customer</label>
+                      <p>{{ tool.data.customerName || 'N/A' }}</p>
+                    </div>
+                    <div>
+                      <label>Pledge Amount</label>
+                      <p class="highlight-amt">₹{{ tool.data.amount | number }}</p>
+                    </div>
+                    <div>
+                      <label>Pledge Date</label>
+                      <p>{{ tool.data.billDate }}</p>
+                    </div>
+                    <div>
+                      <label>Articles</label>
+                      <p>{{ tool.data.articles || 'Jewellery' }}</p>
+                    </div>
+                    <div *ngIf="tool.data.interest">
+                      <label>Interest</label>
+                      <p class="interest-amt">₹{{ tool.data.interest | number }}</p>
+                    </div>
+                    <div *ngIf="tool.data.total">
+                      <label>Total to Pay</label>
+                      <p class="total-amt">₹{{ tool.data.total | number }}</p>
+                    </div>
+                  </div>
+
+                  <div class="pledge-actions" *ngIf="tool.data.status === 'OPEN'">
+                    <button class="card-action-btn redeem-btn" (click)="useSuggestion('Redeem pledge ' + tool.data.billSequence)">
+                      <mat-icon>payments</mat-icon> Redeem This Pledge
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Multiple Pledges List -->
+                <div *ngIf="tool.data.length" class="pledge-multi-list">
+                  <div *ngFor="let p of tool.data" class="pledge-multi-item">
+                    <div class="pledge-head">
+                      <strong>{{ p.billSerial }}{{ p.billNo }}</strong>
+                      <span class="status-badge" [class.open]="p.status === 'OPEN'" [class.redeemed]="p.status === 'REDEEMED'">
+                        {{ p.status }}
+                      </span>
+                    </div>
+                    <div class="pledge-info-row">
+                      <span>{{ p.customerName }}</span>
+                      <strong class="highlight-amt">₹{{ p.amount | number }}</strong>
+                    </div>
+                    <div class="pledge-info-sub">
+                      <span>{{ p.billDate }} • {{ p.articles }}</span>
+                    </div>
+                    <div class="pledge-item-actions">
+                      <button class="mini-btn" (click)="useSuggestion('Calculate redemption for pledge ' + p.billSequence)">
+                        Calculate
+                      </button>
+                      <button *ngIf="p.status === 'OPEN'" class="mini-btn redeem" (click)="useSuggestion('Redeem pledge ' + p.billSequence)">
+                        Redeem
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 3. INVENTORY & BARCODE CARD -->
+              <div *ngIf="tool.displayType === 'inventory_card' && tool.data" class="inventory-card-wrapper">
+                <div class="card-header-bar">
+                  <mat-icon>diamond</mat-icon>
+                  <span>Inventory / Barcode Item</span>
+                </div>
+
+                <!-- Single Item Details -->
+                <div *ngIf="tool.data.item || tool.data.itemName" class="item-detail-view">
+                  <div class="item-head">
+                    <h4>{{ (tool.data.item || tool.data).itemName }}</h4>
+                    <span class="barcode-pill" *ngIf="tool.data.barcodeValue || (tool.data.item || tool.data).barcode">
+                      <mat-icon>qr_code_2</mat-icon> {{ tool.data.barcodeValue || (tool.data.item || tool.data).barcode }}
+                    </span>
+                  </div>
+
+                  <div class="item-grid">
+                    <div>
+                      <label>Metal Type</label>
+                      <p class="metal-tag">{{ (tool.data.item || tool.data).metalType }}</p>
+                    </div>
+                    <div>
+                      <label>Gross Wt</label>
+                      <p>{{ (tool.data.item || tool.data).grossWeight }}g</p>
+                    </div>
+                    <div>
+                      <label>Net Wt</label>
+                      <p>{{ (tool.data.item || tool.data).netWeight }}g</p>
+                    </div>
+                    <div>
+                      <label>Purity</label>
+                      <p>{{ (tool.data.item || tool.data).purity }}K</p>
+                    </div>
+                    <div>
+                      <label>Status</label>
+                      <p class="status-pill">{{ (tool.data.item || tool.data).status }}</p>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Multi Inventory Items -->
+                <div *ngIf="tool.data.length" class="inventory-multi-list">
+                  <div *ngFor="let item of tool.data" class="inventory-row">
+                    <div class="inv-left">
+                      <strong>{{ item.itemName }}</strong>
+                      <span>{{ item.metalType }} • {{ item.grossWeight }}g ({{ item.purity }}K)</span>
+                    </div>
+                    <div class="inv-right">
+                      <span class="barcode-txt" *ngIf="item.barcode">{{ item.barcode }}</span>
+                      <span class="status-pill">{{ item.status }}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 4. DASHBOARD METRICS CARD -->
+              <div *ngIf="tool.displayType === 'dashboard_card' && tool.data" class="dashboard-card-wrapper">
+                <div class="card-header-bar">
+                  <mat-icon>analytics</mat-icon>
+                  <span>Today's Business Summary</span>
+                </div>
+                <div class="dash-grid">
+                  <div class="dash-tile">
+                    <label>New Pledges</label>
+                    <h3>{{ tool.data.todayNewPledges || 0 }}</h3>
+                  </div>
+                  <div class="dash-tile highlight">
+                    <label>Pledged Amount</label>
+                    <h3>₹{{ tool.data.todayPledgeAmount || 0 | number }}</h3>
+                  </div>
+                  <div class="dash-tile">
+                    <label>Redemptions</label>
+                    <h3>{{ tool.data.todayRedemptions || 0 }}</h3>
+                  </div>
+                  <div class="dash-tile">
+                    <label>Total Activity</label>
+                    <h3>{{ tool.data.todayTransactions || 0 }}</h3>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5. NAVIGATION CARD -->
+              <div *ngIf="tool.displayType === 'navigation' && tool.data" class="navigation-card-wrapper">
+                <button class="nav-redirect-btn" (click)="handleNavigation(tool.data.route)">
+                  <mat-icon>arrow_forward</mat-icon>
+                  <span>Go to {{ tool.data.route }}</span>
+                </button>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- SAFETY 2-STEP CONFIRMATION CARD -->
+          <div *ngIf="msg.response?.pendingConfirmation" class="confirmation-card-wrapper">
+            <div class="conf-head">
+              <mat-icon class="conf-warning-icon">warning_amber</mat-icon>
+              <h4>Action Requires Confirmation</h4>
+            </div>
+            <p class="conf-desc">{{ msg.response!.pendingConfirmation!.description }}</p>
+
+            <div class="conf-actions">
+              <button class="conf-btn cancel-btn" (click)="useSuggestion('Cancel operation')">
+                <mat-icon>close</mat-icon> Cancel
+              </button>
+              <button class="conf-btn confirm-btn" (click)="confirmAction(msg.response!.pendingConfirmation!.confirmationId)">
+                <mat-icon>check_circle</mat-icon> Confirm & Execute
+              </button>
+            </div>
+          </div>
+
+          <span class="msg-timestamp">{{ msg.timestamp | date:'shortTime' }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- COMPOSER INPUT DOCK (Bottom of Drawer) -->
+    <div class="ai-drawer-footer">
+      
+      <!-- Selected Image Preview Pill -->
+      <div *ngIf="selectedImagePreview" class="selected-image-preview">
+        <img [src]="selectedImagePreview" alt="Selected thumbnail"/>
+        <span>Image attached for analysis</span>
+        <button class="remove-img-btn" (click)="clearSelectedImage()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <div class="ai-input-wrapper">
+        
+        <!-- Voice Button -->
+        <button class="ai-input-btn mic-btn" (click)="toggleListening()" [class.listening]="isListening" [title]="isListening ? 'Stop listening' : 'Start speaking'">
+          <mat-icon>{{ isListening ? 'mic_off' : 'mic' }}</mat-icon>
+          <span *ngIf="isListening" class="pulse-ring"></span>
+        </button>
+
+        <!-- Camera / Image Upload Button -->
+        <button class="ai-input-btn camera-btn" (click)="triggerFileInput()" title="Upload or capture image">
+          <mat-icon>add_a_photo</mat-icon>
+        </button>
+        <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none;"/>
+
+        <!-- Text Input -->
+        <input 
+          type="text" 
+          class="ai-text-input" 
+          [(ngModel)]="inputText" 
+          (keydown)="onKeyDown($event)" 
+          [placeholder]="isListening ? 'Listening to your voice...' : 'Ask Jewel AI: search customer, redeem pledge, gold rate...'"
+          [disabled]="isProcessing"
+        />
+
+        <!-- Send Button -->
+        <button class="ai-send-btn" (click)="sendMessage()" [disabled]="isProcessing || (!inputText.trim() && !selectedImageBase64)">
+          <mat-icon *ngIf="!isProcessing">send</mat-icon>
+          <div *ngIf="isProcessing" class="btn-spinner"></div>
+        </button>
+      </div>
+    </div>
+
+  </div>
+</div>

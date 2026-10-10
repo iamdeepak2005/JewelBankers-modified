@@ -1,0 +1,12 @@
+/* Default styling */
+.main {
+  margin: 0 auto;
+  max-width: 768px; /* Optional for non-mobile screens */
+}
+
+/* Fullscreen width for mobile screens */
+@media (max-width: 480px) {
+  .main {
+    display:none
+  }
+}

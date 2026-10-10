@@ -1,0 +1,467 @@
+/* General Styles */
+.main {
+
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    color: #e0e0e0;
+  }
+  .mainman{
+      height: 110vh;
+      border-radius: 10px ;
+      margin: 20px;
+      background-color: #1a1a1a;
+  }
+  .btns{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+  }
+  /* Container */
+  .container {
+    padding: 20px;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+  
+  /* Header */
+  .header {
+    display: flex;
+    justify-content:end;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #333;
+  }
+  
+  .header h1 {
+    margin: 0;
+    font-size: 24px;
+  }
+  
+  .rates span {
+    display: block;
+    font-size: 14px;
+    color: #a0a0a0;
+  }
+  
+  /* Form Section */
+  .form {
+    background-color: #2a2a2a;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .field-group {
+    margin-bottom: 15px;
+  }
+  
+  .field-group label {
+    display: block;
+    /* font-weight: bold; */
+    margin-bottom: 5px;
+    font-size: 14px;
+  }
+  
+  .field-group input,
+  .field-group select {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  .field-group input:focus,
+  .field-group select:focus {
+    outline: none;
+    border-color: #6200ea;
+  }
+  
+  .field-group.small {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .field-group.small label {
+    font-size: 14px;
+    /* font-weight: bold; */
+  }
+  
+  .field-group.small span {
+    font-size: 14px;
+    color: #a0a0a0;
+  }
+  
+  /* Total Amount */
+  .total {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #333;
+    text-align: center;
+    border-radius: 5px;
+  }
+  
+  .total h2 {
+    margin: 0;
+    font-size: 18px;
+  }
+  
+  /* Instructions */
+  .instructions {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 12px;
+    color: #a0a0a0;
+  }
+  
+  /* Responsive Design */
+  @media screen and (max-width: 480px) {
+    .header {
+      flex-direction: column;
+      text-align: center;
+    }
+  
+    .rates span {
+      font-size: 12px;
+    }
+  
+    .form {
+      padding: 15px;
+    }
+  
+    .field-group label,
+    .field-group input,
+    .field-group select {
+      font-size: 12px;
+    }
+  
+    .total h2 {
+      font-size: 16px;
+    }
+  }
+  .input-container label{
+    text-align: center;
+  }
+  /* Rates Section */
+.rates {
+
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    background-color: #2a2a2a;
+    padding: 10px 15px;
+    border-radius: 10px;
+    justify-content: space-between;
+    gap: 20px;
+  }
+  .span{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    margin: 10px;
+  }
+  .span select{
+    height: 2.8rem;
+  }
+  
+  
+  .rate-input {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .rate-input label {
+    font-size: 14px;
+    color: #e0e0e0;
+    margin-bottom: 5px;
+  }
+  
+  .rate-input input {
+    width: 150px;
+    padding: 8px;
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  .rate-input input:focus {
+    outline: none;
+    border-color: #6200ea;
+  }
+  
+  /* Responsive Adjustments */
+  @media screen and (max-width: 480px) {
+    .rates {
+      flex-direction: column;
+      align-items: center;
+      padding: 15px;
+    }
+  
+    .rate-input {
+      width: 100%;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+  
+    .rate-input label {
+      text-align: center;
+    }
+  
+    .rate-input input {
+      width: 90%;
+      text-align: center;
+    }
+  }
+  
+  .print-preview {
+    width: 48%;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+  }
+  
+  .print-preview {
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+
+  
+  hr {
+    margin: 20px 0;
+    border: 1px solid #ddd;
+  }
+  
+
+  .rates-preview{
+    display: flex;
+    justify-content: space-between;
+  }
+  .rates-preview1{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .dates{
+    display: flex;
+    font-size: 0.6rem;
+    gap: 5px;
+  }
+  
+  .details div {
+    margin: 5px 0;
+  }
+  
+  .highlight {
+    font-weight: bold;
+    color: #1a1a1a;
+  }
+  .span{
+    display: flex;
+  }
+  
+  .print-preview {
+    height: 100vh;
+    max-width:400px;  /* Adjusts the width for side-by-side layout */
+    padding: 20px; /* Adds space inside the box */
+    border: 1px solid #ccc; /* Border for visibility */
+    border-radius: 10px; /* Rounded corners */
+    background-color: #ffffff; /* Ensures a clean white background */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for depth */
+    overflow: hidden; /* Prevents content overflow */
+    position: relative; /* Allows absolute positioning of child elements if needed */
+  }
+  
+ 
+  
+  hr {
+    margin: 10px 0; /* Spacing above and below the line */
+    border: 0; /* Removes default border styling */
+    border-top: 1px solid #ddd; /* Adds a custom top border */
+  }
+  .super{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .container1 {
+    display: flex;
+    justify-content: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .left-column,
+  .middle-column,
+  .right-column {
+    padding: 0 10px;
+  }
+  
+  .left-column {
+    text-align: right;
+    flex: 1;
+  }
+  
+  .middle-column {
+    text-align: center;
+    flex: 0.2;
+  }
+  
+  .right-column {
+    text-align: left;
+    flex: 1;
+  }
+  
+
+  .rates-preview,
+  .details {
+    font-size: 1em; /* Ensures consistent text size */
+    color: #333; /* Neutral text color */
+  }
+  
+  .rates-preview div,
+  .details div {
+    margin: 10px 0; /* Adds spacing between rows */
+  }
+  
+  .details .highlight {
+    font-weight: bold; /* Highlights important details */
+    color: #1a1a1a; /* Slightly darker for emphasis */
+  }
+  
+  .details div span {
+    display: inline-block; /* Ensures inline elements stack properly */
+  }
+  
+  .instructions {
+    font-style: italic; /* Makes text stand out */
+    font-size: 0.9em; /* Slightly smaller for subtlety */
+    color: #666; /* Light text color for less emphasis */
+  }
+  
+.container{
+    display: flex;
+}
+/* Header Section */
+.header-section {
+    display: flex; /* Flexbox layout */
+    justify-content: flex-start; /* Aligns content to the left */
+    margin-bottom: 20px; /* Adds spacing to the bottom */
+  }
+  
+  /* Container for input and label */
+  .input-container {
+    display: flex;
+    flex-direction: column; /* Stacks label and input vertically */
+    margin-right: 30px; /* Adds spacing between multiple input fields */
+    width: 100%; /* Ensures input takes full width */
+    max-width: 400px; /* Maximum width */
+  }
+  
+  /* Label styling */
+  .label {
+    font-size: 1rem; /* Font size for the label */
+    color: #fff; /* Dark gray color for the label text */
+    margin-bottom: 5px; /* Adds space between the label and the input */
+  }
+  
+  /* Input field styling */
+  .input-field {
+    width: 100%; /* Takes the full width of the container */
+    padding: 10px; /* Adds padding inside the input */
+    font-size: 1rem; /* Matches the font size with the label */
+    border: 1px solid #ccc; /* Light gray border */
+    border-radius: 5px; /* Rounded corners */
+    background-color: #f9f9f9; /* Light background */
+    transition: all 0.3s ease; /* Smooth transitions on hover and focus */
+  }
+  
+  /* Hover effect for the input field */
+
+  
+  /* Focus effect for the input field */
+  .input-field:focus {
+    outline: none; /* Removes default outline */
+    border-color: #007bff; /* Highlights the border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adds glow effect */
+  }
+  
+  /* Responsive styling for smaller screens */
+  @media (max-width: 768px) {
+    .input-container {
+      width: 100%; /* Ensures the input field takes full width on smaller screens */
+    }
+  }
+  .input-container input {
+    font-size: 14px;
+    border: 1px solid #444;
+    border-radius: 5px;
+    background-color: #333;
+    color: #e0e0e0;
+  }
+  
+  .input-container input:focus {
+    outline: none;
+    border-color: #6200ea;
+  }
+
+  .shop-info{
+    color: #444;
+    display: flex;
+    /* justify-content: center;
+    align-items: center; */
+    flex-direction: column;
+  }
+  .shop-info h1{
+    font-size: 1rem;
+    margin: 0px;
+    padding: 0px;
+    text-align: center  ;
+    font-family: 'Times New Roman', Times, serif !important;
+  }
+  .head{
+    display: flex;
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #444;
+  }
+  .head label {
+    font-size: 1.4rem;
+    margin-bottom: 10px;
+    color: #1a1a1a;
+    border-bottom: 2px dashed #1a1a1a; /* Adds a dashed underline effect */
+    text-decoration: none; /* Ensure no default underline is applied */
+    padding-bottom: 2px; /* Space between text and dashed line */
+}
+
+  .rooooo{
+    font-size: 1rem !important;
+  }
+
+
+  @media only screen and (max-width: 1000px) {
+    .print-preview {
+      display: none;
+    }
+    .container{
+      justify-content: center;
+      align-items: center;
+    }
+
+  }
+  

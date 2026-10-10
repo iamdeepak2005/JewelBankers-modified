@@ -1,0 +1,4 @@
+/* Scoped styles for Estimate Component */
+:host {
+  display: block;
+}

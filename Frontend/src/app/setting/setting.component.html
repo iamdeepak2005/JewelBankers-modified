@@ -1,0 +1,63 @@
+
+<app-header ></app-header>
+<form autocomplete="off" [formGroup]="settingForm" (ngSubmit)="onSubmit()"  >
+<div class="super">
+<!-- <div class="searchBar">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path d="M15.7955 15.8111L21 21M18 10.5C18 14.6421 14.6421 18 10.5 18C6.35786 18 3 14.6421 3 10.5C3 6.35786 6.35786 3 10.5 3C14.6421 3 18 6.35786 18 10.5Z" stroke="#ffffff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path> </g></svg>
+  <input #myInput matInput class= "input"placeholder="Search Settings" formControlName="searchQuery" (input)="filteredItems($event)" />
+</div> -->
+<label class="search-label">
+    <input type="text" name="text" class="input" required="" placeholder="Type here... "  #myInput matInput class= "input"placeholder="Search Settings" formControlName="searchQuery" (input)="filteredItems($event)">
+    <kbd class="slash-icon">/</kbd>
+    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="512" height="512" x="0" y="0" viewBox="0 0 56.966 56.966" style="enable-background:new 0 0 512 512" xml:space="preserve">
+      <g>
+        <path d="M55.146 51.887 41.588 37.786A22.926 22.926 0 0 0 46.984 23c0-12.682-10.318-23-23-23s-23 10.318-23 23 10.318 23 23 23c4.761 0 9.298-1.436 13.177-4.162l13.661 14.208c.571.593 1.339.92 2.162.92.779 0 1.518-.297 2.079-.837a3.004 3.004 0 0 0 .083-4.242zM23.984 6c9.374 0 17 7.626 17 17s-7.626 17-17 17-17-7.626-17-17 7.626-17 17-17z" fill="currentColor" data-original="#000000" class=""></path>
+      </g>
+    </svg>
+  </label>
+</div>
+
+
+  <div class="tab">
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8" formArrayName="billPledgeSerial">
+
+      <!-- ID Column -->
+      <ng-container matColumnDef="paramId">
+        <th mat-header-cell *matHeaderCellDef>ID</th>
+        <td mat-cell *matCellDef="let setting">{{ setting.paramId }}</td>
+      </ng-container>
+
+      <!-- Value Column -->
+      <ng-container matColumnDef="paramValue">
+        <th mat-header-cell *matHeaderCellDef>Value</th>
+        <td mat-cell *matCellDef="let setting; let i = index">
+          
+            <!-- formControlName now correctly binds to the specific FormControl in the FormArray -->
+            <input matInput placeholder="Update Value" [formControlName]="i" />
+
+        </td>
+      </ng-container>
+
+      <!-- Example Column -->
+      <ng-container matColumnDef="paramExample">
+        <th mat-header-cell *matHeaderCellDef>Example</th>
+        <td mat-cell *matCellDef="let setting">{{ setting.paramExample }}</td>
+      </ng-container>
+
+      <!-- Header and Row Definitions -->
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+<!-- <div class="button">
+  <button class="btn-btn-primary" type="submit">Submit</button>
+</div> -->
+
+
+<div class="buttons">
+  <button mat-raised-button #submitButton mat-raised-butto color="primary" class="newbutton" type="submit" >Submit</button>
+</div>
+
+</form>
+
+<app-footer></app-footer>
